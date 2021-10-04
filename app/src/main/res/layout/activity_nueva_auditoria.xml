@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/all"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NuevaAuditoria">
+
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NombreAyuda"
+        app:layout_constraintVertical_bias="0.13999999">
+
+        <LinearLayout
+            android:id="@+id/layoutSPlanta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/NextQuestion"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:text="Siguiente"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/beforeQuestion"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.013" />
+
+    <Button
+        android:id="@+id/beforeQuestion"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:text="Anterior"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/NextQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.013" />
+
+    <TextView
+        android:id="@+id/Codigo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/solidred"
+        android:gravity="center"
+        android:lines="1"
+        android:text="Código"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAyudaV"
+        app:layout_constraintTop_toBottomOf="@+id/NextQuestion"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/NombreAyuda"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/solidred"
+        android:gravity="center"
+        android:lines="1"
+        android:text="Código"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAyudaV"
+        app:layout_constraintTop_toBottomOf="@+id/Codigo"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageViewAyudaV"
+        android:layout_width="101dp"
+        android:layout_height="81dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Codigo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beforeQuestion"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+</androidx.constraintlayout.widget.ConstraintLayout>

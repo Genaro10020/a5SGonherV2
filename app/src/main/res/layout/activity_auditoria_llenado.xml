@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AuditoriaLlenado">
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84000003">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:checked="true"
+            android:onClick="checkButton"
+            android:text="1"
+
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="146dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="2"
+
+            tools:layout_editor_absoluteX="197dp"
+            tools:layout_editor_absoluteY="146dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="3"
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="146dp" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="4"
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="146dp" />
+
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="5"
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="146dp" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/applyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#C82F2F"
+        android:text="Agregar"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.957" />
+
+    <TextView
+        android:id="@+id/textViewNs"
+        android:layout_width="350dp"
+        android:layout_height="76dp"
+        android:gravity="center"
+        android:text="TextSName"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.145" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+
+        >
+
+        <com.github.clans.fab.FloatingActionButton
+
+            android:id="@+id/fabSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label="Agregar Foto"
+            app:fab_size="mini" />
+
+
+        <com.github.clans.fab.FloatingActionButton
+
+            android:id="@+id/fabGfoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label="Mirar Referencia"
+            app:fab_size="mini" />
+
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+    <EditText
+        android:id="@+id/multiTexto1"
+        android:layout_width="291dp"
+        android:layout_height="96dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.29000002"
+        tools:text="Observaciones" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26999998">
+
+        <TableLayout
+            android:layout_width="409dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView19"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/imageView20"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/imageView21"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:clickable="true"
+                    android:focusable="true"
+
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/imageView22"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/imageView23"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Califica el Area"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.768" />
+
+    <ImageView
+        android:id="@+id/imageViewQuestionMark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView21"
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

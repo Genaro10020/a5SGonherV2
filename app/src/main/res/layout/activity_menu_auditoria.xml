@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuAuditoria">
+
+    <Button
+        android:id="@+id/BtnCrearAudtoria"
+        android:layout_width="409dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:background="#C63A3A"
+        android:text="Realizar Auditoria"
+        android:textColor="#B3B3B3"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAgregaRes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAgregaRes"
+        android:layout_width="409dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="240dp"
+        android:background="#B53535"
+        android:text="Auditorias"
+        android:textColor="#B3B3B3"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BtnCrearAudtoria" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

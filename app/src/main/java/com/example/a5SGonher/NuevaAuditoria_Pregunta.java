@@ -1,0 +1,379 @@
+package com.example.a5SGonher;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class NuevaAuditoria_Pregunta extends AppCompatActivity implements DialogOptions2.DialogOptions1Listener{
+
+    String nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual;
+    Button BotonTerminar;
+    TextView Pregunta;
+    EditText Razon;
+    Bitmap bitmapf,bitmapf2,bitmapf3,bitmapf4,bitmapf5,bitmapf6;
+    int numberPhoto=0;
+    private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
+    private String currentPhotoPath;
+    private static final int IMAGE_PICK_CODE=1000;
+    private  static  final int PERMISSION_CODE=1001;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_nueva_auditoria__pregunta);
+
+        nombrePregunta = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID2");
+        nombreAyuda = getIntent().getStringExtra("EXTRA_SESSION_ID3");
+        numeroPregunta = getIntent().getStringExtra("EXTRA_SESSION_I4");
+        numeroActual = getIntent().getStringExtra("EXTRA_SESSION_ID5");
+
+        BotonTerminar=(Button) findViewById(R.id.Button_Contestar);
+        Pregunta=(TextView) findViewById(R.id.textView_Pregunta);
+        Razon=(EditText) findViewById(R.id.editTextTextMultiLine);
+        imageView1=(ImageView)findViewById(R.id.imageView1P);
+         imageView2=(ImageView)findViewById(R.id.imageView1P2);
+         imageView3=(ImageView)findViewById(R.id.imageView1P3);
+         imageView4=(ImageView)findViewById(R.id.imageView1P4);
+         imageView5=(ImageView)findViewById(R.id.imageView1P5);
+         imageView6=(ImageView)findViewById(R.id.imageView1P6);
+
+       // Toast.makeText(getApplicationContext(), nombreAyuda, Toast.LENGTH_SHORT).show();
+
+        Pregunta.setText(nombrePregunta);
+
+        imageView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TakePhoto();
+            }
+        });
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TakePhoto();
+            }
+        });
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TakePhoto();
+            }
+        });
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TakePhoto();
+            }
+        });
+        imageView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TakePhoto();
+            }
+        });
+        imageView6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TakePhoto();
+            }
+        });
+
+        BotonTerminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarErrores.php");
+
+            }
+        });
+    }
+
+    public void openDialog()
+    {
+        DialogOptions2 dialogOptions2 = new DialogOptions2();
+        dialogOptions2.show(getSupportFragmentManager(),"example Dialog2");
+
+    }
+
+
+    @Override
+    public void onYesClicked() {
+
+        String fileName="photo";
+        File StorageDirectory= getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        try {
+            File imageFile=File.createTempFile(fileName,".jpg",StorageDirectory);
+            currentPhotoPath=imageFile.getAbsolutePath();
+            Uri imageUri=  FileProvider.getUriForFile(NuevaAuditoria_Pregunta.this,
+                    "com.example.a5SGonher.fileprovider",imageFile);
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+            startActivityForResult(intent,1);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onNoClicked() {
+        //check runtime permission
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M)
+        {if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED){
+            //permission not granted, request it
+
+            String[] permissions={Manifest.permission.READ_EXTERNAL_STORAGE};
+            //show pop up for runtume
+            requestPermissions(permissions,PERMISSION_CODE);
+
+        }else {
+            // permision already granted
+            pickImageFromGallery();
+        }
+
+
+        }else{
+            ///system os is less than marshmalllow
+            pickImageFromGallery();
+        }
+    }
+    public void TakePhoto()
+    {
+        String fileName="photo";
+        File StorageDirectory= getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        try {
+            File imageFile=File.createTempFile(fileName,".jpg",StorageDirectory);
+            currentPhotoPath=imageFile.getAbsolutePath();
+            Uri imageUri=  FileProvider.getUriForFile(NuevaAuditoria_Pregunta.this,
+                    "com.example.a5SGonher.fileprovider",imageFile);
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+            startActivityForResult(intent,1);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void pickImageFromGallery()
+    {
+// int to pick image
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,IMAGE_PICK_CODE);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode)
+        {
+            case  PERMISSION_CODE:{
+                if(grantResults.length >0 && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED){
+                    //permission was granted
+                    pickImageFromGallery();
+                }
+                else{
+//permision was denied
+
+                }
+
+            }
+
+
+        }
+
+    }
+
+    private void ejecutarservicio(String URL)
+    {
+        StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                VolverANuevaAuditoria();
+                // buscarProducto("https://vvnorth.com/comparacion_auditorf.php",NPlanta);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                VolverANuevaAuditoria();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros =new HashMap<String,String>();
+
+                String sNumberPhoto= String.valueOf(numberPhoto);
+
+
+
+
+
+                parametros.put("AyudaVisual",nombreAyuda);
+                parametros.put("nombrePregunta",nombrePregunta);
+                parametros.put("NumeroAuditoria",numeroAuditoria);
+                parametros.put("Error",Razon.getText().toString());
+                parametros.put("numerPhotos",sNumberPhoto);
+
+                if(sNumberPhoto.equals("1")||sNumberPhoto.equals("2")||sNumberPhoto.equals("3")||sNumberPhoto.equals("4")||sNumberPhoto.equals("5") ||sNumberPhoto.equals("6"))
+                { String imageData= imageToString(bitmapf);parametros.put("image",imageData);}
+                if(sNumberPhoto.equals("2")||sNumberPhoto.equals("3")||sNumberPhoto.equals("4")||sNumberPhoto.equals("5") ||sNumberPhoto.equals("6"))
+                { String imageData2= imageToString(bitmapf);parametros.put("image2",imageData2);}
+                if(sNumberPhoto.equals("3")||sNumberPhoto.equals("4")||sNumberPhoto.equals("5") ||sNumberPhoto.equals("6"))
+                { String imageData3= imageToString(bitmapf);parametros.put("image3",imageData3);}
+                if(sNumberPhoto.equals("4")||sNumberPhoto.equals("5") ||sNumberPhoto.equals("6"))
+                { String imageData4= imageToString(bitmapf);parametros.put("image4",imageData4);}
+                if(sNumberPhoto.equals("5") ||sNumberPhoto.equals("6"))
+                { String imageData5= imageToString(bitmapf);parametros.put("image5",imageData5);}
+                if(sNumberPhoto.equals("6"))
+                { String imageData6= imageToString(bitmapf);parametros.put("image6",imageData6);}
+
+
+
+
+
+
+
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+
+
+
+        if(requestCode==1 && resultCode == RESULT_OK)
+        {
+            Bitmap bitmap= BitmapFactory.decodeFile(currentPhotoPath);
+
+            String sNumberPhoto= String.valueOf(numberPhoto);
+            if(sNumberPhoto.equals("6")) {}
+            else{  numberPhoto++; }
+             sNumberPhoto= String.valueOf(numberPhoto);
+            if(sNumberPhoto.equals("1")) {
+                ImageView imageView = findViewById(R.id.imageView1P);
+                imageView.setImageBitmap(bitmap);
+                bitmapf = bitmap;
+            }
+
+            if(sNumberPhoto.equals("2")) {
+                ImageView imageView = findViewById(R.id.imageView1P2);
+                imageView.setImageBitmap(bitmap);
+                bitmapf2 = bitmap;
+            }
+
+            if(sNumberPhoto.equals("3")) {
+                ImageView imageView = findViewById(R.id.imageView1P3);
+                imageView.setImageBitmap(bitmap);
+                bitmapf3 = bitmap;
+            }
+
+            if(sNumberPhoto.equals("4")) {
+                ImageView imageView = findViewById(R.id.imageView1P4);
+                imageView.setImageBitmap(bitmap);
+                bitmapf4 = bitmap;
+            }
+            if(sNumberPhoto.equals("5")) {
+                ImageView imageView = findViewById(R.id.imageView1P5);
+                imageView.setImageBitmap(bitmap);
+                bitmapf5 = bitmap;
+            }
+
+            if(sNumberPhoto.equals("6")) {
+                ImageView imageView = findViewById(R.id.imageView1P6);
+                imageView.setImageBitmap(bitmap);
+                bitmapf6 = bitmap;
+            }
+
+        }
+
+
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+//set image to image view
+            imageView1.setImageURI(data.getData());
+
+            Bitmap bitmap = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
+
+            bitmapf=bitmap;
+
+
+        }
+
+
+    }
+
+    private String imageToString(Bitmap bitmap)
+    {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,20, outputStream);
+        byte[] imageBytes= outputStream.toByteArray();
+        String encodeImage= Base64.encodeToString(imageBytes,Base64.DEFAULT);
+        return encodeImage;
+    }
+
+    public void VolverANuevaAuditoria()
+    {
+        Intent intent =new Intent(this,NuevaAuditoria.class);
+        intent.putExtra("EXTRA_SESSION_ID3", numeroAuditoria);
+        intent.putExtra("EXTRA_SESSION_ID5", numeroActual);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent =new Intent(this,NuevaAuditoria.class);
+        intent.putExtra("EXTRA_SESSION_ID3", numeroAuditoria);
+        intent.putExtra("EXTRA_SESSION_ID5", numeroActual);
+        startActivity(intent);
+    }
+
+}
