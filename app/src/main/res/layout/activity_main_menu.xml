@@ -4,63 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+    android:background="#ffffff"
     tools:context=".MainMenu">
 
-    <Button
-        android:id="@+id/BtnCrearAudtoria"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#C63A3A"
-        android:text="Crear Auditoría"
-        android:textColor="#B3B3B3"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAgregaRes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
 
-    <Button
-        android:id="@+id/btnAgregaRes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#B53535"
-        android:text="Auditar"
-        android:textColor="#B3B3B3"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAgregaF"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BtnCrearAudtoria" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btnAgregaF"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#922A2A"
-        android:text="Historial"
-        android:textColor="#B3B3B3"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/crearAuditoria"
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="90dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/boton_menu_uno" />
+
+        <Button
+            android:id="@+id/BtnCrearAudtoria"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/fondo_crearauditoria"
+            android:fontFamily="@font/yanonekaffeesatz"
+            android:text="Crear Auditoría"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp" />
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAgregaRes" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-    <Button
-        android:id="@+id/crearAuditoria"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#802525"
-        android:text="Cerrar Sesión"
-        android:textColor="#B3B3B3"
-        android:textSize="36sp"
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="90dp"
+            android:layout_height="150dp"
+            android:background="@drawable/boton_menu_dos" />
+
+        <Button
+            android:id="@+id/btnAgregaRes"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/fondo_auditar"
+            android:fontFamily="@font/yanonekaffeesatz"
+            android:text="Auditar"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="90dp"
+            android:layout_height="150dp"
+            android:background="@drawable/boton_menu_tres" />
+
+        <Button
+            android:id="@+id/btnAgregaF"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/fondo_historial"
+            android:fontFamily="@font/yanonekaffeesatz"
+            android:text="Historial"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAgregaF" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="90dp"
+            android:layout_height="150dp"
+            android:background="@drawable/boton_menu_cuatro" />
+
+        <Button
+            android:id="@+id/crearAuditoria"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/fondo_salir"
+            android:fontFamily="@font/yanonekaffeesatz"
+            android:text="Cerrar Sesión"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
