@@ -22,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.content.SharedPreferences;
 
+import java.nio.charset.Charset;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText edtNombre,edtPassword;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         cargarPreferencias();
 
-comparacion();
+        comparacion();
 
 
         btnAgregar2.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +90,8 @@ public void comparacion()
     }
     }
 
-    private void guardarPreferencias(String Rol)
+    //Guardando informacion incial
+    private void guardarPreferencias(String Rol, String nombreAuditor)
     {
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         String Usuario=edtNombre.getText().toString();
@@ -97,6 +100,7 @@ public void comparacion()
 
         editor.putString("User", Usuario);
         editor.putString("Rol", Rol);
+        editor.putString("NombreAuditor", nombreAuditor);
         editor.putInt("Conected", 1);
         editor.commit();
 
@@ -109,7 +113,7 @@ public void comparacion()
         String user= preferences.getString("User","No existe Usuario");
         String Rol= preferences.getString("Rol","No existe Usuario");
       //  tView.setText(user);
-        //tView2.setText(Rol);
+        //tView2.setText(Rol);65799
 
     }
 
@@ -126,11 +130,12 @@ public void comparacion()
                         String nombre;
                         String password;
                         String rol;
+                        String nombreAuditor;// Genaro
 
                         jsonObject = response.getJSONObject(i);
                         // editT.setText(jsonObject.getString("Planta"));
+                        nombreAuditor=jsonObject.getString("NombreAuditor");
                         nombre=jsonObject.getString("auditor");
-
                         password=jsonObject.getString("Password");
                         rol=jsonObject.getString("Rol");
 
@@ -138,8 +143,8 @@ public void comparacion()
                                 if(password.equals(edtPassword.getText().toString()))
                                 {
 
-                                 //   Toast.makeText(getApplicationContext(),"Entro",Toast.LENGTH_SHORT).show();
-                                    guardarPreferencias(rol);
+                                 // Toast.makeText(getApplicationContext(),nombreAuditor,Toast.LENGTH_SHORT).show();
+                                    guardarPreferencias(rol,nombreAuditor);
                                     openActivity2();
 
                                 }

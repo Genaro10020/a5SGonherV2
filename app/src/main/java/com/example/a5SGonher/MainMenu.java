@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.a5SGonher.ui.ListosEnviar;
 
@@ -24,19 +25,26 @@ public class MainMenu extends AppCompatActivity {
         Button btnLogOut;
         Button btnHistorial;
         Button btnHallazgos;
+        TextView titulo_too, titular_session;
 
+
+        titular_session=(TextView)findViewById(R.id.textViewSession);
         BotonsCrearAuditoria=(Button) findViewById(R.id.BtnCrearAudtoria);
         btnAuditar=(Button) findViewById(R.id.btnAgregaRes);
+        titulo_too =(TextView) findViewById(R.id.titulo_toolbar);
+        titulo_too.setText("Menú");
 
 
         btnHistorial=(Button) findViewById(R.id.btnAgregaF);
         btnHallazgos=(Button) findViewById(R.id.crearAuditoria);
         cargarPreferencias();
 
+         //Recupero Informacion Genaro
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-
         String user= preferences.getString("User","No existe Usuario");
         String Rol= preferences.getString("Rol","No existe Usuario");
+        String nombreAuditor= preferences.getString("NombreAuditor","No existe Usuario");
+        titular_session.setText("Auditor:  "+nombreAuditor);
 
 
             if(!Rol.equals("administrador"))
