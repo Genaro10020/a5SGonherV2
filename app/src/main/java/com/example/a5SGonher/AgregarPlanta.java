@@ -1,14 +1,20 @@
 package com.example.a5SGonher;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -20,11 +26,15 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Type;
 
 public class AgregarPlanta extends AppCompatActivity {
 
     RequestQueue requestQueue;
     EditText editT;
+    TextView titulo, leyandaplanta, porcentaje;
     String ServerName;
    // Button myButton3 = new Button(this);
     @Override
@@ -33,14 +43,19 @@ public class AgregarPlanta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_planta);
 
+        titulo=(TextView)findViewById(R.id.titulo_toolbar);
+        titulo.setText("Crear Auditoria");
+
+        porcentaje =(TextView)findViewById(R.id.textView8);
+        porcentaje.setVisibility(View.GONE);
 
         GlobalClass globalClass =(GlobalClass)getApplicationContext();
         ServerName=globalClass.getName();
-       // editT=(EditText)findViewById(R.id.editT);
+        leyandaplanta = (TextView)findViewById(R.id.textViewPlanta);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////
-
 
 
 
@@ -61,6 +76,11 @@ public class AgregarPlanta extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+
+    //Nota esta linea se requier para que funcione la fuente personalizada llamada fuenteitems,
+    //hay otra en metodo buscarProducto puede eliminar la lineas y la fuente fuenteitems.
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void boton(final String nombreBoton, int numeroEmpresa)
     {
         Button myButton3 = new Button(this);
@@ -72,10 +92,14 @@ public class AgregarPlanta extends AppCompatActivity {
         ll3.addView(myButton3, lp3);
 
         /////////////////////////
-        myButton3.setBackgroundColor(Color.rgb(150, 0, 0));
-        myButton3.setTextColor(Color.rgb(179, 179, 179));
-        lp3.setMargins(0, 0, 0, 10);
+        Typeface fuenteitems = getResources().getFont(R.font.mitre);
+        myButton3.setTypeface(fuenteitems);
+        myButton3.setBackgroundResource(R.drawable.nuevos_botones_listado);
+        //myButton3.setBackgroundColor(Color.rgb(150, 0, 0));
+        myButton3.setTextColor(Color.rgb(236, 236, 236));
+        lp3.setMargins(0, 0, 0, 50);
         myButton3.setLayoutParams( lp3);
+
         /////////////////////////////////////////
         myButton3.setOnClickListener(new View.OnClickListener()  {
           // String NomPlanta =nFinal;
@@ -86,6 +110,11 @@ public class AgregarPlanta extends AppCompatActivity {
             }
         });
     }
+
+    private Context getContext() {
+        return null;
+    }
+
     public void formularioPlanta()
     {
         Intent intent =new Intent(this,FormularioPlanta.class);
@@ -108,12 +137,12 @@ public class AgregarPlanta extends AppCompatActivity {
 
     private void buscarProducto(String URL)
     {
-
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
+                for (int i = 0; i < response.length()-1; i++) {
                     try {
                         String nombre;
                         jsonObject = response.getJSONObject(i);

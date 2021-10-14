@@ -106,7 +106,7 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
-
+//CREAR AUDITORIA Genaro
     public void openActivityAjustes()
     {
         Intent intent =new Intent(this,AgregarPlanta.class);
