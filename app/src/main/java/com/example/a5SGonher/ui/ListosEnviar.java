@@ -53,7 +53,6 @@ public class ListosEnviar extends AppCompatActivity implements DialogOptions3.Di
         String Rol= preferences.getString("Rol","No existe Usuario");
         GlobalUser=user;
 
-
         buscarProducto("https://vvnorth.com/buscar_auditoriasN.php?Auditor=" + user + "",user);
 
         //////////////////////////////

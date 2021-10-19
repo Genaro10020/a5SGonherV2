@@ -1,9 +1,12 @@
 package com.example.a5SGonher;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +32,7 @@ import java.util.Map;
 
 public class AgregarSubarea extends AppCompatActivity {
     RequestQueue requestQueue;
-    TextView tView,tView2;
+    TextView tView,tView2,titulo_toolbar;
     String nombrePlanta2;
     String nombreArea2;
 
@@ -40,16 +43,12 @@ public class AgregarSubarea extends AppCompatActivity {
         final String nombrePlanta = getIntent().getStringExtra("EXTRA_SESSION_ID");
         final String nombreArea = getIntent().getStringExtra("EXTRA_SESSION_ID2");
         tView=(TextView)findViewById(R.id.textvSPlanta);
-
+        titulo_toolbar =(TextView)findViewById(R.id.titulo_toolbar);
+        titulo_toolbar.setText("Crear Auditoría");
         nombrePlanta2=nombrePlanta;
          nombreArea2=nombreArea;
 
-        tView.setText(nombrePlanta+"/"+nombreArea);
-
-
-
-
-
+        tView.setText("Planta: "+nombrePlanta+" / "+nombreArea+" / Seleccione SubÁrea");
         buscarProducto("https://vvnorth.com/buscar_subarea.php?area="+nombreArea +"&planta="+ nombrePlanta+"" ,nombrePlanta,nombreArea);
 
     }
@@ -81,6 +80,7 @@ public class AgregarSubarea extends AppCompatActivity {
     {
 
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
@@ -137,7 +137,8 @@ public class AgregarSubarea extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void boton(final String nombreBoton, int numeroEmpresa,final String nombrePlanta,final String nombreArea)
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void boton(final String nombreBoton, int numeroEmpresa, final String nombrePlanta, final String nombreArea)
     {
         Button myButton3 = new Button(this);
 
@@ -147,18 +148,21 @@ public class AgregarSubarea extends AppCompatActivity {
         LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll3.addView(myButton3, lp3);
 
-        /////////////////////////
-        myButton3.setBackgroundColor(Color.rgb(150, 0, 0));
-        myButton3.setTextColor(Color.rgb(179, 179, 179));
+        Typeface fuenteitem = getResources().getFont(R.font.mitre);
+        myButton3.setTypeface(fuenteitem);
+        //myButton3.setBackgroundColor(Color.rgb(150, 0, 0));
+        myButton3.setBackgroundResource(R.drawable.nuevos_botones_listado);
+        myButton3.setTextColor(Color.rgb(236, 236, 236));
         lp3.setMargins(0, 0, 0, 10);
         myButton3.setLayoutParams( lp3);
         /////////////////////////////////////////
+
         myButton3.setOnClickListener(new View.OnClickListener()  {
             // String NomPlanta =nFinal;
             public void onClick(View view) {
-
-                ejecutarservicio("https://vvnorth.com/5sGhoner/CrearAuditoria.php",nombreBoton);
-                MainMenu();
+                ConfirmarCreaciondeAuditoria(nombreBoton);
+                //ejecutarservicio("https://vvnorth.com/5sGhoner/CrearAuditoria.php",nombreBoton);
+               // MainMenu();
                // Toast.makeText(getApplicationContext(),"Deseas Crear esta Auditoria", Toast.LENGTH_SHORT).show();
 
             }
@@ -172,6 +176,17 @@ public class AgregarSubarea extends AppCompatActivity {
        // intent.putExtra("EXTRA_SESSION_ID3", nSubarea);
         startActivity(intent);
     }
+
+    public void ConfirmarCreaciondeAuditoria(String subArea){
+
+            Intent intent =new Intent(this,ConfirmarCrearAuditoria.class);
+             intent.putExtra("subArea", subArea);
+            //  intent.putExtra("EXTRA_SESSION_ID", nombrePlanta);
+            // intent.putExtra("EXTRA_SESSION_ID3", nSubarea);
+            startActivity(intent);
+
+    }
+
     public void formularioS(String nPlanta,String nArea)
     {
         Intent intent =new Intent(this,FormularioSubarea.class);

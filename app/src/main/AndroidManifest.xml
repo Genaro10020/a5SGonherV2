@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowOnlyImageHallazgos"></activity>
+        <activity android:name=".ConfirmarCrearAuditoria"></activity>
+        <activity android:name=".ShowOnlyImageHallazgos" />
         <activity android:name=".ShowOnlyImage" />
         <activity android:name=".NuevaAuditoria_Pregunta" />
         <activity android:name=".NuevaAuditoria" />

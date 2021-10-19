@@ -1,9 +1,12 @@
 package com.example.a5SGonher;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +25,7 @@ import org.json.JSONObject;
 
 public class AgregarArea extends AppCompatActivity {
     RequestQueue requestQueue;
-    TextView tView;
+    TextView tView, titulo_barra;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,9 +34,9 @@ public class AgregarArea extends AppCompatActivity {
        final String nombrePlanta = getIntent().getStringExtra("EXTRA_SESSION_ID");
         setContentView(R.layout.activity_agregar_area);
         tView=(TextView)findViewById(R.id.textViewArea);
-
-        tView.setText(nombrePlanta);
-
+        tView.setText("Planta: "+nombrePlanta+" / Seleccione Área");
+        titulo_barra = (TextView)findViewById(R.id.titulo_toolbar);
+        titulo_barra.setText("Crear Auditoría");
 
 
        buscarProducto("https://vvnorth.com/buscar_area.php?Planta="+nombrePlanta +"",nombrePlanta);
@@ -64,7 +67,8 @@ public class AgregarArea extends AppCompatActivity {
 
         startActivity(intent);
     }
-    public void boton(final String nombreBoton, int numeroEmpresa,final String nombrePlanta)
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void boton(final String nombreBoton, int numeroEmpresa, final String nombrePlanta)
     {
         Button myButton3 = new Button(this);
 
@@ -75,8 +79,11 @@ public class AgregarArea extends AppCompatActivity {
         ll3.addView(myButton3, lp3);
 
         /////////////////////////
-        myButton3.setBackgroundColor(Color.rgb(150, 0, 0));
-        myButton3.setTextColor(Color.rgb(179, 179, 179));
+        Typeface fuenteitem = getResources().getFont(R.font.mitre);
+        myButton3.setTypeface(fuenteitem);
+        //myButton3.setBackgroundColor(Color.rgb(150, 0, 0));
+        myButton3.setBackgroundResource(R.drawable.nuevos_botones_listado);
+        myButton3.setTextColor(Color.rgb(236, 236, 236));
         lp3.setMargins(0, 0, 0, 10);
         myButton3.setLayoutParams( lp3);
         /////////////////////////////////////////
@@ -100,6 +107,7 @@ public class AgregarArea extends AppCompatActivity {
     {
 
         JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;

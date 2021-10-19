@@ -44,6 +44,8 @@ public class AuAudit2 extends AppCompatActivity {
         String user= preferences.getString("User","No existe Usuario");
         String Rol= preferences.getString("Rol","No existe Usuario");
 
+        //Toast.makeText(getApplicationContext(),"User: "+user,Toast.LENGTH_SHORT).show();
+
         buscarProducto("https://vvnorth.com/buscar_auditoriasN.php?Auditor=" + user + "",user);
 
         //////////////////////////////
@@ -172,8 +174,10 @@ public class AuAudit2 extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
+
                 for (int i = 0; i < response.length(); i++) {
                     try {
+
                         String nombreAuditor="nada";
                         String nombreSubarea="nada";
                         String nombreSubarea2="nada";
@@ -196,7 +200,9 @@ public class AuAudit2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"ERRO DE CONEXION",Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getApplicationContext(),"No hay auditorías para mostrar",Toast.LENGTH_SHORT).show();
+
             }
         }
         );

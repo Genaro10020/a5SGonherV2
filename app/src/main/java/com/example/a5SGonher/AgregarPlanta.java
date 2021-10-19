@@ -44,7 +44,7 @@ public class AgregarPlanta extends AppCompatActivity {
         setContentView(R.layout.activity_agregar_planta);
 
         titulo=(TextView)findViewById(R.id.titulo_toolbar);
-        titulo.setText("Crear Auditoria");
+        titulo.setText("Crear Auditoría");
 
         porcentaje =(TextView)findViewById(R.id.textView8);
         porcentaje.setVisibility(View.GONE);
@@ -84,9 +84,7 @@ public class AgregarPlanta extends AppCompatActivity {
     public void boton(final String nombreBoton, int numeroEmpresa)
     {
         Button myButton3 = new Button(this);
-
         myButton3.setText(nombreBoton);
-
         LinearLayout ll3 = (LinearLayout)findViewById(R.id.layoutSPlanta);
         LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll3.addView(myButton3, lp3);
