@@ -140,7 +140,7 @@ public class AgregarPlanta extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                for (int i = 0; i < response.length()-1; i++) {
+                for (int i = 0; i < response.length(); i++) {
                     try {
                         String nombre;
                         jsonObject = response.getJSONObject(i);

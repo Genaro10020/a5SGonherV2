@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.a5SGonher.ui.ListosEnviar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,10 +48,20 @@ public class AuAudit2 extends AppCompatActivity {
         String Rol= preferences.getString("Rol","No existe Usuario");
 
         //Toast.makeText(getApplicationContext(),"User: "+user,Toast.LENGTH_SHORT).show();
-
+        toastPersonalizado();
         buscarProducto("https://vvnorth.com/buscar_auditoriasN.php?Auditor=" + user + "",user);
 
         //////////////////////////////
+    }
+
+    public void toastPersonalizado(){
+        View viewToast = getLayoutInflater().inflate(R.layout.toast_personalizado,(ViewGroup)findViewById(R.id.layout_toast));
+        Toast toast = new Toast(this);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(viewToast);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+
     }
     private void ejecutarservicio(String URL, final String nombreSubarea,final String user)
     {
