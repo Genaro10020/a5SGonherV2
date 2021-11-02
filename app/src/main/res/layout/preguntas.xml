@@ -10,7 +10,8 @@
         android:id="@+id/Pregunta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
+        android:textSize="20sp"
+        android:fontFamily="@font/saira_condensed_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +21,7 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,24 +94,24 @@
 
     <Button
         android:id="@+id/Button_Valores"
-        android:layout_width="51dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/botones_interregocion"
         android:text="?"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/radioGroup"
-        app:layout_constraintStart_toEndOf="@+id/imageView_Hallazgo"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/Pregunta" />
 
     <ImageView
         android:id="@+id/imageView_Hallazgo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="51dp"
+        android:layout_height="38dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/botones_interregocion"
+        app:layout_constraintBottom_toBottomOf="@+id/Button_Valores"
         app:layout_constraintEnd_toStartOf="@+id/Button_Valores"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:layout_constraintTop_toTopOf="@+id/Button_Valores"
+        app:srcCompat="@drawable/ic_icon_cam" />
 </androidx.constraintlayout.widget.ConstraintLayout>

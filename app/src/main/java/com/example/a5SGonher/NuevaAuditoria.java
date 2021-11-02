@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +50,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     LinearLayout layoutList;
     int radios[]= new int[100];
     TextView tv[]=new TextView[100];
-    TextView prueba1,prueba2;
+    TextView prueba1,prueba2,titulo;
     RadioGroup radioGroup2[]=new RadioGroup[100];
     Button buttonArray[]=new Button[100];
     Button buttonValores[]=new Button[100];
@@ -85,6 +87,9 @@ public class NuevaAuditoria extends AppCompatActivity {
         numeroAnterior=Integer.toString(myNum2);
         ButtonNext.setEnabled(false);
 
+        TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
+        titulo.setText("Auditando");
+
         if(NumeroAyuda.equals("1")) { ButtonBefore.setText("Salir");}
         else{ButtonBefore.setEnabled(true);}
 
@@ -93,11 +98,11 @@ public class NuevaAuditoria extends AppCompatActivity {
         sacandonumeroauditoria.setText(numeroAuditoria);
         ll.addView(sacandonumeroauditoria);
         setContentView(ll);*/
-
+        //Toast.makeText(getApplicationContext(),"Número de Preguntas"+numeroPreguntas, Toast.LENGTH_LONG).show();
         buscarProducto(ServerName+"/5sGhoner/buscar_preguntas.php?NumeroAuditoria="+numeroAuditoria +"&NumeroAyuda="+ NumeroAyuda+"");
         String ciclov = Integer.toString(ciclo);
 
-        PreguntasContestadas();
+        //PreguntasContestadas(); //comente Genaro
 
 
         imageview.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +129,7 @@ public class NuevaAuditoria extends AppCompatActivity {
             @Override
             public void onClick(View view) {
              //   Toast.makeText(getApplicationContext(),cantidadPreguntas,Toast.LENGTH_SHORT).show();
+                Log.i("NEXT","numero de preguntas"+numeroPreguntas);
             for(int i=0;i<numeroPreguntas;i++)
             {
 
@@ -137,6 +143,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                 numerosRadios[i]=radioButton.getText().toString();
 
                 String numerPregunta = Integer.toString(i+1);
+
                 ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
 
             }
@@ -165,8 +172,10 @@ public class NuevaAuditoria extends AppCompatActivity {
 
     void PreguntasContestadas()
     {
-        int numeroDeCincos=0;
+        Log.d("myTag", "ESTE ES MI MENSAJE Y NUMERO DE PREGUNTAS SON"+numeroPreguntas);
 
+        int numeroDeCincos=0;
+        //Toast.makeText(getApplicationContext(),"Numero de preguntas"+numeroPreguntas,Toast.LENGTH_SHORT).show();
         for(int i=0;i<numeroPreguntas;i++)
         {
             int radioId = radioGroup2[i].getCheckedRadioButtonId();
@@ -176,8 +185,10 @@ public class NuevaAuditoria extends AppCompatActivity {
 
             numerosRadios[i]=radioButton.getText().toString();
 
-            if(radioButton.getText().equals("5")) {buttonArray[i].setEnabled(false);  buttonArray[i].setVisibility(View.GONE);}
-            else{ buttonArray[i].setEnabled(true); buttonArray[i].setVisibility(View.VISIBLE); }
+            if(radioButton.getText().equals("5")) {
+                buttonArray[i].setEnabled(false);  buttonArray[i].setVisibility(View.GONE);}
+            else{
+                buttonArray[i].setEnabled(true); buttonArray[i].setVisibility(View.VISIBLE); }
 
           //  Toast.makeText(getApplicationContext(), errorRespondido[0], Toast.LENGTH_SHORT).show();
 
@@ -225,6 +236,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     }
     private void ejecutarservicio(String URL,final String Calificacion,final String NumeroPregunta)
     {
+        Log.i("Datos a Guardar","Calificar"+Calificacion+"NumeroAuditoria"+GlobalNumeroAuditoria+"NumeroPregunta"+NumeroPregunta+"AyudaVisual"+GlobalAyudaVisual);
         StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -268,20 +280,19 @@ public class NuevaAuditoria extends AppCompatActivity {
         buttonValores[i]=(Button)layoutView.findViewById((R.id.Button_Valores));
         tv[i].setText(name);
         radios[i]=2;
-         buttonArray[i].setText("Pruebas");
+        buttonArray[i].setText("Pruebas");
 
-        buttonArray[i].setEnabled(false);
+        //buttonArray[i].setEnabled(false); Comentado Genaro
+        buttonArray[i].setVisibility(View.GONE);
 
-        //buttonArray[i].setVisibility(View.GONE);
 
-        if(nombreAudaVisual.equals("Hallazgo")) {}
-        else{imageviewHallazgo[i].setVisibility(View.GONE);}
+        if(nombreAudaVisual.equals("Hallazgo")) {}else{
+            imageviewHallazgo[i].setVisibility(View.GONE);}
 
 
         if(descripcionDelError.equals("")) {}
-        else{
-
-            buttonArray[i].setBackgroundColor(Color.GREEN);}
+        else{ buttonArray[i].setBackgroundColor(Color.GREEN);
+        }
 
         radioGroup2[j].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -473,6 +484,8 @@ public class NuevaAuditoria extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
+                Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
+
               for (int i = 0; i < response.length(); i++) {
                     try {
                        String nombre,nombrePregunta,CodigoAyudaVisual,descripcionDelError;
@@ -504,7 +517,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         numeroPreguntas++;
                       //  boton(nombre,i);
                       //  Toast.makeText(getApplicationContext(),AyudaVisu,Toast.LENGTH_SHORT).show();
-                      PreguntasContestadas();
+                      //PreguntasContestadas(); //Comentado Genaro
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
