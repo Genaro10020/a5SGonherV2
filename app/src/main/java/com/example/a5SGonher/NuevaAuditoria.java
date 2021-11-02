@@ -286,6 +286,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         buttonArray[i].setVisibility(View.GONE);
 
 
+
         if(nombreAudaVisual.equals("Hallazgo")) {}else{
             imageviewHallazgo[i].setVisibility(View.GONE);}
 
@@ -301,16 +302,6 @@ public class NuevaAuditoria extends AppCompatActivity {
 
                 int radioId = radioGroup2[j].getCheckedRadioButtonId();
                 String stringNumber = Integer.toString(radioId);
-
-
-              //  if(stringNumber.equals("2131231029")) {buttonArray[j].setEnabled(false);  buttonArray[j].setVisibility(View.GONE);}
-             //   else{ buttonArray[j].setEnabled(true); buttonArray[j].setVisibility(View.VISIBLE); }
-
-             //  int radioId2 = radioGroup2[j].getCheckedRadioButtonId();
-              //  RadioButton radioButton = findViewById(radioId2);s
-              //   tv[j].setText(radioButton.getText());
-               // Toast.makeText(getApplicationContext(),radioButton.getText(),Toast.LENGTH_SHORT).show();
-
 
                 PreguntasContestadas();
 
@@ -484,7 +475,7 @@ public class NuevaAuditoria extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
+               // Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
 
               for (int i = 0; i < response.length(); i++) {
                     try {

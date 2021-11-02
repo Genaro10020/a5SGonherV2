@@ -53,7 +53,8 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_auditoria__pregunta);
-
+        TextView titulobarra = (TextView)findViewById(R.id.titulo_toolbar);
+        titulobarra.setText("Evidencia");
         nombrePregunta = getIntent().getStringExtra("EXTRA_SESSION_ID");
         numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID2");
         nombreAyuda = getIntent().getStringExtra("EXTRA_SESSION_ID3");
