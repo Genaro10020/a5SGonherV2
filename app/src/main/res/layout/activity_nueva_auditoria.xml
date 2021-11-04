@@ -20,7 +20,7 @@
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="230dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/beforeQuestion"
-        app:layout_constraintTop_toBottomOf="@+id/include7" />
+        app:layout_constraintTop_toBottomOf="@+id/subareaauditando" />
 
     <Button
         android:id="@+id/beforeQuestion"
@@ -72,7 +72,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/NextQuestion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include7" />
+        app:layout_constraintTop_toBottomOf="@+id/subareaauditando" />
 
     <TextView
         android:id="@+id/Codigo"
@@ -127,5 +127,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/fondo_pie" />
+
+    <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/subareaauditando"
+        app:layout_constraintEnd_toStartOf="@+id/subareaauditando"
+        app:layout_constraintTop_toTopOf="@+id/subareaauditando"
+        app:srcCompat="@drawable/icon_seleccione_planta" />
+
+    <TextView
+        android:id="@+id/subareaauditando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="SubÁrea auditando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

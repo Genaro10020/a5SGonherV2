@@ -83,14 +83,17 @@
 
     <Button
         android:id="@+id/Button_Cuestionario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
+        android:fontFamily="@font/conecfont"
+        android:layout_height="35dp"
+        android:textColor="#FFFFFF"
         android:text="Button"
+        android:background="@drawable/boton_entrar"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.622"
         app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/Pregunta" />
 
     <Button
         android:id="@+id/Button_Valores"

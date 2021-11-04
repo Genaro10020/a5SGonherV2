@@ -43,6 +43,8 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
       // Toast.makeText(getApplicationContext(),Pregunta2, Toast.LENGTH_SHORT).show();
         GlobalAyudaVisual = getIntent().getStringExtra("EXTRA_SESSION_ID");
         subarea = getIntent().getStringExtra("EXTRA_SESSION_ID2");
+        TextView tituto_tool = (TextView)findViewById(R.id.titulo_toolbar);
+        tituto_tool.setText("Prueba");
 
         requestImage();
         buscarProducto(ServerName+"/5sGhoner/buscar_ComentarioAnterior.php?AuditoriaAnterior="+Anterior +"&NombrePregunta="+ NombrePregunta+"&CodigoAyuda="+ GlobalAyudaVisual+"" );
@@ -69,6 +71,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
             public void onResponse(Bitmap response) {
 
                 imageview.setImageBitmap(response);
+                //imageview.setPadding(260,0,0,0);
 
             }
         }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {

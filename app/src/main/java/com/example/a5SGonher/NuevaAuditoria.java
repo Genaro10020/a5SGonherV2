@@ -2,12 +2,16 @@ package com.example.a5SGonher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,8 +64,8 @@ public class NuevaAuditoria extends AppCompatActivity {
     String[] errorRespondido = new String[100];
     String Anterior;
     String[] numerosRadios = new String[100];
-
-
+    int cantidadcincos =0;
+    int pruebasvacias=0;
 
     int ciclo=0;
     @Override
@@ -85,14 +89,17 @@ public class NuevaAuditoria extends AppCompatActivity {
         int myNum2=Integer.parseInt(NumeroAyuda);
         myNum2--;
         numeroAnterior=Integer.toString(myNum2);
-        ButtonNext.setEnabled(false);
+        //ButtonNext.setEnabled(false); Comentado por Genaro
+        final Context context = getApplicationContext();
 
         TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
         titulo.setText("Auditando");
 
+
+
+
         if(NumeroAyuda.equals("1")) { ButtonBefore.setText("Salir");}
         else{ButtonBefore.setEnabled(true);}
-
         /*LinearLayout ll = new LinearLayout(this);
         TextView sacandonumeroauditoria = new TextView(this);
         sacandonumeroauditoria.setText(numeroAuditoria);
@@ -114,103 +121,106 @@ public class NuevaAuditoria extends AppCompatActivity {
 
         ButtonBefore.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(NumeroAyuda.equals("1")) {  TerminarAuditoria();}
-                else{AnteriorPregunta();}
-
-
-            }
-        });
-
-
-
-
-        ButtonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-             //   Toast.makeText(getApplicationContext(),cantidadPreguntas,Toast.LENGTH_SHORT).show();
-                Log.i("NEXT","numero de preguntas"+numeroPreguntas);
-            for(int i=0;i<numeroPreguntas;i++)
-            {
-
-               // String numeroAct = Integer.toString(numeroPreguntas);
-              //  Toast.makeText(getApplicationContext(),numeroAct,Toast.LENGTH_SHORT).show();
-
-                    int radioId = radioGroup2[i].getCheckedRadioButtonId();
-                    RadioButton radioButton = findViewById(radioId);
-                    tv[i].setText(radioButton.getText());
-
-                numerosRadios[i]=radioButton.getText().toString();
-
-                String numerPregunta = Integer.toString(i+1);
-
-                ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
-
-            }
-
-
-
-
-
-             //   String radioN = radioButton.getText().toString();
-
-//////////////////////////////////
-                if(cantidadPreguntas.equals(NumeroAyuda))
-                {
+            public void onClick(View view) {//ATRAS
+                if(NumeroAyuda.equals("1")){
                     TerminarAuditoria();
                 }
                 else{
+                    AnteriorPregunta();
+                }
+            }
+        });
 
-                    SiguientePregunta();
-               }
-      //////////////////////////////////
+
+         ButtonNext.setOnClickListener(new View.OnClickListener() {//NEXT
+            @Override
+            public void onClick(View view){
+              System.out.println("cantidadcincos:"+cantidadcincos+"numeroPreguntas"+numeroPreguntas);
+                if(cantidadcincos==numeroPreguntas)
+                {
+
+                for(int i=0;i<numeroPreguntas;i++)
+                        {
+                                int radioId = radioGroup2[i].getCheckedRadioButtonId();
+                                RadioButton radioButton = findViewById(radioId);
+                                tv[i].setText(radioButton.getText());
+                                numerosRadios[i]=radioButton.getText().toString();
+                                String numerPregunta = Integer.toString(i+1);
+                                ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
+                        }
+
+                    if(cantidadPreguntas.equals(NumeroAyuda))
+                    {
+                        TerminarAuditoria();
+                    }
+                    else{
+                        SiguientePregunta();
+                   }
+                }else{
+                    View viewToast = getLayoutInflater().inflate(R.layout.toast_siguiente_pruebas,(ViewGroup)findViewById(R.id.layout_toast_mensaje));
+                    Toast toast = new Toast(context);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(viewToast);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL, 500, 500);
+                    toast.show();
+                   
+                }
 
             }
         });
 
     }
 
-    void PreguntasContestadas()
+
+
+
+   void PreguntasContestadas()
     {
-        Log.d("myTag", "ESTE ES MI MENSAJE Y NUMERO DE PREGUNTAS SON"+numeroPreguntas);
 
         int numeroDeCincos=0;
-        //Toast.makeText(getApplicationContext(),"Numero de preguntas"+numeroPreguntas,Toast.LENGTH_SHORT).show();
-        for(int i=0;i<numeroPreguntas;i++)
+        System.out.println("Numero de preguntas"+numeroPreguntas);
+
+     for(int i=0;i<numeroPreguntas;i++)
         {
             int radioId = radioGroup2[i].getCheckedRadioButtonId();
             RadioButton radioButton = findViewById(radioId);
-           // tv[i].setText(radioButton.getText());
-        //    Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_SHORT).show();
+            // tv[i].setText(radioButton.getText());
+            //    Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_SHORT).show();
 
             numerosRadios[i]=radioButton.getText().toString();
 
-            if(radioButton.getText().equals("5")) {
+            if(radioButton.getText().equals("5")) {// Ocultar botones pruebas
                 buttonArray[i].setEnabled(false);  buttonArray[i].setVisibility(View.GONE);}
             else{
+                System.out.println("activando botones"+i);// Muestra botones pruebas
                 buttonArray[i].setEnabled(true); buttonArray[i].setVisibility(View.VISIBLE); }
 
-          //  Toast.makeText(getApplicationContext(), errorRespondido[0], Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(getApplicationContext(), errorRespondido[0], Toast.LENGTH_SHORT).show();
 
-            if(numerosRadios[i].equals("5")|| errorRespondido[i].equals("true")) {numeroDeCincos++;}
-           // else{ButtonNext.setEnabled(false);}
+            if(numerosRadios[i].equals("5")|| errorRespondido[i].equals("true")) {numeroDeCincos++;}//contestados satisfactorio
+            // else{ButtonNext.setEnabled(false);}
 
-           String sNumeroDeCincos= String.valueOf(numeroDeCincos);
+            cantidadcincos=numeroDeCincos;
+            String Numero= String.valueOf(numeroDeCincos);
             String sNumeroPreguntas= String.valueOf(numeroPreguntas);
-           // Toast.makeText(getApplicationContext(), sNumeroPreguntas, Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), sNumeroPreguntas, Toast.LENGTH_SHORT).show();
 
-            if(sNumeroDeCincos.equals(sNumeroPreguntas))
+            if(Numero.equals(sNumeroPreguntas))
             {
-                    ButtonNext.setEnabled(true);
-            }
-            else
-            {
-                ButtonNext.setEnabled(false);
+                // Siguiente();
+
+            }else{
+               // ButtonNext.setEnabled(false);
             }
 
-            }
+        }
 
     }
+
+    public void Siguiente(){
+
+    }
+
 
     private void requestImage(final String nombresNS) {
 
@@ -236,7 +246,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     }
     private void ejecutarservicio(String URL,final String Calificacion,final String NumeroPregunta)
     {
-        Log.i("Datos a Guardar","Calificar"+Calificacion+"NumeroAuditoria"+GlobalNumeroAuditoria+"NumeroPregunta"+NumeroPregunta+"AyudaVisual"+GlobalAyudaVisual);
+        //Log.i("Datos a Guardar","Calificar"+Calificacion+"NumeroAuditoria"+GlobalNumeroAuditoria+"NumeroPregunta"+NumeroPregunta+"AyudaVisual"+GlobalAyudaVisual);
         StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -271,6 +281,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     private void addView1(final String name,final int i,String calificacion, final String nombreAudaVisual,final int j,final String descripcionDelError,final String AyudaVisual,final String SubArea2, final String Anterior, final  String CodigoAyudaVisual23) {
         View layoutView=getLayoutInflater().inflate(R.layout.preguntas,null,false);
         int cero=1;
+
        // TextView tv = (TextView).findViewById(R.id.Pregunta);
         tv[i]=(TextView)layoutView.findViewById((R.id.Pregunta));
         radioSolo =findViewById(R.id.radioGroup);
@@ -278,22 +289,32 @@ public class NuevaAuditoria extends AppCompatActivity {
         imageviewHallazgo[i] =(ImageView) layoutView.findViewById(R.id.imageView_Hallazgo);
         buttonArray[i]=(Button)layoutView.findViewById((R.id.Button_Cuestionario));
         buttonValores[i]=(Button)layoutView.findViewById((R.id.Button_Valores));
-        tv[i].setText(name);
+
+        tv[i].setText(name);//Asignando Pregunta
         radios[i]=2;
-        buttonArray[i].setText("Pruebas");
+        buttonArray[i].setText("Evidencia");
 
         //buttonArray[i].setEnabled(false); Comentado Genaro
+        //System.out.println("valor de i"+i);
         buttonArray[i].setVisibility(View.GONE);
 
 
 
-        if(nombreAudaVisual.equals("Hallazgo")) {}else{
+        if(nombreAudaVisual.equals("Hallazgo")) {
+
+        }else{
             imageviewHallazgo[i].setVisibility(View.GONE);}
 
+       if (calificacion.equals("1") || calificacion.equals("2") || calificacion.equals("3") || calificacion.equals("4"))
+       {
+           if(descripcionDelError.equals("")) {
+               pruebasvacias++;
+           }
+           else{ buttonArray[i].setBackgroundResource(R.drawable.boton_verde);
+           }
 
-        if(descripcionDelError.equals("")) {}
-        else{ buttonArray[i].setBackgroundColor(Color.GREEN);
-        }
+       }
+
 
         radioGroup2[j].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -303,7 +324,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                 int radioId = radioGroup2[j].getCheckedRadioButtonId();
                 String stringNumber = Integer.toString(radioId);
 
-                PreguntasContestadas();
+                       PreguntasContestadas();
 
             }
         });
@@ -314,6 +335,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         if(calificacion.equals("1")) {
            RadioButton RadioButton1 = (RadioButton) layoutView.findViewById(R.id.radioButton1);
             RadioButton1.setChecked(true);
+
             buttonArray[i].setEnabled(true);
           // buttonArray[i].setVisibility(View.VISIBLE);
         }
@@ -387,7 +409,6 @@ public class NuevaAuditoria extends AppCompatActivity {
         imageviewHallazgo[i].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ShowImage2(AyudaVisual,SubArea2,Anterior,name);
 
             }
@@ -476,7 +497,7 @@ public class NuevaAuditoria extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                // Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
-
+                System.out.println("tamaño response"+response.length());
               for (int i = 0; i < response.length(); i++) {
                     try {
                        String nombre,nombrePregunta,CodigoAyudaVisual,descripcionDelError;
@@ -494,7 +515,10 @@ public class NuevaAuditoria extends AppCompatActivity {
                        GlobalAyudaVisual=nombre;
                         String ayudavisual=jsonObject.getString("AyudaAnterior");
                         String SubArea=jsonObject.getString("SubArea");
-                       String  AyudaVisu=jsonObject.getString("AyudaVisual");
+                        String  AyudaVisu=jsonObject.getString("AyudaVisual");
+
+                       TextView nombresubArea = (TextView)findViewById(R.id.subareaauditando);
+                       nombresubArea.setText(SubArea);
 
                         if(descripcionDelError.equals(""))
                         {
@@ -503,12 +527,11 @@ public class NuevaAuditoria extends AppCompatActivity {
                         errorRespondido[i]="true";}
 
                         tView.setText(nombre);
-                       tCodigo.setText(CodigoAyudaVisual);
+                        tCodigo.setText(CodigoAyudaVisual);
                         addView1(nombrePregunta,i,Calificacion,nombre,i,descripcionDelError,ayudavisual,SubArea,Anterior,AyudaVisu);
                         numeroPreguntas++;
-                      //  boton(nombre,i);
-                      //  Toast.makeText(getApplicationContext(),AyudaVisu,Toast.LENGTH_SHORT).show();
-                      //PreguntasContestadas(); //Comentado Genaro
+
+                        PreguntasContestadas();
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

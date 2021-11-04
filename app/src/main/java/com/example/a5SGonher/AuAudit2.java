@@ -131,8 +131,8 @@ public class AuAudit2 extends AppCompatActivity {
         toast.setView(viewToast);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-
     }
+
     private void ejecutarservicio(String URL, final String nombreSubarea,final String user)
     {
         StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

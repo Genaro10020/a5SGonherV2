@@ -55,7 +55,7 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     // buscarProducto("https://vvnorth.com/comparacion_auditorf.php",NPlanta);
-                    Toast.makeText(getApplicationContext(),"Creada con éxito",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Creada con éxito",Toast.LENGTH_SHORT).show();
                     retornaraMenu();
                 }
             }, new Response.ErrorListener() {
