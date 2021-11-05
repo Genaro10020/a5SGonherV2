@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/layout_toast_prueba"
+    android:id="@+id/layout_toast_procesando"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView25"
         android:layout_width="300dp"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_marginStart="55dp"
         android:layout_marginLeft="55dp"
         android:layout_marginEnd="56dp"
@@ -20,14 +20,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fondo_toast_next_pruebas" />
+        app:layout_constraintVertical_bias="0.442"
+        app:srcCompat="@drawable/fondo_toast_procesando" />
 
     <TextView
-        android:id="@+id/mensaje"
+        android:id="@+id/mensaje1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/mitre2"
-        android:text="Favor de agregar las evidencias."
+        android:text="Espere procesando información."
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/imageView25"
         app:layout_constraintEnd_toEndOf="@+id/imageView25"
@@ -40,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/conecfont"
-        android:text="¡MENSAJE!"
+        android:text="!PROCESANDO!"
         android:textColor="#FFFFFF"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@+id/imageView25"

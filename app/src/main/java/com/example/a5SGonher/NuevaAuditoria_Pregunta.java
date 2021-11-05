@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,9 +15,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,7 +48,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     TextView Pregunta;
     EditText Razon;
     Bitmap bitmapf,bitmapf2,bitmapf3,bitmapf4,bitmapf5,bitmapf6;
-    int numberPhoto=0;
+    int numberPhoto=0,fotografiaTomada=0;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
     private String currentPhotoPath;
     private static final int IMAGE_PICK_CODE=1000;
@@ -70,7 +74,6 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
          imageView4=(ImageView)findViewById(R.id.imageView1P4);
          imageView5=(ImageView)findViewById(R.id.imageView1P5);
          imageView6=(ImageView)findViewById(R.id.imageView1P6);
-
        // Toast.makeText(getApplicationContext(), nombreAyuda, Toast.LENGTH_SHORT).show();
 
         Pregunta.setText(nombrePregunta);
@@ -111,13 +114,51 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 TakePhoto();
             }
         });
-
+        final Context context = getApplicationContext();
         BotonTerminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarErrores.php");
+                BotonTerminar.setEnabled(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        BotonTerminar.setEnabled(true);
+                    }
+                },2000);
 
+                if (Razon.getText().toString().length() == 0){
+
+                    View mitoast = getLayoutInflater().inflate(R.layout.toast_comentario_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_comentario));
+                    Toast toast = new Toast(context);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(mitoast);
+                    toast.setGravity(Gravity.CENTER,0,-400);
+                    toast.show();
+
+
+                }else{
+
+                    if (fotografiaTomada==0){
+                        View toastfoto = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
+                        Toast toast2 = new Toast(context);
+                        toast2.setDuration(Toast.LENGTH_SHORT);
+                        toast2.setView(toastfoto);
+                        toast2.setGravity(Gravity.CENTER,0,-400);
+                        toast2.show();
+                    }
+
+                }
+
+                if (fotografiaTomada==1 && Razon.getText().toString().length() > 0){
+                    View procesando = getLayoutInflater().inflate(R.layout.toast_procesando,(ViewGroup)findViewById(R.id.layout_toast_procesando));
+                    Toast toasprocesando =  new Toast(context);
+                    toasprocesando.setDuration(Toast.LENGTH_SHORT);
+                    toasprocesando.setView(procesando);
+                    toasprocesando.setGravity(Gravity.CENTER,0,0);
+                    toasprocesando.show();
+                    ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarErrores.php");
+                }
             }
         });
     }
@@ -132,7 +173,6 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
 
     @Override
     public void onYesClicked() {
-
         String fileName="photo";
         File StorageDirectory= getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         try {
@@ -153,6 +193,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
 
     @Override
     public void onNoClicked() {
+
         //check runtime permission
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M)
         {if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -217,10 +258,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 }
 
             }
-
-
         }
-
     }
 
     private void ejecutarservicio(String URL)
@@ -242,13 +280,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros =new HashMap<String,String>();
-
                 String sNumberPhoto= String.valueOf(numberPhoto);
-
-
-
-
-
                 parametros.put("AyudaVisual",nombreAyuda);
                 parametros.put("nombrePregunta",nombrePregunta);
                 parametros.put("NumeroAuditoria",numeroAuditoria);
@@ -267,13 +299,6 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 { String imageData5= imageToString(bitmapf);parametros.put("image5",imageData5);}
                 if(sNumberPhoto.equals("6"))
                 { String imageData6= imageToString(bitmapf);parametros.put("image6",imageData6);}
-
-
-
-
-
-
-
                 return parametros;
             }
         };
@@ -285,49 +310,52 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-
-
-
-
         if(requestCode==1 && resultCode == RESULT_OK)
         {
             Bitmap bitmap= BitmapFactory.decodeFile(currentPhotoPath);
 
             String sNumberPhoto= String.valueOf(numberPhoto);
-            if(sNumberPhoto.equals("6")) {}
+            if(sNumberPhoto.equals("6")) {
+                fotografiaTomada=1;
+            }
             else{  numberPhoto++; }
              sNumberPhoto= String.valueOf(numberPhoto);
             if(sNumberPhoto.equals("1")) {
+                fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
                 ImageView imageView = findViewById(R.id.imageView1P);
                 imageView.setImageBitmap(bitmap);
                 bitmapf = bitmap;
             }
 
             if(sNumberPhoto.equals("2")) {
+                fotografiaTomada=1;
                 ImageView imageView = findViewById(R.id.imageView1P2);
                 imageView.setImageBitmap(bitmap);
                 bitmapf2 = bitmap;
             }
 
             if(sNumberPhoto.equals("3")) {
+                fotografiaTomada=1;
                 ImageView imageView = findViewById(R.id.imageView1P3);
                 imageView.setImageBitmap(bitmap);
                 bitmapf3 = bitmap;
             }
 
             if(sNumberPhoto.equals("4")) {
+                fotografiaTomada=1;
                 ImageView imageView = findViewById(R.id.imageView1P4);
                 imageView.setImageBitmap(bitmap);
                 bitmapf4 = bitmap;
             }
             if(sNumberPhoto.equals("5")) {
+                fotografiaTomada=1;
                 ImageView imageView = findViewById(R.id.imageView1P5);
                 imageView.setImageBitmap(bitmap);
                 bitmapf5 = bitmap;
             }
 
             if(sNumberPhoto.equals("6")) {
+                fotografiaTomada=1;
                 ImageView imageView = findViewById(R.id.imageView1P6);
                 imageView.setImageBitmap(bitmap);
                 bitmapf6 = bitmap;
@@ -339,7 +367,6 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
 //set image to image view
             imageView1.setImageURI(data.getData());
-
             Bitmap bitmap = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
 
             bitmapf=bitmap;

@@ -28,6 +28,7 @@ public class DialogOptions2 extends AppCompatDialogFragment {
                 .setPositiveButton("Tomar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
 listener.onYesClicked();
                     }
                 });

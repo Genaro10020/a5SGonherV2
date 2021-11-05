@@ -157,13 +157,19 @@ public class NuevaAuditoria extends AppCompatActivity {
                         SiguientePregunta();
                    }
                 }else{
-                    View viewToast = getLayoutInflater().inflate(R.layout.toast_siguiente_pruebas,(ViewGroup)findViewById(R.id.layout_toast_mensaje));
+                    View viewToast = getLayoutInflater().inflate(R.layout.toast_siguiente_pruebas,(ViewGroup)findViewById(R.id.layout_toast_prueba));
                     Toast toast = new Toast(context);
                     toast.setDuration(Toast.LENGTH_SHORT);
                     toast.setView(viewToast);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL, 500, 500);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL, 300, 500);
                     toast.show();
-                   
+                        ButtonNext.setEnabled(false);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ButtonNext.setEnabled(true);
+                            }
+                        },2000);
                 }
 
             }
@@ -381,7 +387,7 @@ public class NuevaAuditoria extends AppCompatActivity {
 
                     int radioId = radioGroup2[i].getCheckedRadioButtonId();
                     RadioButton radioButton = findViewById(radioId);
-                    tv[i].setText(radioButton.getText());
+                   // tv[i].setText(radioButton.getText());Comentada por Genaro
 
                     numerosRadios[i]=radioButton.getText().toString();
 
@@ -433,7 +439,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         intent.putExtra("EXTRA_SESSION_ID3", nombreAyudaVisual);
         intent.putExtra("EXTRA_SESSION_ID4", sNumeroPregunta);
         intent.putExtra("EXTRA_SESSION_ID5", NumeroAyuda);
-        Toast.makeText(getApplicationContext(),sNumeroPregunta,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),sNumeroPregunta,Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 

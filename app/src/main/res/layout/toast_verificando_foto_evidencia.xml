@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/layout_toast_prueba"
+    android:id="@+id/layout_toast_fotografia"
     android:layout_height="match_parent">
 
     <ImageView
@@ -20,14 +20,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.442"
         app:srcCompat="@drawable/fondo_toast_next_pruebas" />
 
     <TextView
-        android:id="@+id/mensaje"
+        android:id="@+id/mensaje1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mitre2"
-        android:text="Favor de agregar las evidencias."
+        android:text="Tome por lo menos 1 fotografía"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/imageView25"
         app:layout_constraintEnd_toEndOf="@+id/imageView25"
