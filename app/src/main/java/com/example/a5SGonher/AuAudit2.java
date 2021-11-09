@@ -175,13 +175,9 @@ public class AuAudit2 extends AppCompatActivity {
                 myButton3.setText(auditoria[i]);
                 int porcentaje=100;
 
-
-
-
                             LinearLayout ll3 = (LinearLayout)findViewById(R.id.layoutSPlanta);
                             LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             ll3.addView(myButton3, lp3);
-
 
 
                             /////////////////////////
@@ -266,10 +262,7 @@ public class AuAudit2 extends AppCompatActivity {
                             }
                           //
                           }
-
-
                     }
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -281,7 +274,6 @@ public class AuAudit2 extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
         requestQueue.add(respuesta);

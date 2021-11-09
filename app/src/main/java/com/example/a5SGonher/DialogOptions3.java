@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -28,7 +29,7 @@ public class DialogOptions3 extends AppCompatDialogFragment {
                 .setPositiveButton("Mandar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-listener.onYesClicked();
+                    listener.onYesClicked();
                     }
                 });
 

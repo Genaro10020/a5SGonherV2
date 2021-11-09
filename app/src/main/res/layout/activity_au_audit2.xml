@@ -69,7 +69,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout10"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -90,7 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:fontFamily="@font/mitre"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/saira_condensed_medium"
             android:text=" Auditorias completas" />
 
         <ImageView
@@ -106,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:fontFamily="@font/mitre"
+            android:fontFamily="@font/saira_condensed_medium"
             android:text=" Auditorias no completas" />
     </LinearLayout>
 
