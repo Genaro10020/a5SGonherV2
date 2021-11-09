@@ -89,6 +89,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         int myNum2=Integer.parseInt(NumeroAyuda);
         myNum2--;
         numeroAnterior=Integer.toString(myNum2);
+
         //ButtonNext.setEnabled(false); Comentado por Genaro
         final Context context = getApplicationContext();
 
@@ -100,17 +101,11 @@ public class NuevaAuditoria extends AppCompatActivity {
 
         if(NumeroAyuda.equals("1")) { ButtonBefore.setText("Salir");}
         else{ButtonBefore.setEnabled(true);}
-        /*LinearLayout ll = new LinearLayout(this);
-        TextView sacandonumeroauditoria = new TextView(this);
-        sacandonumeroauditoria.setText(numeroAuditoria);
-        ll.addView(sacandonumeroauditoria);
-        setContentView(ll);*/
-        //Toast.makeText(getApplicationContext(),"Número de Preguntas"+numeroPreguntas, Toast.LENGTH_LONG).show();
+
         buscarProducto(ServerName+"/5sGhoner/buscar_preguntas.php?NumeroAuditoria="+numeroAuditoria +"&NumeroAyuda="+ NumeroAyuda+"");
         String ciclov = Integer.toString(ciclo);
 
         //PreguntasContestadas(); //comente Genaro
-
 
         imageview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,13 +127,14 @@ public class NuevaAuditoria extends AppCompatActivity {
         });
 
 
+
          ButtonNext.setOnClickListener(new View.OnClickListener() {//NEXT
             @Override
             public void onClick(View view){
-              System.out.println("cantidadcincos:"+cantidadcincos+"numeroPreguntas"+numeroPreguntas);
+
+                //System.out.println("cantidadcincos: "+cantidadcincos+"NumeroAnterior: "+numeroAnterior+"NumeroAyuda:"+NumeroAyuda+"NumeroPreguntas"+numeroPreguntas+"cantidaPreguntas:"+cantidadPreguntas);
                 if(cantidadcincos==numeroPreguntas)
                 {
-
                 for(int i=0;i<numeroPreguntas;i++)
                         {
                                 int radioId = radioGroup2[i].getCheckedRadioButtonId();
@@ -184,7 +180,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     {
 
         int numeroDeCincos=0;
-        System.out.println("Numero de preguntas"+numeroPreguntas);
+        //System.out.println("Numero de preguntas"+numeroPreguntas);
 
      for(int i=0;i<numeroPreguntas;i++)
         {
@@ -198,7 +194,7 @@ public class NuevaAuditoria extends AppCompatActivity {
             if(radioButton.getText().equals("5")) {// Ocultar botones pruebas
                 buttonArray[i].setEnabled(false);  buttonArray[i].setVisibility(View.GONE);}
             else{
-                System.out.println("activando botones"+i);// Muestra botones pruebas
+                //System.out.println("activando botones"+i);// Muestra botones pruebas
                 buttonArray[i].setEnabled(true); buttonArray[i].setVisibility(View.VISIBLE); }
 
             //  Toast.makeText(getApplicationContext(), errorRespondido[0], Toast.LENGTH_SHORT).show();
@@ -211,13 +207,10 @@ public class NuevaAuditoria extends AppCompatActivity {
             String sNumeroPreguntas= String.valueOf(numeroPreguntas);
             // Toast.makeText(getApplicationContext(), sNumeroPreguntas, Toast.LENGTH_SHORT).show();
 
-            if(Numero.equals(sNumeroPreguntas))
-            {
-                // Siguiente();
 
-            }else{
-               // ButtonNext.setEnabled(false);
-            }
+                        if(NumeroAyuda.equals(cantidadPreguntas)){
+                            ButtonNext.setText("Finalizar");
+                        }
 
         }
 
