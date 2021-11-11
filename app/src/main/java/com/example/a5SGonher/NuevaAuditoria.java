@@ -318,8 +318,6 @@ public class NuevaAuditoria extends AppCompatActivity {
         radioGroup2[j].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-
-
                 int radioId = radioGroup2[j].getCheckedRadioButtonId();
                 String stringNumber = Integer.toString(radioId);
 
@@ -496,7 +494,6 @@ public class NuevaAuditoria extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                // Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
-                System.out.println("tamaño response"+response.length());
               for (int i = 0; i < response.length(); i++) {
                     try {
                        String nombre,nombrePregunta,CodigoAyudaVisual,descripcionDelError;
@@ -515,7 +512,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         String ayudavisual=jsonObject.getString("AyudaAnterior");
                         String SubArea=jsonObject.getString("SubArea");
                         String  AyudaVisu=jsonObject.getString("AyudaVisual");
-
+                        //System.out.println("descripcion: "+descripcionDelError);
                        TextView nombresubArea = (TextView)findViewById(R.id.subareaauditando);
                        nombresubArea.setText(SubArea);
 
@@ -523,6 +520,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         {
                         errorRespondido[i]="false";}
                         else {
+
                         errorRespondido[i]="true";}
 
                         tView.setText(nombre);

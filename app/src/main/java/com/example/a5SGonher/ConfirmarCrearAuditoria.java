@@ -38,7 +38,7 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
         btncrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crearAuditoria("https://vvnorth.com/5sGhoner/CrearAuditoria.php",recibiendosubArea);
+                crearAuditoria("https://vvnorth.com/5sGhoner/crearAuditoria_v2.php",recibiendosubArea);
 
             }
         });
