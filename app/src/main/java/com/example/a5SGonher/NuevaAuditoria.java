@@ -54,6 +54,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     LinearLayout layoutList;
     int radios[]= new int[100];
     TextView tv[]=new TextView[100];
+    TextView respuestas[]=new TextView[100];
     TextView prueba1,prueba2,titulo;
     RadioGroup radioGroup2[]=new RadioGroup[100];
     Button buttonArray[]=new Button[100];
@@ -80,7 +81,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         ButtonBefore=(Button) findViewById(R.id.beforeQuestion);
         GlobalClass globalClass =(GlobalClass)getApplicationContext();
         ServerName=globalClass.getName();
-          numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID3");
+        numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID3");
         NumeroAyuda = getIntent().getStringExtra("EXTRA_SESSION_ID5");
         GlobalNumeroAuditoria=numeroAuditoria;
         int myNum = Integer.parseInt(NumeroAyuda);
@@ -95,9 +96,6 @@ public class NuevaAuditoria extends AppCompatActivity {
 
         TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
         titulo.setText("Auditando");
-
-
-
 
         if(NumeroAyuda.equals("1")) { ButtonBefore.setText("Salir");}
         else{ButtonBefore.setEnabled(true);}
@@ -277,39 +275,45 @@ public class NuevaAuditoria extends AppCompatActivity {
 
 
 
-    private void addView1(final String name,final int i,String calificacion, final String nombreAudaVisual,final int j,final String descripcionDelError,final String AyudaVisual,final String SubArea2, final String Anterior, final  String CodigoAyudaVisual23) {
+    private void addView1(final String name,final int i,String calificacion, final String nombreAudaVisual,final String hallazgo,final String respuestaanterior,final int j,final String descripcionDelError,final String AyudaVisual,final String SubArea2, final String Anterior, final  String CodigoAyudaVisual23) {
         View layoutView=getLayoutInflater().inflate(R.layout.preguntas,null,false);
         int cero=1;
 
        // TextView tv = (TextView).findViewById(R.id.Pregunta);
         tv[i]=(TextView)layoutView.findViewById((R.id.Pregunta));
+        respuestas[i]=(TextView)layoutView.findViewById((R.id.respuestahallazgo));
+
         radioSolo =findViewById(R.id.radioGroup);
         radioGroup2[i] =(RadioGroup)layoutView.findViewById(R.id.radioGroup);
         imageviewHallazgo[i] =(ImageView) layoutView.findViewById(R.id.imageView_Hallazgo);
         buttonArray[i]=(Button)layoutView.findViewById((R.id.Button_Cuestionario));
         buttonValores[i]=(Button)layoutView.findViewById((R.id.Button_Valores));
-
+        //respuestas[i]=findViewById(R.id.respuestahallazgo);
         tv[i].setText(name);//Asignando Pregunta
         radios[i]=2;
         buttonArray[i].setText("Evidencia");
-
+        Log.i("respuestas arreglo",":  "+respuestas[i]);
         //buttonArray[i].setEnabled(false); Comentado Genaro
-        //System.out.println("valor de i"+i);
+        System.out.println("Respuesta Anterior"+respuestaanterior);
+        System.out.println("Hallazgo"+hallazgo);
         buttonArray[i].setVisibility(View.GONE);
 
 
 
-        if(nombreAudaVisual.equals("Hallazgo")) {
-
+        if(hallazgo.equals("si")) {
+            respuestas[i].setText(respuestaanterior);//Asignando Respuesta Anterior
         }else{
-            imageviewHallazgo[i].setVisibility(View.GONE);}
+            imageviewHallazgo[i].setVisibility(View.GONE);
+            respuestas[i].setVisibility(View.GONE);
+
+        }
 
        if (calificacion.equals("1") || calificacion.equals("2") || calificacion.equals("3") || calificacion.equals("4"))
        {
            if(descripcionDelError.equals("")) {
                pruebasvacias++;
-           }
-           else{ buttonArray[i].setBackgroundResource(R.drawable.boton_verde);
+           }else{
+               buttonArray[i].setBackgroundResource(R.drawable.boton_verde);
            }
 
        }
@@ -361,7 +365,6 @@ public class NuevaAuditoria extends AppCompatActivity {
         if(calificacion.equals("5")) {
             RadioButton RadioButton5 = (RadioButton) layoutView.findViewById(R.id.radioButton5);
             RadioButton5.setChecked(true);
-
 
         }
 
@@ -493,17 +496,20 @@ public class NuevaAuditoria extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-               // Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
+                Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
               for (int i = 0; i < response.length(); i++) {
                     try {
                        String nombre,nombrePregunta,CodigoAyudaVisual,descripcionDelError;
                         jsonObject = response.getJSONObject(i);
                         // editT.setText(jsonObject.getString("Planta"));
+
                         nombre=jsonObject.getString("AyudaVisual");
                         nombrePregunta=jsonObject.getString("NombrePregunta");
                         CodigoAyudaVisual=jsonObject.getString("CodigoAyudaVisual");
                         descripcionDelError=jsonObject.getString("DescripcionError");
                         cantidadPreguntas=jsonObject.getString("CantidadPreguntas");
+                       String hallazgo=jsonObject.getString("Hallazgo");
+                        String respuestaanterior=jsonObject.getString("respuestaanterior");
                        subarea=jsonObject.getString("SubArea");
                        String Calificacion=jsonObject.getString("Calificacion");
                        Anterior=jsonObject.getString("Anterior");
@@ -512,20 +518,19 @@ public class NuevaAuditoria extends AppCompatActivity {
                         String ayudavisual=jsonObject.getString("AyudaAnterior");
                         String SubArea=jsonObject.getString("SubArea");
                         String  AyudaVisu=jsonObject.getString("AyudaVisual");
-                        //System.out.println("descripcion: "+descripcionDelError);
                        TextView nombresubArea = (TextView)findViewById(R.id.subareaauditando);
-                       nombresubArea.setText(SubArea);
+                       Log.i("posicion",""+i);
 
+                       nombresubArea.setText(SubArea);
                         if(descripcionDelError.equals(""))
                         {
                         errorRespondido[i]="false";}
                         else {
-
                         errorRespondido[i]="true";}
 
                         tView.setText(nombre);
                         tCodigo.setText(CodigoAyudaVisual);
-                        addView1(nombrePregunta,i,Calificacion,nombre,i,descripcionDelError,ayudavisual,SubArea,Anterior,AyudaVisu);
+                        addView1(nombrePregunta,i,Calificacion,nombre,hallazgo,respuestaanterior,i,descripcionDelError,ayudavisual,SubArea,Anterior,AyudaVisu);
                         numeroPreguntas++;
 
                         PreguntasContestadas();

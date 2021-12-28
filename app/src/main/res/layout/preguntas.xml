@@ -6,29 +6,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/Pregunta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Pregunta"
-        android:fontFamily="@font/saira_condensed_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/Button_Cuestionario"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:background="@drawable/boton_entrar"
+        android:fontFamily="@font/conecfont"
+        android:text="Button"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/Button_Valores"
+        android:layout_width="35dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/botones_interregocion"
+        android:text="?"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView_Hallazgo"
+        android:layout_width="48dp"
+        android:layout_height="39dp"
+        android:background="@drawable/botones_interregocion"
+        app:layout_constraintBottom_toBottomOf="@+id/Button_Valores"
+        app:layout_constraintEnd_toStartOf="@+id/Button_Valores"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Button_Valores"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/ic_icon_cam" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Pregunta"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintEnd_toEndOf="@+id/Pregunta"
+        app:layout_constraintStart_toStartOf="@+id/Pregunta"
+        app:layout_constraintTop_toBottomOf="@+id/respuestahallazgo">
 
         <RadioButton
             android:id="@+id/radioButton1"
@@ -82,40 +107,25 @@
 
     </RadioGroup>
 
-    <Button
-        android:id="@+id/Button_Cuestionario"
-        android:layout_width="80dp"
-        android:fontFamily="@font/conecfont"
-        android:layout_height="35dp"
-        android:textColor="#FFFFFF"
-        android:text="Button"
-        android:background="@drawable/boton_entrar"
-        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+    <TextView
+        android:id="@+id/Pregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/saira_condensed_medium"
+        android:text="Pregunta"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.622"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/respuestahallazgo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Respuesta"
+        app:layout_constraintEnd_toEndOf="@+id/Pregunta"
+        app:layout_constraintStart_toStartOf="@+id/Pregunta"
         app:layout_constraintTop_toBottomOf="@+id/Pregunta" />
 
-    <Button
-        android:id="@+id/Button_Valores"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/botones_interregocion"
-        android:text="?"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
-        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/Pregunta" />
-
-    <ImageView
-        android:id="@+id/imageView_Hallazgo"
-        android:layout_width="51dp"
-        android:layout_height="38dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/botones_interregocion"
-        app:layout_constraintBottom_toBottomOf="@+id/Button_Valores"
-        app:layout_constraintEnd_toStartOf="@+id/Button_Valores"
-        app:layout_constraintTop_toTopOf="@+id/Button_Valores"
-        app:srcCompat="@drawable/ic_icon_cam" />
 </androidx.constraintlayout.widget.ConstraintLayout>
