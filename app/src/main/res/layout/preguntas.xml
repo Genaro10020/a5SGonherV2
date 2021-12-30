@@ -39,11 +39,10 @@
         android:layout_width="48dp"
         android:layout_height="39dp"
         android:background="@drawable/botones_interregocion"
-        app:layout_constraintBottom_toBottomOf="@+id/Button_Valores"
+        app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/Button_Valores"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Button_Valores"
-        app:layout_constraintVertical_bias="0.666"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup"
         app:srcCompat="@drawable/ic_icon_cam" />
 
     <RadioGroup
@@ -66,6 +65,16 @@
             tools:layout_editor_absoluteX="177dp"
             tools:layout_editor_absoluteY="146dp" />
 
+        <TextView
+            android:id="@+id/nouno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NO"
+            android:textColor="#000000"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
@@ -76,6 +85,16 @@
             tools:layout_editor_absoluteX="197dp"
             tools:layout_editor_absoluteY="146dp" />
 
+        <TextView
+            android:id="@+id/nodos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NO"
+            android:textColor="#000000"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
@@ -84,6 +103,16 @@
             android:text="3"
             tools:layout_editor_absoluteX="177dp"
             tools:layout_editor_absoluteY="146dp" />
+
+        <TextView
+            android:id="@+id/notres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NO"
+            android:textColor="#000000"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
         <RadioButton
             android:id="@+id/radioButton4"
@@ -95,6 +124,16 @@
             tools:layout_editor_absoluteY="146dp" />
 
 
+        <TextView
+            android:id="@+id/nocuatro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NO"
+            android:textColor="#000000"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
         <RadioButton
             android:id="@+id/radioButton5"
             android:layout_width="wrap_content"
@@ -103,6 +142,16 @@
             android:text="5"
             tools:layout_editor_absoluteX="177dp"
             tools:layout_editor_absoluteY="146dp" />
+
+        <TextView
+            android:id="@+id/sicinco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SI"
+            android:textColor="#000000"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
 
     </RadioGroup>
