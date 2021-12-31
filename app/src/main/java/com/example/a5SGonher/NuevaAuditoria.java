@@ -513,10 +513,19 @@ public class NuevaAuditoria extends AppCompatActivity {
             }
         });
 
-        imageviewHallazgo[i].setOnClickListener(new View.OnClickListener() {
+        imageviewHallazgo[i].setOnClickListener(new View.OnClickListener() {//Boton ver Hallazgo.
             @Override
             public void onClick(View v) {
-                ShowImage2(AyudaVisual,SubArea2,Anterior,name);
+
+
+                if(Anterior.equals("")){ //si no hay Numero de auditoria anterio entonces busca en ella misma
+                    //Log.e("entre","ACTUAL");
+                    ShowImage2(GlobalAyudaVisual,SubArea2,numeroAuditoria,name);
+                }else{//Busca el hallazgo encontrada en la auditoria anterior
+                    //Log.e("entre","ANTERIOR");
+                    ShowImage2(AyudaVisual,SubArea2,Anterior,name);
+                }
+
 
             }
         });
