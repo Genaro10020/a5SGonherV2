@@ -361,7 +361,11 @@ public class NuevaAuditoria extends AppCompatActivity {
                imageviewHallazgo[i].setVisibility(View.VISIBLE);
                botonEvidencia[i].setBackgroundResource(R.drawable.boton_verde);
                cantidadcincos++;}//si se sube hallazgo incrementa cantidadcincos.
-       }else{botonEvidencia[i].setVisibility(View.GONE); cantidadcincos++;}// si es 5 incrementa cantidadcincos
+       }else{botonEvidencia[i].setVisibility(View.GONE); cantidadcincos++;
+           /*if(hallazgo.equals("si")){
+               imageviewHallazgo[i].setVisibility(View.GONE);
+           }*/
+       }// si es 5 incrementa cantidadcincos
 
 
 
@@ -480,24 +484,42 @@ public class NuevaAuditoria extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                for(int i=0;i<numeroPreguntas;i++)
+                /*for(int i=0;i<numeroPreguntas;i++)
                 {
-
                     // String numeroAct = Integer.toString(numeroPreguntas);
                     //  Toast.makeText(getApplicationContext(),numeroAct,Toast.LENGTH_SHORT).show();
-
                     int radioId = radioGroup2[i].getCheckedRadioButtonId();
                     RadioButton radioButton = findViewById(radioId);
                    // tv[i].setText(radioButton.getText());Comentada por Genaro
-
                     numerosRadios[i]=radioButton.getText().toString();
-
                     String numerPregunta = Integer.toString(i+1);
-                    ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
+                    //ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
+                }*/
 
-                }
+                //int cantidadRealPreguntas=numeroPreguntas-cantidadHallazgos;
+                //Log.i("a ver","cantidadrealpreguntas"+cantidadRealPreguntas+"cantidad de cincos"+cantidadcincos);
 
-                ContestarPregunta(name,i,nombreAudaVisual);
+
+                    for (int i = 0; i < cantidadHallazgos; i++) {
+                        int radioId = radioGroup2[i].getCheckedRadioButtonId();
+                        RadioButton radioButton = findViewById(radioId);
+                        String stringI = String.valueOf(i);
+                        String numerPregunta = "0" + stringI;
+                        Log.e("Insertando", "radio: " + radioButton.getText().toString() + " NumeroPregunta:" + numerPregunta);
+                        ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php", radioButton.getText().toString(), numerPregunta);
+                    }
+
+                    for (int i = 0 + cantidadHallazgos; i < numeroPreguntas; i++) {
+                        int radioId = radioGroup2[i].getCheckedRadioButtonId();
+                        RadioButton radioButton = findViewById(radioId);
+                        String numerPregunta = Integer.toString(i + 1 - cantidadHallazgos);
+                        Log.e("Insertando", "radio: " + radioButton.getText().toString() + " NumeroPregunta:" + numerPregunta);
+                        ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php", radioButton.getText().toString(), numerPregunta);
+                    }
+
+
+                    //Log.e("verificando",":"+"name"+name+"i"+i+"nombreAudaVisual"+nombreAudaVisual);
+                    ContestarPregunta(name,i-1,nombreAudaVisual);
             }
         });
 
@@ -522,7 +544,8 @@ public class NuevaAuditoria extends AppCompatActivity {
                     //Log.e("entre","ACTUAL");
                     ShowImage2(GlobalAyudaVisual,SubArea2,numeroAuditoria,name);
                 }else{//Busca el hallazgo encontrada en la auditoria anterior
-                    //Log.e("entre","ANTERIOR");
+                    //Log.e("entre","ANTERIOR"+"AydaAnterior: "+AyudaVisual+"SubArea2: "+SubArea2+"Anterior: "+Anterior+"Name oPregunta: "+name);
+
                     ShowImage2(AyudaVisual,SubArea2,Anterior,name);
                 }
 
@@ -539,15 +562,16 @@ public class NuevaAuditoria extends AppCompatActivity {
     public void ContestarPregunta(String nombrePregunta,int numeroPregunta,String nombreAyudaVisual)
     {
 
-        int actualNumber=numeroPregunta;
-        actualNumber--;
-        String SActualPregunta = Integer.toString(actualNumber);
-        String sNumeroPregunta = Integer.toString(numeroPregunta);
+
+        //actualNumber--;
+        String numeropregunta = Integer.toString(numeroPregunta);
+        //Log.e("num","PARSEANDO A ESTRING"+numeropregunta);
+        //String sNumeroPregunta = Integer.toString(numeroPregunta);
         Intent intent =new Intent(this,NuevaAuditoria_Pregunta.class);
         intent.putExtra("EXTRA_SESSION_ID", nombrePregunta);
         intent.putExtra("EXTRA_SESSION_ID2", numeroAuditoria);
         intent.putExtra("EXTRA_SESSION_ID3", nombreAyudaVisual);
-        intent.putExtra("EXTRA_SESSION_ID4", sNumeroPregunta);
+        intent.putExtra("EXTRA_SESSION_ID4", numeropregunta);
         intent.putExtra("EXTRA_SESSION_ID5", NumeroAyuda);
         //Toast.makeText(getApplicationContext(),sNumeroPregunta,Toast.LENGTH_SHORT).show();
         startActivity(intent);

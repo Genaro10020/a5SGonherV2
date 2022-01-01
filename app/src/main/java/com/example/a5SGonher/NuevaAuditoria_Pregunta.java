@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ import java.util.Map;
 
 public class NuevaAuditoria_Pregunta extends AppCompatActivity implements DialogOptions2.DialogOptions1Listener{
 
-    String nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual;
+    String nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas;
     Button BotonTerminar;
     TextView Pregunta;
     EditText Razon;
@@ -62,9 +63,9 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         nombrePregunta = getIntent().getStringExtra("EXTRA_SESSION_ID");
         numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID2");
         nombreAyuda = getIntent().getStringExtra("EXTRA_SESSION_ID3");
-        numeroPregunta = getIntent().getStringExtra("EXTRA_SESSION_I4");
+        numeroPregunta = getIntent().getStringExtra("EXTRA_SESSION_ID4");
         numeroActual = getIntent().getStringExtra("EXTRA_SESSION_ID5");
-
+        //Log.e("","numeroo"+numeroPregunta);
         BotonTerminar=(Button) findViewById(R.id.Button_Contestar);
         Pregunta=(TextView) findViewById(R.id.textView_Pregunta);
         Razon=(EditText) findViewById(R.id.editTextTextMultiLine);
@@ -157,6 +158,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                     toasprocesando.setView(procesando);
                     toasprocesando.setGravity(Gravity.CENTER,0,0);
                     toasprocesando.show();
+                    Log.e("numero","numeroPregunta"+numeroPregunta);
                     ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarErrores.php");
                 }
             }
@@ -284,6 +286,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 parametros.put("AyudaVisual",nombreAyuda);
                 parametros.put("nombrePregunta",nombrePregunta);
                 parametros.put("NumeroAuditoria",numeroAuditoria);
+                parametros.put("numeroPregunta",numeroPregunta);
                 parametros.put("Error",Razon.getText().toString());
                 parametros.put("numerPhotos",sNumberPhoto);
 
