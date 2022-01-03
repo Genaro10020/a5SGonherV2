@@ -505,7 +505,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         RadioButton radioButton = findViewById(radioId);
                         String stringI = String.valueOf(i);
                         String numerPregunta = "0" + stringI;
-                        Log.e("Insertando", "radio: " + radioButton.getText().toString() + " NumeroPregunta:" + numerPregunta);
+                        //Log.e("Insertando", "radio: " + radioButton.getText().toString() + " NumeroPregunta:" + numerPregunta);
                         ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php", radioButton.getText().toString(), numerPregunta);
                     }
 
@@ -513,13 +513,19 @@ public class NuevaAuditoria extends AppCompatActivity {
                         int radioId = radioGroup2[i].getCheckedRadioButtonId();
                         RadioButton radioButton = findViewById(radioId);
                         String numerPregunta = Integer.toString(i + 1 - cantidadHallazgos);
-                        Log.e("Insertando", "radio: " + radioButton.getText().toString() + " NumeroPregunta:" + numerPregunta);
+                        //Log.e("Insertando", "radio: " + radioButton.getText().toString() + " NumeroPregunta:" + numerPregunta);
                         ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php", radioButton.getText().toString(), numerPregunta);
                     }
 
 
                     //Log.e("verificando",":"+"name"+name+"i"+i+"nombreAudaVisual"+nombreAudaVisual);
-                    ContestarPregunta(name,i-1,nombreAudaVisual);
+
+
+                            int numeropregunta= (i+1)-cantidadHallazgos;
+                            ContestarPregunta(name,numeropregunta,nombreAudaVisual);
+                            Log.e("no hay",":"+"name"+name+"numeropregunta"+numeropregunta+"nombreAudaVisual"+nombreAudaVisual);
+
+
             }
         });
 

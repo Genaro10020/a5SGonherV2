@@ -15,16 +15,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:background="@drawable/boton_entrar"
         android:id="@+id/Button_Contestar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#E6E6E0"
+        android:background="@drawable/boton_entrar"
         android:text="Contestar"
+        android:textColor="#E6E6E0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView1P5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView1P2"
         app:layout_constraintVertical_bias="0.225" />
 
     <TextView
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView1P3"
         app:layout_constraintStart_toEndOf="@+id/imageView1P"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.471"
+        app:layout_constraintVertical_bias="0.541"
         app:srcCompat="@drawable/ic_camara_evidencia" />
 
     <ImageView
@@ -75,13 +75,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView1P2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.471"
+        app:layout_constraintVertical_bias="0.541"
         app:srcCompat="@drawable/ic_camara_evidencia" />
 
     <ImageView
         android:id="@+id/imageView1P6"
         android:layout_width="0dp"
         android:layout_height="120dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView1P5"
@@ -93,6 +94,7 @@
         android:id="@+id/imageView1P5"
         android:layout_width="0dp"
         android:layout_height="120dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView1P6"
         app:layout_constraintStart_toEndOf="@+id/imageView1P4"
@@ -104,6 +106,7 @@
         android:id="@+id/imageView1P4"
         android:layout_width="0dp"
         android:layout_height="120dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView1P5"
         app:layout_constraintHorizontal_bias="0.096"
@@ -116,11 +119,12 @@
         android:id="@+id/imageView1P"
         android:layout_width="0dp"
         android:layout_height="120dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView1P2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.471"
+        app:layout_constraintVertical_bias="0.541"
         app:srcCompat="@drawable/ic_camara_evidencia" />
 
     <ImageView
@@ -150,6 +154,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include8" />
 
+    <TextView
+        android:id="@+id/espereguardando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Guardando Imagenes espere...."
+        app:layout_constraintEnd_toEndOf="@+id/Button_Contestar"
+        app:layout_constraintStart_toStartOf="@+id/Button_Contestar"
+        app:layout_constraintTop_toBottomOf="@+id/Button_Contestar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

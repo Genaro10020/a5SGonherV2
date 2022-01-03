@@ -29,12 +29,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -59,6 +62,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_auditoria__pregunta);
         TextView titulobarra = (TextView)findViewById(R.id.titulo_toolbar);
+        final TextView espereguardando = (TextView)findViewById(R.id.espereguardando);
         titulobarra.setText("Evidencia");
         nombrePregunta = getIntent().getStringExtra("EXTRA_SESSION_ID");
         numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID2");
@@ -75,6 +79,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
          imageView4=(ImageView)findViewById(R.id.imageView1P4);
          imageView5=(ImageView)findViewById(R.id.imageView1P5);
          imageView6=(ImageView)findViewById(R.id.imageView1P6);
+
        // Toast.makeText(getApplicationContext(), nombreAyuda, Toast.LENGTH_SHORT).show();
 
         Pregunta.setText(nombrePregunta);
@@ -159,6 +164,8 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                     toasprocesando.setGravity(Gravity.CENTER,0,0);
                     toasprocesando.show();
                     Log.e("numero","numeroPregunta"+numeroPregunta);
+                    BotonTerminar.setVisibility(View.GONE);
+                    espereguardando.setVisibility(View.VISIBLE);
                     ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarErrores.php");
                 }
             }
