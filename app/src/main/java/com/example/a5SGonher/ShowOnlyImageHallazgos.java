@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
 
         requestImage();
         buscarProducto(ServerName+"/5sGhoner/buscar_ComentarioAnterior.php?AuditoriaAnterior="+Anterior +"&NombrePregunta="+ NombrePregunta+"&CodigoAyuda="+ GlobalAyudaVisual+"" );
+
     }
     public static String removeLastChar(String str) {
         return removeLastChars(str, 1);
@@ -65,6 +67,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
        // Toast.makeText(getApplicationContext(),noLastChar,Toast.LENGTH_SHORT).show();
 
         String Foto=noLastChar+"%3f";
+        Log.e("showIMG",""+"https://vvnorth.com/5sGhoner/FotosAuditorias/"+Anterior+"/"+GlobalAyudaVisual+"/"+Foto+"/1.jpeg");
         ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/FotosAuditorias/"+Anterior+"/"+GlobalAyudaVisual+"/"+Foto+"/1.jpeg", new Response.Listener<Bitmap>() {
       //  ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/subareas/"+subarea+"/"+GlobalAyudaVisual+".jpg", new Response.Listener<Bitmap>() {
             @Override

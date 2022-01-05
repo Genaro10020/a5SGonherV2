@@ -47,6 +47,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     String numeroActual,numeroAnterior;
     String NumeroAyuda,subarea;
     String cantidadPreguntas;
+    //String NumeroImagenes[]= new String[100];
     int masterCount;
 
     String GlobalNumeroAuditoria,GlobalAyudaVisual;
@@ -311,7 +312,7 @@ public class NuevaAuditoria extends AppCompatActivity {
 
 
 
-    private void addView1(final String name, final int i, final String calificacion, final String nombreAudaVisual, final String hallazgo, final String respuestaanterior, final int j, final String descripcionDelError, final String AyudaVisual, final String SubArea2, final String Anterior, final  String CodigoAyudaVisual23) {
+    private void addView1(final String name, final int i, final String calificacion, final String nombreAudaVisual, String hallazgo,final String respuestaanterior, final int j, final String descripcionDelError, final String AyudaVisual, final String SubArea2, final String Anterior, final String  numeroImageness, final  String CodigoAyudaVisual23) {
         View layoutView=getLayoutInflater().inflate(R.layout.preguntas,null,false);
         int cero=1;
 
@@ -324,7 +325,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         nocuatro[i]=(TextView)layoutView.findViewById((R.id.nocuatro));
         sicinco[i]=(TextView)layoutView.findViewById((R.id.sicinco));
 
-
+        //NumeroImagenes[i]=numeroImagenes;
         radioSolo =findViewById(R.id.radioGroup);
         radioGroup2[i] =(RadioGroup)layoutView.findViewById(R.id.radioGroup);
         imageviewHallazgo[i] =(ImageView) layoutView.findViewById(R.id.imageView_Hallazgo);
@@ -333,15 +334,13 @@ public class NuevaAuditoria extends AppCompatActivity {
         //respuestas[i]=findViewById(R.id.respuestahallazgo);
         tv[i].setText(name);//Asignando Pregunta
         radios[i]=2;
-        botonEvidencia[i].setText("Evidencia");
+        botonEvidencia[i].setText("Hallazgo");
 
-        Log.i("respuestas arreglo",":  "+respuestas[i]);
+        //Log.i("respuestas arreglo",":  "+respuestas[i]);
         //botonEvidencia[i].setEnabled(false); Comentado Genaro
-        System.out.println("Respuesta Anterior"+respuestaanterior);
-        System.out.println("Hallazgo"+hallazgo);
+        //System.out.println("Respuesta Anterior"+respuestaanterior);
+        //System.out.println("Hallazgo"+hallazgo);
         //botonEvidencia[i].setVisibility(View.GONE);
-
-
 
         if(hallazgo.equals("si")) {
             respuestas[i].setText(respuestaanterior);//Asignando Respuesta Anterior
@@ -358,7 +357,7 @@ public class NuevaAuditoria extends AppCompatActivity {
        if (calificacion.equals("1") || calificacion.equals("2") || calificacion.equals("3") || calificacion.equals("4"))
        {
            if(descripcionDelError.equals("")) { pruebasvacias++;}else{
-               imageviewHallazgo[i].setVisibility(View.VISIBLE);
+               //imageviewHallazgo[i].setVisibility(View.VISIBLE);//lo oculto pero para
                botonEvidencia[i].setBackgroundResource(R.drawable.boton_verde);
                cantidadcincos++;}//si se sube hallazgo incrementa cantidadcincos.
        }else{botonEvidencia[i].setVisibility(View.GONE); cantidadcincos++;
@@ -522,8 +521,8 @@ public class NuevaAuditoria extends AppCompatActivity {
 
 
                             int numeropregunta= (i+1)-cantidadHallazgos;
-                            ContestarPregunta(name,numeropregunta,nombreAudaVisual);
-                            Log.e("no hay",":"+"name"+name+"numeropregunta"+numeropregunta+"nombreAudaVisual"+nombreAudaVisual);
+                ContestarPregunta(name,numeropregunta,nombreAudaVisual,descripcionDelError,numeroImageness);//AQUI
+
 
 
             }
@@ -565,20 +564,25 @@ public class NuevaAuditoria extends AppCompatActivity {
 
     }
 
-    public void ContestarPregunta(String nombrePregunta,int numeroPregunta,String nombreAyudaVisual)
+    public void ContestarPregunta(String nombrePregunta,int numeroPregunta,String nombreAyudaVisual,String Descripcionerror, String numeroImagenes)
     {
 
 
         //actualNumber--;
         String numeropregunta = Integer.toString(numeroPregunta);
         //Log.e("num","PARSEANDO A ESTRING"+numeropregunta);
-        //String sNumeroPregunta = Integer.toString(numeroPregunta);
         Intent intent =new Intent(this,NuevaAuditoria_Pregunta.class);
         intent.putExtra("EXTRA_SESSION_ID", nombrePregunta);
         intent.putExtra("EXTRA_SESSION_ID2", numeroAuditoria);
         intent.putExtra("EXTRA_SESSION_ID3", nombreAyudaVisual);
         intent.putExtra("EXTRA_SESSION_ID4", numeropregunta);
         intent.putExtra("EXTRA_SESSION_ID5", NumeroAyuda);
+        intent.putExtra("EXTRA_SESSION_ID6", Anterior);
+        intent.putExtra("EXTRA_SESSION_ID7", Descripcionerror);
+        intent.putExtra("CANTIDAD_IMAGENES", numeroImagenes);
+
+
+        //Log.e("que","NumeroImagenes"+numeroImagenes);
         //Toast.makeText(getApplicationContext(),sNumeroPregunta,Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
@@ -656,6 +660,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         descripcionDelError=jsonObject.getString("DescripcionError");
                         cantidadPreguntas=jsonObject.getString("CantidadPreguntas");
                        String hallazgo=jsonObject.getString("Hallazgo");
+                        String numeroImagenes =jsonObject.getString("NumeroImagenes");
                         String respuestaanterior=jsonObject.getString("respuestaanterior");
                        subarea=jsonObject.getString("SubArea");
                        String Calificacion=jsonObject.getString("Calificacion");
@@ -666,7 +671,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         String SubArea=jsonObject.getString("SubArea");
                         String  AyudaVisu=jsonObject.getString("AyudaVisual");
                        TextView nombresubArea = (TextView)findViewById(R.id.subareaauditando);
-                       Log.i("posicion",""+i);
+                      // Log.e("NumeroImagenes---",""+NumeroImagenes);
 
                        nombresubArea.setText(SubArea);
                         if(descripcionDelError.equals(""))
@@ -681,7 +686,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                             cantidadHallazgos++;
                         }
                         numeroPreguntas++;
-                        addView1(nombrePregunta,i,Calificacion,nombre,hallazgo,respuestaanterior,i,descripcionDelError,ayudavisual,SubArea,Anterior,AyudaVisu);
+                        addView1(nombrePregunta,i,Calificacion,nombre,hallazgo,respuestaanterior,i,descripcionDelError,ayudavisual,SubArea,Anterior,numeroImagenes,AyudaVisu);
 
 
 
