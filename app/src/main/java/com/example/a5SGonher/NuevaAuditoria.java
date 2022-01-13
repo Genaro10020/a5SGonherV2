@@ -147,7 +147,7 @@ public class NuevaAuditoria extends AppCompatActivity {
 
                 //System.out.println("cantidadcincos: "+cantidadcincos+"NumeroAnterior: "+numeroAnterior+"NumeroAyuda:"+NumeroAyuda+"NumeroPreguntas"+numeroPreguntas+"cantidaPreguntas:"+cantidadPreguntas);
                 int cantidadRealPreguntas=numeroPreguntas-cantidadHallazgos;
-                Log.i("a ver","cantidadrealpreguntas"+cantidadRealPreguntas+"cantidad de cincos"+cantidadcincos);
+                Log.e("a ver","cantidadrealpreguntas"+cantidadRealPreguntas+"cantidad de cincos"+cantidadcincos);
                 if(cantidadcincos>=cantidadRealPreguntas)
                 {
 
@@ -207,8 +207,7 @@ public class NuevaAuditoria extends AppCompatActivity {
 
 
         int numeroDeCincos=0;
-        System.out.println("Numero de preguntas"+numeroPreguntas);
-        System.out.println("cantidad de hallazgos"+cantidadHallazgos);
+
          for(int i=0+cantidadHallazgos;i<numeroPreguntas;i++)
             {
 
@@ -684,6 +683,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         tCodigo.setText(CodigoAyudaVisual);
                         if(hallazgo.equals("si")){
                             cantidadHallazgos++;
+                            cantidadcincos--;
                         }
                         numeroPreguntas++;
                         addView1(nombrePregunta,i,Calificacion,nombre,hallazgo,respuestaanterior,i,descripcionDelError,ayudavisual,SubArea,Anterior,numeroImagenes,AyudaVisu);
