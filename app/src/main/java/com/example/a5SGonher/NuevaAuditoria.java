@@ -61,6 +61,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     TextView notres[]=new TextView[10000];
     TextView nocuatro[]=new TextView[10000];
     TextView sicinco[]=new TextView[10000];
+    TextView tituloshallazgos[]=new TextView[10000];
     TextView prueba1,prueba2,titulo;
     RadioGroup radioGroup2[]=new RadioGroup[1000];
     Button botonEvidencia[]=new Button[1000];
@@ -75,6 +76,8 @@ public class NuevaAuditoria extends AppCompatActivity {
     int numeroPreguntas=0;
     int cantidadHallazgos=0;
     int cantidaddeno=0;
+    int banderatitulohallazgosanteriores=0;
+    int banderatitulohabloquepreguntas=0;
     String[] errorRespondido = new String[1000];
     String Anterior;
     String[] numerosRadios = new String[1000];
@@ -316,6 +319,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         int cero=1;
 
        // TextView tv = (TextView).findViewById(R.id.Pregunta);
+        tituloshallazgos[i]=(TextView)layoutView.findViewById(R.id.titulohallazgos);
         tv[i]=(TextView)layoutView.findViewById((R.id.Pregunta));
         respuestas[i]=(TextView)layoutView.findViewById((R.id.respuestahallazgo));
         nouno[i]=(TextView)layoutView.findViewById((R.id.nouno));
@@ -342,12 +346,23 @@ public class NuevaAuditoria extends AppCompatActivity {
         //botonEvidencia[i].setVisibility(View.GONE);
 
         if(hallazgo.equals("si")) {
+            if(banderatitulohallazgosanteriores==0){
+                tituloshallazgos[i].setVisibility(View.VISIBLE);// para colocar el titulo unico superior una unica vez.
+                banderatitulohallazgosanteriores=1;
+            }
             respuestas[i].setText(respuestaanterior);//Asignando Respuesta Anterior
-           nouno[i].setVisibility(View.VISIBLE);
-           sicinco[i].setVisibility(View.VISIBLE);
+            nouno[i].setVisibility(View.VISIBLE);
+            sicinco[i].setVisibility(View.VISIBLE);
+
+
 
 
         }else{
+            if(banderatitulohabloquepreguntas==0){
+                tituloshallazgos[i].setVisibility(View.VISIBLE);// para colocar el titulo unico superior una unica vez.
+                tituloshallazgos[i].setText("BLOQUE DE PREGUNTAS");
+                banderatitulohabloquepreguntas=1;
+            }
             imageviewHallazgo[i].setVisibility(View.GONE);
             respuestas[i].setVisibility(View.GONE);
 

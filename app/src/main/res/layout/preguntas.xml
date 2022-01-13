@@ -160,13 +160,14 @@
         android:id="@+id/Pregunta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/saira_condensed_medium"
         android:text="Pregunta"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/titulohallazgos" />
 
     <TextView
         android:id="@+id/respuestahallazgo"
@@ -176,5 +177,23 @@
         app:layout_constraintEnd_toEndOf="@+id/Pregunta"
         app:layout_constraintStart_toStartOf="@+id/Pregunta"
         app:layout_constraintTop_toBottomOf="@+id/Pregunta" />
+
+    <TextView
+        android:id="@+id/titulohallazgos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#6A0303"
+        android:gravity="center"
+        android:text="HALLAZGOS ANTERIORES"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
