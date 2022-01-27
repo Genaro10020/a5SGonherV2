@@ -52,17 +52,19 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     String [] guardandorespuestas  = new String[6];
     String nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas,numeroAnteriorAuditoria,textoHallazgo, cantidaddeimagenes;
     Button BotonTerminar;
-    TextView Pregunta;
+    TextView Pregunta,textofotouno,textofotodos,textofototres,textofotocuatro;
     EditText Razon;
     Bitmap bitmapf,bitmapf2,bitmapf3,bitmapf4,bitmapf5,bitmapf6;
-    int numberPhoto=0,fotografiaTomada=0,fotografiasVisualizadas=0,cantidadimg=0,fotonumero=0,clickenfotoUno=0,clickenfotoDos=0,clickenfotoTres=0,
-            tomadafotoUno=0,tomadafotoDos=0,tomadafotoTres=0, fotoVista1=0, fotoVista2=0, fotoVista3=0;
+    int numberPhoto=0,fotografiaTomada=0,fotografiasVisualizadas=0,cantidadimg=0,fotonumero=0,clickenfotoUno=0,clickenfotoDos=0,clickenfotoTres=0,clickenfotoCuatro=0,
+            tomadafotoUno=0,tomadafotoDos=0,tomadafotoTres=0,tomadafotoCuatro=0, fotoVista1=0, fotoVista2=0, fotoVista3=0,fotoVista4=0;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
     private String currentPhotoPath;
     private static final int IMAGE_PICK_CODE=1000;
     private  static  final int PERMISSION_CODE=1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //fotografiaTomada: Me sirve para saber que se tomo por lo menos una fotografia si no para que me arroje mensaje
+        //fotografiasVisualizadas: me sirve para si no existen fotografias tomadas debe de existir alguna visualizada si no pasa y mensaje.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_auditoria__pregunta);
         TextView titulobarra = (TextView)findViewById(R.id.titulo_toolbar);
@@ -76,7 +78,6 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         numeroAnteriorAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID6");
         textoHallazgo = getIntent().getStringExtra("EXTRA_SESSION_ID7");
         cantidaddeimagenes = getIntent().getStringExtra("CANTIDAD_IMAGENES");
-        Log.e("","cain------"+cantidaddeimagenes);
         BotonTerminar=(Button) findViewById(R.id.Button_Contestar);
         Pregunta=(TextView) findViewById(R.id.textView_Pregunta);
         Razon=(EditText) findViewById(R.id.editTextTextMultiLine);
@@ -86,8 +87,15 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
          imageView4=(ImageView)findViewById(R.id.imageView1P4);
          imageView5=(ImageView)findViewById(R.id.imageView1P5);
          imageView6=(ImageView)findViewById(R.id.imageView1P6);
+        textofotouno =(TextView) findViewById(R.id.textophoto1);
+        textofotodos =(TextView)findViewById(R.id.textophoto2);
+        textofototres=(TextView)findViewById(R.id.textophoto3);
+        textofotocuatro=(TextView)findViewById(R.id.textophoto4);
 
        // Toast.makeText(getApplicationContext(), nombreAyuda, Toast.LENGTH_SHORT).show();
+           Log.e("","CANTIDAD DE IMAGENES DESDE BD:"+cantidaddeimagenes) ;
+
+
 
         Pregunta.setText(nombrePregunta);
         Razon.setText(textoHallazgo);
@@ -115,10 +123,11 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         imageView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickenfotoCuatro=1;
                 TakePhoto();
             }
         });
-        imageView5.setOnClickListener(new View.OnClickListener() {
+        /*imageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TakePhoto();
@@ -129,7 +138,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             public void onClick(View view) {
                 TakePhoto();
             }
-        });
+        });*/
 
 
 
@@ -182,12 +191,49 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 }
             }
         });
-        if(cantidaddeimagenes.equals(" ") || cantidaddeimagenes.equals(null) || cantidaddeimagenes.equals("")){
+
+
+
+        if(cantidaddeimagenes.equals(" ") || cantidaddeimagenes.equals(null) || cantidaddeimagenes.equals("") || cantidaddeimagenes.equals("0")){
             Log.e("VACIOCANTIDADDEIMAGENES",";"+cantidadimg);
+
+                textofotodos.setVisibility(View.INVISIBLE);
+                textofototres.setVisibility(View.INVISIBLE);
+                textofotocuatro.setVisibility(View.INVISIBLE);
+                //imageView2.setImageResource(R.drawable.ic_camara_evidencia_deshabilitado);
+                //imageView3.setImageResource(R.drawable.ic_camara_evidencia_deshabilitado);
+                //imageView4.setImageResource(R.drawable.ic_camara_evidencia_deshabilitado);
+                imageView2.setEnabled(false);
+                imageView3.setEnabled(false);
+                imageView4.setEnabled(false);
+
         }else{
+
+            if(cantidaddeimagenes.equals("1")){
+                textofototres.setVisibility(View.INVISIBLE);
+                textofotocuatro.setVisibility(View.INVISIBLE);
+                //imageView3.setImageResource(R.drawable.ic_camara_evidencia_deshabilitado);
+                //imageView4.setImageResource(R.drawable.ic_camara_evidencia_deshabilitado);
+                imageView3.setEnabled(false);
+                imageView4.setEnabled(false);
+            }
+
+            if(cantidaddeimagenes.equals("2")){
+                textofotocuatro.setVisibility(View.INVISIBLE);
+                //imageView4.setImageResource(R.drawable.ic_camara_evidencia_deshabilitado);
+                imageView4.setEnabled(false);
+            }
+
             cantidadimg=Integer.parseInt(cantidaddeimagenes);
             Log.e("Cantidad Imagenes",";"+cantidadimg);
-            for (int j=1;j<=cantidadimg;j++)
+
+           /* BuscandoImagenesTomadas1();
+            BuscandoImagenesTomadas2();
+            BuscandoImagenesTomadas3();
+            BuscandoImagenesTomadas4();*/
+
+
+           for (int j=1;j<=cantidadimg;j++)
             {
                 if (j==1){
                     BuscandoImagenesTomadas1();
@@ -197,6 +243,9 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 }
                 if (j==3){
                     BuscandoImagenesTomadas3();
+                }
+                if (j==4){
+                    BuscandoImagenesTomadas4();
                 }
             }
         }
@@ -208,22 +257,26 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
 
     private void BuscandoImagenesTomadas1() {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
-        fotoVista1=1;
         String noLastChar= removeLastChar(nombrePregunta);
         String Foto=noLastChar+"%3f";
+        textofotouno.setText("Cargando imagen...");
         Log.e("urlbuscando: ","https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+1+".jpeg");
+
         ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+1+".jpeg", new Response.Listener<Bitmap>() {
             //  ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/subareas/"+subarea+"/"+GlobalAyudaVisual+".jpg", new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
-                Log.e("fotonumero",":"+fotonumero);
+                fotoVista1=1;
                     imageView1.setImageBitmap(response);
-                    if (response == null){ Log.e("NOO","VaciaImagen1");  }else{ Log.e("SII","SIHAYImagen1"); fotografiasVisualizadas=1;}
+                    if (response == null){ Log.e("NOO","VaciaImagen1"); }else{ Log.e("SII","SIHAYImagen1"); fotografiasVisualizadas=1; textofotouno.setText("");}
                 //imageview.setPadding(260,0,0,0);
             }
         }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                textofotouno.setText("Sin fotografía.");
+                Log.e("NO EXITE LA IMAGEN",":"+1);
+                //BuscandoImagenesTomadas2();// si existe 1 imagen y no la encuentra entonces buscame si esta en la imagen 2.
                 //  requestImage(subareaTemportal,nombresNS,"1"  );
                 //  numeroFoto=1;
                 return;
@@ -234,22 +287,25 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     }
     private void BuscandoImagenesTomadas2() {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
-        fotoVista2=1;
         String noLastChar= removeLastChar(nombrePregunta);
         String Foto=noLastChar+"%3f";
+        textofotodos.setText("Cargando imagen...");
         Log.e("urlbuscando: ","https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+2+".jpeg");
         ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+2+".jpeg", new Response.Listener<Bitmap>() {
             //  ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/subareas/"+subarea+"/"+GlobalAyudaVisual+".jpg", new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
-                Log.e("fotonumero",":"+fotonumero);
+                fotoVista2=1;
                 imageView2.setImageBitmap(response);
-                if (response == null){ Log.e("NOO","VaciaImagen1");  }else{ Log.e("SII","SIHAYImagen1"); fotografiasVisualizadas=1;}
+                if (response == null){ Log.e("NOO","VaciaImagen1");  }else{ Log.e("SII","SIHAYImagen2"); fotografiasVisualizadas=1; textofotodos.setText("");}
                 //imageview.setPadding(260,0,0,0);
             }
         }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                textofotodos.setText("Sin fotografía.");
+                Log.e("NO EXITE LA IMAGEN",":"+2);
+                //BuscandoImagenesTomadas3();//si hay 2 imagen y no laencuentra por que dio erro entonces busca en la imagen 3.
                 //  requestImage(subareaTemportal,nombresNS,"1"  );
                 //  numeroFoto=1;
                 return;
@@ -260,22 +316,25 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     }
     private void BuscandoImagenesTomadas3() {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
-        fotoVista3=1;
         String noLastChar= removeLastChar(nombrePregunta);
         String Foto=noLastChar+"%3f";
+        textofototres.setText("Cargando imagen...");
         Log.e("urlbuscando: ","https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+3+".jpeg");
         ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+3+".jpeg", new Response.Listener<Bitmap>() {
             //  ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/subareas/"+subarea+"/"+GlobalAyudaVisual+".jpg", new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
-                Log.e("fotonumero",":"+fotonumero);
+                fotoVista3=1;
                 imageView3.setImageBitmap(response);
-                if (response == null){ Log.e("NOO","VaciaImagen1");  }else{ Log.e("SII","SIHAYImagen1"); fotografiasVisualizadas=1;}
+                if (response == null){ Log.e("NOO","VaciaImagen1");  }else{ Log.e("SII","SIHAYImagen3"); fotografiasVisualizadas=1; textofototres.setText("");}
                 //imageview.setPadding(260,0,0,0);
             }
         }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                textofototres.setText("Sin fotografía.");
+                Log.e("NO EXITE LA IMAGEN",":"+3);
+                //BuscandoImagenesTomadas4();//si hay 3 imagenes y no laencuentra por que dio erro entonces busca en la imagen 4.
                 //  requestImage(subareaTemportal,nombresNS,"1"  );
                 //  numeroFoto=1;
                 return;
@@ -284,6 +343,38 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         });
         requestQueue.add(imageRequest);
     }
+
+    private void BuscandoImagenesTomadas4() {
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        String noLastChar= removeLastChar(nombrePregunta);
+        String Foto=noLastChar+"%3f";
+        textofotocuatro.setText("Cargando imagen...");
+        Log.e("urlbuscando: ","https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+4+".jpeg");
+        ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+nombreAyuda+"/"+Foto+"/"+4+".jpeg", new Response.Listener<Bitmap>() {
+            //  ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/subareas/"+subarea+"/"+GlobalAyudaVisual+".jpg", new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                fotoVista4=1;
+                imageView4.setImageBitmap(response);
+                if (response == null){ Log.e("NOO","VaciaImagen1");  }else{ Log.e("SII","SIHAYImagen4"); fotografiasVisualizadas=1; textofotocuatro.setText("");}
+                //imageview.setPadding(260,0,0,0);
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textofotocuatro.setText("Sin fotografía.");
+                Log.e("NO EXITE LA IMAGEN",":"+4);
+                //  requestImage(subareaTemportal,nombresNS,"1"  );
+                //  numeroFoto=1;
+                return;
+
+            }
+        });
+        requestQueue.add(imageRequest);
+    }
+
+
 
     public void openDialog()
     {
@@ -403,7 +494,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros =new HashMap<String,String>();
 
-                numberPhoto=tomadafotoUno+tomadafotoDos+tomadafotoTres+fotoVista1+fotoVista2+fotoVista3;
+                numberPhoto=tomadafotoUno+tomadafotoDos+tomadafotoTres+tomadafotoCuatro+fotoVista1+fotoVista2+fotoVista3+fotoVista4;
                 String sNumberPhoto= String.valueOf(numberPhoto);
                 Log.e("sNumberPhoto",": "+sNumberPhoto);
                 parametros.put("AyudaVisual",nombreAyuda);
@@ -412,7 +503,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 parametros.put("numeroPregunta",numeroPregunta);
                 parametros.put("Error",Razon.getText().toString());
                 parametros.put("numerPhotos",sNumberPhoto);
-                Log.e("numerodefotos","sNumberPhoto"+sNumberPhoto);
+                Log.e("numerodefotos","sNumberPhoto="+sNumberPhoto);
                 /*if(sNumberPhoto.equals("1")||sNumberPhoto.equals("2")||sNumberPhoto.equals("3")||sNumberPhoto.equals("4")||sNumberPhoto.equals("5") ||sNumberPhoto.equals("6"))
                 { String imageData= imageToString(bitmapf);
                    parametros.put("image",imageData);}
@@ -433,6 +524,8 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 { String imageData2= imageToString(bitmapf2);parametros.put("image2",imageData2);}
                 if(tomadafotoTres==1)
                 { String imageData3= imageToString(bitmapf3);parametros.put("image3",imageData3);}
+                if(tomadafotoCuatro==1)
+                { String imageData4= imageToString(bitmapf4);parametros.put("image4",imageData4);}
 
                 return parametros;
             }
@@ -457,28 +550,49 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
              sNumberPhoto= String.valueOf(numberPhoto);*/
 
             if(clickenfotoUno==1) {
+                textofotouno.setText("Capturada.");
+                textofotodos.setVisibility(View.VISIBLE);
+                Log.e("fotovista2",":"+fotoVista2);
+                if (fotoVista2!=1){
+                    //imageView2.setImageResource(R.drawable.ic_camara_evidencia);
+                    imageView2.setEnabled(true);
+                }
                 Log.e("ENTRE","click1");
                 fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
-                //fotoUno=1;
                 ImageView imageView = findViewById(R.id.imageView1P);
                 imageView.setImageBitmap(bitmap);
                 bitmapf = bitmap;
                 clickenfotoUno=0;
+                fotoVista1=0;
                 tomadafotoUno=1;
+
             }
 
             if(clickenfotoDos==1) {
+                textofotodos.setText("Capturada.");
+                textofototres.setVisibility(View.VISIBLE);
+                if (fotoVista3!=1){
+                    //imageView3.setImageResource(R.drawable.ic_camara_evidencia);
+                    imageView3.setEnabled(true);
+                }
                 Log.e("ENTRE","click2");
                 fotografiaTomada=1;
-                //fotoDos=1;
                 ImageView imageView = findViewById(R.id.imageView1P2);
                 imageView.setImageBitmap(bitmap);
                 bitmapf2 = bitmap;
                 clickenfotoDos=0;
+                fotoVista2=0;
                 tomadafotoDos=1;
+
             }
 
             if(clickenfotoTres==1) {
+                textofototres.setText("Capturada.");
+                textofotocuatro.setVisibility(View.VISIBLE);
+                if (fotoVista4!=1){
+                    //imageView4.setImageResource(R.drawable.ic_camara_evidencia);
+                    imageView4.setEnabled(true);
+                }
                 Log.e("ENTRE","click3");
                 fotografiaTomada=1;
                 //fotoTres=1;
@@ -486,16 +600,25 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 imageView.setImageBitmap(bitmap);
                 bitmapf3 = bitmap;
                 clickenfotoTres=0;
+                fotoVista3=0;
                 tomadafotoTres=1;
+                imageView4.setEnabled(true);
             }
 
-           /* if(sNumberPhoto.equals("4")) {
+            if(clickenfotoCuatro==1) {
+                textofotocuatro.setText("Capturada.");
+                Log.e("ENTRE","click4");
                 fotografiaTomada=1;
+                //fotoTres=1;
                 ImageView imageView = findViewById(R.id.imageView1P4);
                 imageView.setImageBitmap(bitmap);
                 bitmapf4 = bitmap;
+                clickenfotoCuatro=0;
+                fotoVista4=0;
+                tomadafotoCuatro=1;
             }
-            if(sNumberPhoto.equals("5")) {
+
+          /* if(sNumberPhoto.equals("5")) {
                 fotografiaTomada=1;
                 ImageView imageView = findViewById(R.id.imageView1P5);
                 imageView.setImageBitmap(bitmap);
