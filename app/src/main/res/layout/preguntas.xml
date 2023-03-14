@@ -201,7 +201,9 @@
         android:id="@+id/layout_comentario_opcional"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -212,26 +214,28 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
-            <ImageView
+
+            <!--<ImageView
                 android:id="@+id/imageView32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/ic_comentario"
-                android:layout_marginRight="3dp" />
+                android:layout_marginRight="3dp"
+                app:srcCompat="@drawable/ic_comentario" />-->
 
             <TextView
-                android:id="@+id/textView45"
+                android:id="@+id/text_vi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Comentario (Opcional)." />
+                android:text="¿Deseas agregar alguna área al estándar? (Opcional)." />
         </LinearLayout>
 
         <EditText
-            android:id="@+id/editTextTextMultiLine2"
+            android:id="@+id/edit_comentario_opcional"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginHorizontal="10dp"
+            android:padding="5dp"
             android:background="@drawable/rectangulo"
             android:ems="10"
             android:gravity="start|top"

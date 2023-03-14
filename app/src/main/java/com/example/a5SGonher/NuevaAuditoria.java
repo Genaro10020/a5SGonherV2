@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -39,28 +40,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NuevaAuditoria extends AppCompatActivity {
-    TextView tView,tCodigo;
+    TextView tView, tCodigo;
     String ServerName;
     RequestQueue requestQueue;
-    Button ButtonNext,ButtonBefore;
+    Button ButtonNext, ButtonBefore;
     String numeroAuditoria;
-    String numeroActual,numeroAnterior;
-    String NumeroAyuda,subarea;
+    String numeroActual, numeroAnterior;
+    String NumeroAyuda, subarea;
     String cantidadPreguntas;
+    String comentario="";
     //String NumeroImagenes[]= new String[100];
     int masterCount;
 
-    String GlobalNumeroAuditoria,GlobalAyudaVisual;
+    String GlobalNumeroAuditoria, GlobalAyudaVisual;
     private ImageView imageview;
     LinearLayout layoutList;
-    int radios[]= new int[1000];
-    TextView tv[]=new TextView[1000];
-    TextView respuestas[]=new TextView[1000];
-    TextView nouno[]=new TextView[10000];
-    TextView nodos[]=new TextView[10000];
-    TextView notres[]=new TextView[10000];
-    TextView nocuatro[]=new TextView[10000];
-    TextView sicinco[]=new TextView[10000];
+    LinearLayout layoutComentario[] = new LinearLayout[1000];
+    int radios[] = new int[1000];
+    TextView tv[] = new TextView[1000];
+    EditText textcomentario[] = new EditText[1000];
+    TextView respuestas[] = new TextView[1000];
+    TextView nouno[] = new TextView[10000];
+    TextView nodos[] = new TextView[10000];
+    TextView notres[] = new TextView[10000];
+    TextView nocuatro[] = new TextView[10000];
+    TextView sicinco[] = new TextView[10000];
     TextView tituloshallazgos[]=new TextView[10000];
     TextView prueba1,prueba2,titulo;
     RadioGroup radioGroup2[]=new RadioGroup[1000];
@@ -73,6 +77,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     RadioButton radioButton5[]= new RadioButton[1000];
     private ImageView imageviewHallazgo[]=new ImageView[1000];
     RadioGroup radioSolo;
+    int largodelBloque = 0;
     int numeroPreguntas=0;
     int cantidadHallazgos=0;
     int cantidaddeno=0;
@@ -83,7 +88,6 @@ public class NuevaAuditoria extends AppCompatActivity {
     String[] numerosRadios = new String[1000];
     int cantidadcincos =0;
     int pruebasvacias=0;
-
     int ciclo=0;
 
 
@@ -150,7 +154,8 @@ public class NuevaAuditoria extends AppCompatActivity {
 
                 //System.out.println("cantidadcincos: "+cantidadcincos+"NumeroAnterior: "+numeroAnterior+"NumeroAyuda:"+NumeroAyuda+"NumeroPreguntas"+numeroPreguntas+"cantidaPreguntas:"+cantidadPreguntas);
                 int cantidadRealPreguntas=numeroPreguntas-cantidadHallazgos;
-                Log.e("a ver","cantidadrealpreguntas"+cantidadRealPreguntas+"cantidad de cincos"+cantidadcincos);
+                comentario = textcomentario[numeroPreguntas-1].getText().toString();
+                Log.e("a ver","cantidadrealpreguntas"+cantidadRealPreguntas+"cantidad de cincos"+cantidadcincos+"Numero de Preguntas"+numeroPreguntas+"Comentario"+comentario);
                 if(cantidadcincos>=cantidadRealPreguntas)
                 {
 
@@ -169,6 +174,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                                         int radioId = radioGroup2[i].getCheckedRadioButtonId();
                                         RadioButton radioButton = findViewById(radioId);
                                         String numerPregunta = Integer.toString(i+1-cantidadHallazgos);
+
                                         Log.e("Insertando","radio: "+radioButton.getText().toString()+" NumeroPregunta:"+numerPregunta);
                                         ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
                                 }
@@ -303,6 +309,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                 parametros.put("NumeroAuditoria",GlobalNumeroAuditoria);
                 parametros.put("NumeroPregunta",NumeroPregunta);
                 parametros.put("AyudaVisual",GlobalAyudaVisual);
+                parametros.put("Comentario",comentario);
                 //  parametros.put("Cambio",cambio);
 
                 return parametros;
@@ -314,7 +321,7 @@ public class NuevaAuditoria extends AppCompatActivity {
 
 
 
-    private void addView1(final String name, final int i, final String calificacion, final String nombreAudaVisual, String hallazgo,final String respuestaanterior, final int j, final String descripcionDelError, final String AyudaVisual, final String SubArea2, final String Anterior, final String  numeroImageness, final  String CodigoAyudaVisual23) {
+    private void addView1(final String name, final int i, final String calificacion, final String nombreAudaVisual, String hallazgo,final String respuestaanterior, final int j, final String descripcionDelError, final String AyudaVisual, final String SubArea2, final String Anterior, final String  numeroImageness, final  String CodigoAyudaVisual23,final String Comentario) {
         View layoutView=getLayoutInflater().inflate(R.layout.preguntas,null,false);
         int cero=1;
 
@@ -327,7 +334,8 @@ public class NuevaAuditoria extends AppCompatActivity {
         notres[i]=(TextView)layoutView.findViewById((R.id.notres));
         nocuatro[i]=(TextView)layoutView.findViewById((R.id.nocuatro));
         sicinco[i]=(TextView)layoutView.findViewById((R.id.sicinco));
-
+        layoutComentario[i] = layoutView.findViewById(R.id.layout_comentario_opcional);
+        textcomentario[i] =(EditText)layoutView.findViewById(R.id.edit_comentario_opcional);
         //NumeroImagenes[i]=numeroImagenes;
         radioSolo =findViewById(R.id.radioGroup);
         radioGroup2[i] =(RadioGroup)layoutView.findViewById(R.id.radioGroup);
@@ -338,6 +346,15 @@ public class NuevaAuditoria extends AppCompatActivity {
         tv[i].setText(name);//Asignando Pregunta
         radios[i]=2;
         botonEvidencia[i].setText("Hallazgo");
+
+
+        if (largodelBloque==i){
+            layoutComentario[i].setVisibility(View.VISIBLE);
+            textcomentario[i].setText(Comentario);
+        }
+
+
+        //editComentario = () edit_comentario_opcional
 
         //Log.i("respuestas arreglo",":  "+respuestas[i]);
         //botonEvidencia[i].setEnabled(false); Comentado Genaro
@@ -482,6 +499,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         if(NumeroAyuda.equals(cantidadPreguntas)){
             ButtonNext.setText("Finalizar");
         }
+
 
         radioGroup2[j].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -660,7 +678,9 @@ public class NuevaAuditoria extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
+                largodelBloque = response.length()-1;
                 Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
+
               for (int i = 0; i < response.length(); i++) {
                     try {
 
@@ -684,6 +704,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                         String ayudavisual=jsonObject.getString("AyudaAnterior");
                         String SubArea=jsonObject.getString("SubArea");
                         String  AyudaVisu=jsonObject.getString("AyudaVisual");
+                        String  Comentario=jsonObject.getString("comentario");
                        TextView nombresubArea = (TextView)findViewById(R.id.subareaauditando);
                       // Log.e("NumeroImagenes---",""+NumeroImagenes);
 
@@ -701,7 +722,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                             cantidadcincos--;
                         }
                         numeroPreguntas++;
-                        addView1(nombrePregunta,i,Calificacion,nombre,hallazgo,respuestaanterior,i,descripcionDelError,ayudavisual,SubArea,Anterior,numeroImagenes,AyudaVisu);
+                        addView1(nombrePregunta,i,Calificacion,nombre,hallazgo,respuestaanterior,i,descripcionDelError,ayudavisual,SubArea,Anterior,numeroImagenes,AyudaVisu,Comentario);
 
 
 
