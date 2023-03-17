@@ -58,7 +58,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     LinearLayout layoutComentario[] = new LinearLayout[1000];
     int radios[] = new int[1000];
     TextView tv[] = new TextView[1000];
-    EditText textcomentario[] = new EditText[1000];
+    //EditText textcomentario[] = new EditText[1000];
     TextView respuestas[] = new TextView[1000];
     TextView nouno[] = new TextView[10000];
     TextView nodos[] = new TextView[10000];
@@ -154,7 +154,7 @@ public class NuevaAuditoria extends AppCompatActivity {
 
                 //System.out.println("cantidadcincos: "+cantidadcincos+"NumeroAnterior: "+numeroAnterior+"NumeroAyuda:"+NumeroAyuda+"NumeroPreguntas"+numeroPreguntas+"cantidaPreguntas:"+cantidadPreguntas);
                 int cantidadRealPreguntas=numeroPreguntas-cantidadHallazgos;
-                comentario = textcomentario[numeroPreguntas-1].getText().toString();
+                //comentario = textcomentario[numeroPreguntas-1].getText().toString();
                 Log.e("a ver","cantidadrealpreguntas"+cantidadRealPreguntas+"cantidad de cincos"+cantidadcincos+"Numero de Preguntas"+numeroPreguntas+"Comentario"+comentario);
                 if(cantidadcincos>=cantidadRealPreguntas)
                 {
@@ -335,7 +335,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         nocuatro[i]=(TextView)layoutView.findViewById((R.id.nocuatro));
         sicinco[i]=(TextView)layoutView.findViewById((R.id.sicinco));
         layoutComentario[i] = layoutView.findViewById(R.id.layout_comentario_opcional);
-        textcomentario[i] =(EditText)layoutView.findViewById(R.id.edit_comentario_opcional);
+        //textcomentario[i] =(EditText)layoutView.findViewById(R.id.edit_comentario_opcional);
         //NumeroImagenes[i]=numeroImagenes;
         radioSolo =findViewById(R.id.radioGroup);
         radioGroup2[i] =(RadioGroup)layoutView.findViewById(R.id.radioGroup);
@@ -350,7 +350,7 @@ public class NuevaAuditoria extends AppCompatActivity {
 
         if (largodelBloque==i){
             layoutComentario[i].setVisibility(View.VISIBLE);
-            textcomentario[i].setText(Comentario);
+            //textcomentario[i].setText(Comentario);
         }
 
 
