@@ -23,6 +23,7 @@
         <activity android:name=".ShowOnlyImage" />
         <activity android:name=".NuevaAuditoria_Pregunta" />
         <activity android:name=".NuevaAuditoria" />
+        <activity android:name=".NuevaAreaEstandar" />
         <activity android:name=".AgregarSAuditoriaL" />
         <activity android:name=".ui.ListosEnviar" />
         <activity

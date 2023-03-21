@@ -203,7 +203,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -224,35 +224,46 @@
         </LinearLayout>
 
         <RadioGroup
+            android:id="@+id/radiogrup_agregar_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/opcion_agregar_area_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="NO" />
 
             <RadioButton
-                android:id="@+id/radioButton6"
+                android:id="@+id/opcion_agregar_area_si"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SI" />
         </RadioGroup>
 
-        <Button
-            android:id="@+id/btn_nvo_estandar"
-            android:layout_width="80dp"
-            android:layout_height="35dp"
-            android:visibility="gone"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/boton_entrar"
-            android:fontFamily="@font/conecfont"
-            android:text="Agregar"
-            android:textColor="#FFFFFF" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_nvo_estandar"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/boton_entrar"
+                android:fontFamily="@font/conecfont"
+                android:text="Agregar"
+                android:textColor="#FFFFFF"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
 
         <!--<EditText
             android:id="@+id/edit_comentario_opcional"

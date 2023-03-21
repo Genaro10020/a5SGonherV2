@@ -70,11 +70,13 @@ public class NuevaAuditoria extends AppCompatActivity {
     RadioGroup radioGroup2[]=new RadioGroup[1000];
     Button botonEvidencia[]=new Button[1000];
     Button buttonValores[]=new Button[1000];
+    Button btnnuevoEstandar[] = new Button[1000];
     RadioButton radioButton1[]= new RadioButton[1000];
     RadioButton radioButton2[]= new RadioButton[1000];
     RadioButton radioButton3[]= new RadioButton[1000];
     RadioButton radioButton4[]= new RadioButton[1000];
     RadioButton radioButton5[]= new RadioButton[1000];
+    RadioGroup radiogrupo_agregar_area[] = new RadioGroup[1000];
     private ImageView imageviewHallazgo[]=new ImageView[1000];
     RadioGroup radioSolo;
     int largodelBloque = 0;
@@ -335,6 +337,8 @@ public class NuevaAuditoria extends AppCompatActivity {
         nocuatro[i]=(TextView)layoutView.findViewById((R.id.nocuatro));
         sicinco[i]=(TextView)layoutView.findViewById((R.id.sicinco));
         layoutComentario[i] = layoutView.findViewById(R.id.layout_comentario_opcional);
+        radiogrupo_agregar_area[i]=layoutView.findViewById(R.id.radiogrup_agregar_area);
+        btnnuevoEstandar[i]=layoutView.findViewById(R.id.btn_nvo_estandar);
         //textcomentario[i] =(EditText)layoutView.findViewById(R.id.edit_comentario_opcional);
         //NumeroImagenes[i]=numeroImagenes;
         radioSolo =findViewById(R.id.radioGroup);
@@ -348,10 +352,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         botonEvidencia[i].setText("Hallazgo");
 
 
-        if (largodelBloque==i){
-            layoutComentario[i].setVisibility(View.VISIBLE);
-            //textcomentario[i].setText(Comentario);
-        }
+
 
 
         //editComentario = () edit_comentario_opcional
@@ -500,7 +501,33 @@ public class NuevaAuditoria extends AppCompatActivity {
             ButtonNext.setText("Finalizar");
         }
 
+        if (largodelBloque==i){//mostrar pregunta Agregar Área Estandar.
+            layoutComentario[i].setVisibility(View.VISIBLE);
+            //textcomentario[i].setText(Comentario);
+            radiogrupo_agregar_area[i].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int chekedId) {
+                    RadioButton radioSeleccionado = findViewById(chekedId);
+                    String string = radioSeleccionado.getText().toString();
+                    Log.i("string",string);
+                    if (string.equals("SI")){
+                        // Log.i("ENTRE A IF",string);
+                        btnnuevoEstandar[i].setVisibility(View.VISIBLE);
+                    }else{
+                        btnnuevoEstandar[i].setVisibility(View.GONE);
+                    }
 
+                }
+            });
+        }
+
+        btnnuevoEstandar[i].setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                NuevaAreaEstandar();
+            }
+        });
         radioGroup2[j].setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -617,6 +644,11 @@ public class NuevaAuditoria extends AppCompatActivity {
         //Log.e("que","NumeroImagenes"+numeroImagenes);
         //Toast.makeText(getApplicationContext(),sNumeroPregunta,Toast.LENGTH_SHORT).show();
         startActivity(intent);
+    }
+
+    public void NuevaAreaEstandar(){
+       Intent intent = new Intent(this, NuevaAreaEstandar.class);
+       startActivity(intent);
     }
 
 

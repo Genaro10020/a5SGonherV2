@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:layout="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
+    tools:context=".NuevaAreaEstandar">
+
+    <include
+        android:id="@+id/include11"
+
+        layout="@layout/toolbar"
+        layout:layout_constraintEnd_toEndOf="parent"
+        layout:layout_constraintStart_toStartOf="parent"
+        layout:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_weight="1"
+        layout:layout_constraintBottom_toBottomOf="@+id/textView42"
+        layout:layout_constraintEnd_toStartOf="@+id/textView42"
+        layout:layout_constraintTop_toTopOf="@+id/textView42"
+        layout:srcCompat="@drawable/ic_ayuda" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:text="Responda y tome fotografía de la nueva área."
+        layout:layout_constraintEnd_toEndOf="parent"
+        layout:layout_constraintStart_toStartOf="parent"
+        layout:layout_constraintTop_toBottomOf="@+id/include11" />
+
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|bottom"
+        android:hint="Respuesta"
+        android:inputType="textMultiLine"
+        layout:layout_constraintEnd_toEndOf="parent"
+        layout:layout_constraintStart_toStartOf="parent"
+        layout:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Capturar área."
+        layout:layout_constraintBottom_toTopOf="@+id/icono_foto_area"
+        layout:layout_constraintEnd_toEndOf="@+id/icono_foto_area"
+        layout:layout_constraintStart_toStartOf="@+id/icono_foto_area" />
+
+    <ImageView
+        android:id="@+id/icono_foto_area"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        layout:layout_constraintBottom_toBottomOf="parent"
+        layout:layout_constraintEnd_toEndOf="parent"
+        layout:layout_constraintStart_toStartOf="parent"
+        layout:layout_constraintTop_toBottomOf="@+id/textView42"
+        layout:srcCompat="@drawable/ic_camara_evidencia" />
+
+    <Button
+        android:id="@+id/Button_Contestar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/boton_entrar"
+        android:text="Contestar"
+        android:textColor="#E6E6E0"
+        layout:layout_constraintBottom_toBottomOf="parent"
+        layout:layout_constraintEnd_toEndOf="parent"
+        layout:layout_constraintStart_toStartOf="parent"
+        layout:layout_constraintTop_toBottomOf="@+id/icono_foto_area" />
+
+    <ImageView
+        android:id="@+id/imageView34"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        layout:layout_constraintBottom_toBottomOf="parent"
+        layout:layout_constraintEnd_toEndOf="parent"
+        layout:srcCompat="@drawable/fondo_pie" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
