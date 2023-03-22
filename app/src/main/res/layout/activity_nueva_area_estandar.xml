@@ -41,7 +41,7 @@
 
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/comentario_nueva_area"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -53,7 +53,7 @@
         layout:layout_constraintTop_toBottomOf="@+id/textView42" />
 
     <TextView
-        android:id="@+id/textView43"
+        android:id="@+id/leyenda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -73,7 +73,7 @@
         layout:srcCompat="@drawable/ic_camara_evidencia" />
 
     <Button
-        android:id="@+id/Button_Contestar"
+        android:id="@+id/btn_contestar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/boton_entrar"

@@ -49,6 +49,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     String NumeroAyuda, subarea;
     String cantidadPreguntas;
     String comentario="";
+    String CodigoAyudaVisual="";
     //String NumeroImagenes[]= new String[100];
     int masterCount;
 
@@ -111,6 +112,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         int myNum = Integer.parseInt(NumeroAyuda);
         myNum++;
         numeroActual = Integer.toString(myNum);
+        Log.e("NUMERO ACTUAL",numeroActual);
         int myNum2=Integer.parseInt(NumeroAyuda);
         myNum2--;
         numeroAnterior=Integer.toString(myNum2);
@@ -647,8 +649,15 @@ public class NuevaAuditoria extends AppCompatActivity {
     }
 
     public void NuevaAreaEstandar(){
-       Intent intent = new Intent(this, NuevaAreaEstandar.class);
-       startActivity(intent);
+        Log.i("numeroAuditoria"+numeroAuditoria,"numeroActual"+numeroActual);
+
+        Intent intent = new Intent(this, NuevaAreaEstandar.class);
+        intent.putExtra("NUMERO_AUDITORIA", numeroAuditoria);
+        intent.putExtra("NUMERO_ACTUAL", numeroActual);
+        intent.putExtra("AYUDA_VISUAL",GlobalAyudaVisual);
+        intent.putExtra("CODIGO_AYUDA_VISUAL",CodigoAyudaVisual);
+
+        startActivity(intent);
     }
 
 
@@ -716,7 +725,7 @@ public class NuevaAuditoria extends AppCompatActivity {
               for (int i = 0; i < response.length(); i++) {
                     try {
 
-                       String nombre,nombrePregunta,CodigoAyudaVisual,descripcionDelError;
+                       String nombre,nombrePregunta,descripcionDelError;
                         jsonObject = response.getJSONObject(i);
                         // editT.setText(jsonObject.getString("Planta"));
 
