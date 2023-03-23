@@ -220,7 +220,7 @@
                 android:id="@+id/text_vi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿Deseas agregar alguna área al estándar? (Opcional)." />
+                android:text="¿Deseas agregar algo nuevo al estándar? (Opcional)." />
         </LinearLayout>
 
         <RadioGroup

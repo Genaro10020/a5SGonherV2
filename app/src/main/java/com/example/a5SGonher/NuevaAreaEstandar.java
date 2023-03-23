@@ -26,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -39,7 +40,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
     String numeroAuditoria, numeroActual,numeroAnterior,AyudaVisual,CodigoAyudaVisual,respuesta;
     ImageView tomar_foto_area;
     Bitmap bitmapf;
-    EditText comentario;
+    EditText edit_comentario;
     TextView leyenda;
     Button btn_contestar;
     int fotografiaTomada =0;
@@ -50,36 +51,39 @@ public class NuevaAreaEstandar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_area_estandar);
         TextView titulo = findViewById(R.id.titulo_toolbar);
-        comentario = findViewById(R.id.comentario_nueva_area);
+        edit_comentario = findViewById(R.id.comentario_nueva_area);
         btn_contestar = findViewById(R.id.btn_contestar);
         leyenda = findViewById(R.id.leyenda);
         numeroAuditoria = getIntent().getStringExtra("NUMERO_AUDITORIA");
         numeroActual = getIntent().getStringExtra("NUMERO_ACTUAL");
         AyudaVisual = getIntent().getStringExtra("AYUDA_VISUAL");
         CodigoAyudaVisual = getIntent().getStringExtra("CODIGO_AYUDA_VISUAL");
+        respuesta = getIntent().getStringExtra("COMENTARIO");
 
         int myNum2=Integer.parseInt(numeroActual);
         myNum2--;
         numeroAnterior=Integer.toString(myNum2);
 
         titulo.setText("Nueva Área");
+
+        if(!respuesta.isEmpty()){
+                edit_comentario.setText(respuesta);
+        }
         tomar_foto_area = findViewById(R.id.icono_foto_area);
-
-
         tomar_foto_area.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tomarFoto();
             }
         });
-
         final Context context = getApplicationContext();
+        recuperandoImagen();
+
         btn_contestar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 respuesta = comentario.getText().toString();
-                Log.e("Cick", "onClick: ");
-                if (comentario.getText().toString().length() == 0 || fotografiaTomada==0){
+                 respuesta = edit_comentario.getText().toString();
+                if (edit_comentario.getText().toString().length() == 0 || fotografiaTomada==0){
 
                     View mitoast = getLayoutInflater().inflate(R.layout.toast_comentario_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_comentario));
                     TextView text = mitoast.findViewById(R.id.mensaje1);
@@ -90,11 +94,50 @@ public class NuevaAreaEstandar extends AppCompatActivity {
                     toast.setGravity(Gravity.CENTER,0,-400);
                     toast.show();
                 }else{
+
+                    View mitoast = getLayoutInflater().inflate(R.layout.toast_procesando,(ViewGroup)findViewById(R.id.layout_toast_procesando));
+                    Toast toast = new Toast(context);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(mitoast);
+                    toast.setGravity(Gravity.CENTER,0,-400);
+                    toast.show();
                     guardarinformacion("https://vvnorth.com/5sGhoner/ContestarAreaEstandar.php");
                 }
 
+//                ImageView imageView = findViewById(R.id.imageView);
+//                imageView.setImageBitmap(bitmap);
+
             }
         });
+    }
+
+    private void recuperandoImagen(){
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+AyudaVisual+"/"+CodigoAyudaVisual+"/nueva_area_estandar/1.jpeg";
+        ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                leyenda.setText("");
+                ViewGroup.LayoutParams params = tomar_foto_area.getLayoutParams();
+                params.width = 1000;
+                params.height = 1000;
+                tomar_foto_area.setLayoutParams(params);
+                fotografiaTomada = 2;
+                tomar_foto_area.setImageBitmap(response);
+
+                Bitmap bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
+                bitmapf=bitmap;
+
+            }
+        }, 0, 0, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                return;
+            }
+        });
+
+        requestQueue.add(request);
+
     }
 
     public void tomarFoto(){
@@ -112,6 +155,10 @@ public class NuevaAreaEstandar extends AppCompatActivity {
             tomar_foto_area.setImageBitmap(imageBitmap);
             fotografiaTomada = 1;
             leyenda.setText("");
+            ViewGroup.LayoutParams params = tomar_foto_area.getLayoutParams();
+            params.width = 1000;
+            params.height = 1000;
+            tomar_foto_area.setLayoutParams(params);
             //miniatura= ThumbnailUtils.extractThumbnail(imageBitmap, 100, 100);
             //subirImagen(miniatura);
 
@@ -126,13 +173,12 @@ public class NuevaAreaEstandar extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 VolverANuevaAuditoria();
-               // Log.i("Correcto","Bien.");
+                Toast toast = Toast.makeText(getApplicationContext(),"Guardado con Éxito",Toast.LENGTH_SHORT);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString()+"Error :-(", Toast.LENGTH_SHORT).show();
-                //Log.i("Mal",":-(.");
+               // Toast.makeText(getApplicationContext(), error.toString()+"Error :-(", Toast.LENGTH_SHORT).show();
                 VolverANuevaAuditoria();
             }
         })

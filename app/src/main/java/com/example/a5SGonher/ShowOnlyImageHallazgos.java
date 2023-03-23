@@ -83,7 +83,6 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                 //  requestImage(subareaTemportal,nombresNS,"1"  );
                 //  numeroFoto=1;
                 return;
-
             }
         });
         requestQueue.add(imageRequest);
