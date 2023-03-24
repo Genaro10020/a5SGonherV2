@@ -37,13 +37,15 @@
     <ImageView
         android:id="@+id/imageView_Hallazgo"
         android:layout_width="48dp"
-        android:layout_height="39dp"
+        android:layout_height="32dp"
         android:background="@drawable/botones_interregocion"
         app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/Button_Valores"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/radioGroup"
-        app:srcCompat="@drawable/ic_icon_cam" />
+        app:srcCompat="@drawable/ic_img_hallazgos_anteriores"/>
+<!--    app:srcCompat="@drawable/ic_icon_cam"-->
+
 
     <RadioGroup
         android:id="@+id/radioGroup"

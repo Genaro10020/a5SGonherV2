@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -561,6 +564,15 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
                 ImageView imageView = findViewById(R.id.imageView1P);
                 imageView.setImageBitmap(bitmap);
+
+               /* Bitmap imagen = BitmapFactory.decodeResource(getResources(), R.drawable.mi_imagen);
+                // Obtener un objeto Canvas para dibujar la imagen
+                Canvas canvas = new Canvas(imagen);
+                // Dibujar un rectángulo rojo encima de la imagen
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                canvas.drawRect(100, 100, 200, 200, paint);*/
+
                 bitmapf = bitmap;
                 clickenfotoUno=0;
                 fotoVista1=0;

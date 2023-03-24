@@ -50,6 +50,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     String cantidadPreguntas;
     String comentario="";
     String CodigoAyudaVisual="";
+    String seleccionNuevo="";
     //String NumeroImagenes[]= new String[100];
     int masterCount;
 
@@ -161,7 +162,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                 //System.out.println("cantidadcincos: "+cantidadcincos+"NumeroAnterior: "+numeroAnterior+"NumeroAyuda:"+NumeroAyuda+"NumeroPreguntas"+numeroPreguntas+"cantidaPreguntas:"+cantidadPreguntas);
                 int cantidadRealPreguntas=numeroPreguntas-cantidadHallazgos;
                 //comentario = textcomentario[numeroPreguntas-1].getText().toString();
-                //Log.e("a ver","cantidadrealpreguntas"+cantidadRealPreguntas+"cantidad de cincos"+cantidadcincos+"Numero de Preguntas"+numeroPreguntas);
+                //Log.e("SeleccionNuevo",seleccionNuevo);
                 if(cantidadcincos>=cantidadRealPreguntas)
                 {
 
@@ -171,7 +172,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                                 RadioButton radioButton = findViewById(radioId);
                                 String stringI= String.valueOf(i);
                                 String numerPregunta="0"+stringI;
-                                Log.e("Insertando","radio: "+radioButton.getText().toString()+" NumeroPregunta:"+numerPregunta);
+                                //Log.e("Insertando","radio: "+radioButton.getText().toString()+" NumeroPregunta:"+numerPregunta);
                                  ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
                             }
 
@@ -181,7 +182,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                                         RadioButton radioButton = findViewById(radioId);
                                         String numerPregunta = Integer.toString(i+1-cantidadHallazgos);
 
-                                        Log.e("Insertando","radio: "+radioButton.getText().toString()+" NumeroPregunta:"+numerPregunta);
+                                        //Log.e("Insertando","radio: "+radioButton.getText().toString()+" NumeroPregunta:"+numerPregunta);
                                         ejecutarservicio("https://vvnorth.com/5sGhoner/ContestarPreguntas.php",radioButton.getText().toString(),numerPregunta);
                                 }
 
@@ -315,6 +316,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                 parametros.put("NumeroAuditoria",GlobalNumeroAuditoria);
                 parametros.put("NumeroPregunta",NumeroPregunta);
                 parametros.put("AyudaVisual",GlobalAyudaVisual);
+                parametros.put("seleccionNuevo",seleccionNuevo);
                 //parametros.put("Comentario",comentario);
                 //  parametros.put("Cambio",cambio);
 
@@ -524,9 +526,9 @@ public class NuevaAuditoria extends AppCompatActivity {
                         @Override
                         public void onCheckedChanged(RadioGroup radioGroup, int chekedId) {
                             RadioButton radioSeleccionado = findViewById(chekedId);
-                            String string = radioSeleccionado.getText().toString();
-                            Log.i("string",string);
-                            if (string.equals("SI")){
+                            seleccionNuevo = radioSeleccionado.getText().toString();
+                            Log.i("string",seleccionNuevo);
+                            if (seleccionNuevo.equals("SI")){
                                 // Log.i("ENTRE A IF",string);
                                 btnnuevoEstandar[i].setVisibility(View.VISIBLE);
                             }else{
