@@ -3,7 +3,12 @@ package com.example.a5SGonher;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.hardware.Camera;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -45,6 +50,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
     Button btn_contestar;
     int fotografiaTomada =0;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -164,7 +170,27 @@ public class NuevaAreaEstandar extends AppCompatActivity {
 
             tomar_foto_area.setImageURI(data.getData());
             Bitmap bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
+
+
+            // Crear un nuevo bitmap mutable para poder dibujar sobre él
+            Bitmap mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+
+// Crear un nuevo objeto Canvas que permita dibujar sobre el bitmap
+            Canvas canvas = new Canvas(mutableBitmap);
+
+// Configurar las propiedades del pincel para el dibujo
+            Paint paint = new Paint();
+            paint.setColor(Color.RED);
+            paint.setStrokeWidth(5);
+
+// Dibujar una línea en el canvas
+            canvas.drawLine(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
+
+// Mostrar el bitmap modificado en un ImageView
+            tomar_foto_area.setImageBitmap(mutableBitmap);
+            bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
             bitmapf=bitmap;
+
         }
     }
 
@@ -218,7 +244,6 @@ public class NuevaAreaEstandar extends AppCompatActivity {
         intent.putExtra("EXTRA_SESSION_ID5", numeroAnterior);
         startActivity(intent);
     }
-
 
 
 
