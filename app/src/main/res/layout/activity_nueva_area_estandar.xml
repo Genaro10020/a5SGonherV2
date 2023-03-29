@@ -52,6 +52,8 @@
         layout:layout_constraintStart_toStartOf="parent"
         layout:layout_constraintTop_toBottomOf="@+id/textView42" />
 
+
+
     <TextView
         android:id="@+id/leyenda"
         android:layout_width="wrap_content"
@@ -91,5 +93,19 @@
         layout:layout_constraintBottom_toBottomOf="parent"
         layout:layout_constraintEnd_toEndOf="parent"
         layout:srcCompat="@drawable/fondo_pie" />
+
+
+    <com.example.a5SGonher.DrawView
+        android:id="@+id/draw_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        layout:layout_constraintBottom_toBottomOf="@+id/icono_foto_area"
+        layout:layout_constraintEnd_toEndOf="@+id/icono_foto_area"
+        layout:layout_constraintHorizontal_bias="0.487"
+        layout:layout_constraintStart_toStartOf="@+id/icono_foto_area"
+        layout:layout_constraintTop_toBottomOf="@+id/leyenda"
+        layout:layout_constraintVertical_bias="0.518"></com.example.a5SGonher.DrawView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -45,9 +46,11 @@ public class NuevaAreaEstandar extends AppCompatActivity {
     String numeroAuditoria, numeroActual,numeroAnterior,AyudaVisual,CodigoAyudaVisual,respuesta;
     ImageView tomar_foto_area;
     Bitmap bitmapf;
+    Bitmap modifiedBitmap;
     EditText edit_comentario;
     TextView leyenda;
     Button btn_contestar;
+
     int fotografiaTomada =0;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -113,6 +116,29 @@ public class NuevaAreaEstandar extends AppCompatActivity {
 //                ImageView imageView = findViewById(R.id.imageView);
 //                imageView.setImageBitmap(bitmap);
 
+
+                final DrawView drawView = findViewById(R.id.draw_view);
+                drawView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        // Obtener el bitmap modificado
+                        modifiedBitmap = Bitmap.createBitmap(drawView.getDrawingCache());
+
+                        // Guardar el bitmap modificado
+                        // ...
+
+                        return true;
+                    }
+                });
+                drawView.setVisibility(View.VISIBLE);
+                drawView.setDrawingCacheEnabled(true);
+                drawView.setBitmap(modifiedBitmap);
+
+                Bitmap modifiedBitmap = Bitmap.createBitmap(drawView.getDrawingCache());
+                drawView.setDrawingCacheEnabled(false);
+                bitmapf =  modifiedBitmap;
+
+
             }
         });
     }
@@ -133,6 +159,11 @@ public class NuevaAreaEstandar extends AppCompatActivity {
 
                 Bitmap bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
                 bitmapf=bitmap;
+
+               /* DrawView drawView = findViewById(R.id.draw_view);
+                drawView.setVisibility(View.VISIBLE);
+                drawView.setDrawingCacheEnabled(true);
+                drawView.setBitmap(bitmap);*/
 
             }
         }, 0, 0, null, new Response.ErrorListener() {
@@ -172,24 +203,20 @@ public class NuevaAreaEstandar extends AppCompatActivity {
             Bitmap bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
 
 
-            // Crear un nuevo bitmap mutable para poder dibujar sobre él
-            Bitmap mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 
-// Crear un nuevo objeto Canvas que permita dibujar sobre el bitmap
-            Canvas canvas = new Canvas(mutableBitmap);
 
-// Configurar las propiedades del pincel para el dibujo
-            Paint paint = new Paint();
-            paint.setColor(Color.RED);
-            paint.setStrokeWidth(5);
+            DrawView drawView = findViewById(R.id.draw_view);
+            ViewGroup.LayoutParams param = drawView.getLayoutParams();
+            param.width = 1000;
+            param.height = 1000;
+            drawView.setLayoutParams(params);
 
-// Dibujar una línea en el canvas
-            canvas.drawLine(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
-
-// Mostrar el bitmap modificado en un ImageView
-            tomar_foto_area.setImageBitmap(mutableBitmap);
-            bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
+            drawView.setVisibility(View.VISIBLE);
+            drawView.setDrawingCacheEnabled(true);
+            drawView.setBitmap(bitmap);
             bitmapf=bitmap;
+
+
 
         }
     }
