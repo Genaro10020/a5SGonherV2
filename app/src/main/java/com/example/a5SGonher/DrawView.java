@@ -5,89 +5,77 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 
 public class DrawView extends View {
+
     private Bitmap bitmap;
     private Canvas canvas;
     private Paint paint;
-
-    private float downX, downY, upX, upY;
-
-    public DrawView(Context context) {
-        super(context);
-        init();
-    }
+    private Path path;
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
-    }
-
-    public DrawView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
-    }
-
-    private void init() {
         paint = new Paint();
-        paint.setColor(Color.GREEN);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.RED);
         paint.setStrokeWidth(10);
+        paint.setStyle(Paint.Style.STROKE);
+        path = new Path();
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(bitmap);
-        canvas.drawBitmap(bitmap, 0, 0, null);
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        canvas = new Canvas(this.bitmap);
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (bitmap != null) {
+            Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+            Rect dstRect = new Rect(0, 0, getWidth(), getHeight());
 
-        canvas.drawBitmap(bitmap, 0, 0, null);
+            canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+            canvas.drawPath(path, paint);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                downX = event.getX();
-                downY = event.getY();
-                return true;
+                path.moveTo(x, y);
+                break;
             case MotionEvent.ACTION_MOVE:
-                upX = event.getX();
-                upY = event.getY();
-                canvas.drawLine(downX, downY, upX, upY, paint);
-                downX = upX;
-                downY = upY;
-                invalidate();
+                path.lineTo(x, y);
                 break;
             case MotionEvent.ACTION_UP:
-                upX = event.getX();
-                upY = event.getY();
-                canvas.drawLine(downX, downY, upX, upY, paint);
-                invalidate();
+                canvas.drawPath(path, paint);
+                path.reset();
                 break;
             default:
                 return false;
         }
 
+        invalidate();
         return true;
     }
 
-    public void setBitmap(Bitmap bitmap) {
 
-    }
+   public Bitmap getBitmap() {
 
-    public Bitmap getBitmap() {
+        canvas.drawPath(path, paint);
         return bitmap;
     }
+
+
 }

@@ -100,6 +100,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:visibility="gone"
+        android:background="@drawable/rectangulo"
         layout:layout_constraintBottom_toBottomOf="@+id/icono_foto_area"
         layout:layout_constraintEnd_toEndOf="@+id/icono_foto_area"
         layout:layout_constraintHorizontal_bias="0.487"

@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.hardware.Camera;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
@@ -39,6 +40,9 @@ import com.android.volley.toolbox.Volley;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +54,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
     EditText edit_comentario;
     TextView leyenda;
     Button btn_contestar;
+    DrawView drawView;
 
     int fotografiaTomada =0;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -60,6 +65,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_area_estandar);
         TextView titulo = findViewById(R.id.titulo_toolbar);
+        drawView = findViewById(R.id.draw_view);
         edit_comentario = findViewById(R.id.comentario_nueva_area);
         btn_contestar = findViewById(R.id.btn_contestar);
         leyenda = findViewById(R.id.leyenda);
@@ -112,31 +118,6 @@ public class NuevaAreaEstandar extends AppCompatActivity {
                     toast.show();
                     guardarinformacion("https://vvnorth.com/5sGhoner/ContestarAreaEstandar.php");
                 }
-
-//                ImageView imageView = findViewById(R.id.imageView);
-//                imageView.setImageBitmap(bitmap);
-
-
-                final DrawView drawView = findViewById(R.id.draw_view);
-                drawView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        // Obtener el bitmap modificado
-                        modifiedBitmap = Bitmap.createBitmap(drawView.getDrawingCache());
-
-                        // Guardar el bitmap modificado
-                        // ...
-
-                        return true;
-                    }
-                });
-                drawView.setVisibility(View.VISIBLE);
-                drawView.setDrawingCacheEnabled(true);
-                drawView.setBitmap(modifiedBitmap);
-
-                Bitmap modifiedBitmap = Bitmap.createBitmap(drawView.getDrawingCache());
-                drawView.setDrawingCacheEnabled(false);
-                bitmapf =  modifiedBitmap;
 
 
             }
@@ -192,30 +173,26 @@ public class NuevaAreaEstandar extends AppCompatActivity {
             tomar_foto_area.setImageBitmap(imageBitmap);
             fotografiaTomada = 1;
             leyenda.setText("");
-            ViewGroup.LayoutParams params = tomar_foto_area.getLayoutParams();
+            /*ViewGroup.LayoutParams params = tomar_foto_area.getLayoutParams();
             params.width = 1000;
             params.height = 1000;
-            tomar_foto_area.setLayoutParams(params);
-            //miniatura= ThumbnailUtils.extractThumbnail(imageBitmap, 100, 100);
-            //subirImagen(miniatura);
+            tomar_foto_area.setLayoutParams(params);*/
+
 
             tomar_foto_area.setImageURI(data.getData());
+
             Bitmap bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
-
-
-
-
-            DrawView drawView = findViewById(R.id.draw_view);
+            /*int newWidth = 500; // nuevo ancho en píxeles
+            int newHeight = 500; // nuevo alto en píxeles
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);*/
             ViewGroup.LayoutParams param = drawView.getLayoutParams();
             param.width = 1000;
             param.height = 1000;
-            drawView.setLayoutParams(params);
 
+            drawView.setLayoutParams(param);
             drawView.setVisibility(View.VISIBLE);
-            drawView.setDrawingCacheEnabled(true);
             drawView.setBitmap(bitmap);
-            bitmapf=bitmap;
-
+            bitmapf=drawView.getBitmap();
 
 
         }
