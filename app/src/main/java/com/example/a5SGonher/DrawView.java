@@ -19,6 +19,7 @@ public class DrawView extends View {
     private Paint paint;
     private Path path;
 
+
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
@@ -26,12 +27,15 @@ public class DrawView extends View {
         paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
         path = new Path();
+
     }
 
     public void setBitmap(Bitmap bitmap) {
+
         this.bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         canvas = new Canvas(this.bitmap);
         invalidate();
+
     }
 
     @Override
@@ -39,7 +43,7 @@ public class DrawView extends View {
         super.onDraw(canvas);
         if (bitmap != null) {
             Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-            Rect dstRect = new Rect(0, 0, getWidth(), getHeight());
+            Rect dstRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 
             canvas.drawBitmap(bitmap, srcRect, dstRect, null);
             canvas.drawPath(path, paint);

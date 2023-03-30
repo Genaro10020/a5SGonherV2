@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
 
     int fotografiaTomada =0;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+
 
 
     @Override
@@ -125,6 +127,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
     }
 
     private void recuperandoImagen(){
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "https://vvnorth.com/5sGhoner/FotosAuditorias/"+numeroAuditoria+"/"+AyudaVisual+"/"+CodigoAyudaVisual+"/nueva_area_estandar/1.jpeg";
         ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
@@ -139,6 +142,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
                 tomar_foto_area.setImageBitmap(response);
 
                 Bitmap bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
+
                 bitmapf=bitmap;
 
                /* DrawView drawView = findViewById(R.id.draw_view);
@@ -170,25 +174,20 @@ public class NuevaAreaEstandar extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            tomar_foto_area.setImageBitmap(imageBitmap);
+
+            int newWidth = 1000;
+            int newHeight = 1000;;
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, newWidth, newHeight, false);
+
+            tomar_foto_area.setImageBitmap(resizedBitmap);
             fotografiaTomada = 1;
             leyenda.setText("");
-            /*ViewGroup.LayoutParams params = tomar_foto_area.getLayoutParams();
-            params.width = 1000;
-            params.height = 1000;
-            tomar_foto_area.setLayoutParams(params);*/
-
-
             tomar_foto_area.setImageURI(data.getData());
 
             Bitmap bitmap = ((BitmapDrawable)tomar_foto_area.getDrawable()).getBitmap();
-            /*int newWidth = 500; // nuevo ancho en píxeles
-            int newHeight = 500; // nuevo alto en píxeles
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);*/
             ViewGroup.LayoutParams param = drawView.getLayoutParams();
             param.width = 1000;
             param.height = 1000;
-
             drawView.setLayoutParams(param);
             drawView.setVisibility(View.VISIBLE);
             drawView.setBitmap(bitmap);
@@ -235,7 +234,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
 
     private String imageToString(Bitmap bitmapf) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmapf.compress(Bitmap.CompressFormat.JPEG,20, outputStream);
+        bitmapf.compress(Bitmap.CompressFormat.JPEG,100, outputStream);
         byte[] imageBytes= outputStream.toByteArray();
         String encodeImage= Base64.encodeToString(imageBytes,Base64.DEFAULT);
         return encodeImage;
