@@ -58,6 +58,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     TextView Pregunta,textofotouno,textofotodos,textofototres,textofotocuatro;
     EditText Razon;
     Bitmap bitmapf,bitmapf2,bitmapf3,bitmapf4,bitmapf5,bitmapf6;
+    DrawView drawView;
     int numberPhoto=0,fotografiaTomada=0,fotografiasVisualizadas=0,cantidadimg=0,fotonumero=0,clickenfotoUno=0,clickenfotoDos=0,clickenfotoTres=0,clickenfotoCuatro=0,
             tomadafotoUno=0,tomadafotoDos=0,tomadafotoTres=0,tomadafotoCuatro=0, fotoVista1=0, fotoVista2=0, fotoVista3=0,fotoVista4=0;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
@@ -88,12 +89,13 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
          imageView2=(ImageView)findViewById(R.id.imageView1P2);
          imageView3=(ImageView)findViewById(R.id.imageView1P3);
          imageView4=(ImageView)findViewById(R.id.imageView1P4);
-         imageView5=(ImageView)findViewById(R.id.imageView1P5);
-         imageView6=(ImageView)findViewById(R.id.imageView1P6);
+         //imageView5=(ImageView)findViewById(R.id.imageView1P5);
+         //imageView6=(ImageView)findViewById(R.id.imageView1P6);
         textofotouno =(TextView) findViewById(R.id.textophoto1);
         textofotodos =(TextView)findViewById(R.id.textophoto2);
         textofototres=(TextView)findViewById(R.id.textophoto3);
         textofotocuatro=(TextView)findViewById(R.id.textophoto4);
+        drawView = findViewById(R.id.EspacioCanva);
 
        // Toast.makeText(getApplicationContext(), nombreAyuda, Toast.LENGTH_SHORT).show();
            Log.e("","CANTIDAD DE IMAGENES DESDE BD:"+cantidaddeimagenes) ;

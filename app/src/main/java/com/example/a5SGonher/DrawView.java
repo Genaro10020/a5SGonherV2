@@ -23,7 +23,7 @@ public class DrawView extends View {
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
-        paint.setColor(Color.RED);
+        paint.setColor(Color.GREEN);
         paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
         path = new Path();
