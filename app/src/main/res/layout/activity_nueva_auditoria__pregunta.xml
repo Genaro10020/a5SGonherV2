@@ -220,7 +220,39 @@
     </ScrollView>-->
 
 
+    <ImageView
+        android:id="@+id/icono_lienzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/mensaje_lienzo"
+        app:layout_constraintEnd_toStartOf="@+id/mensaje_lienzo"
+        app:layout_constraintTop_toTopOf="@+id/mensaje_lienzo"
+        app:srcCompat="@drawable/ic_lienzo" />
 
+    <TextView
+        android:id="@+id/mensaje_lienzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Puedes marcar sobre la Imagen."
+        android:textColor="#009688"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/EspacioCanva"
+        app:layout_constraintEnd_toEndOf="@+id/EspacioCanva"
+        app:layout_constraintStart_toStartOf="@+id/EspacioCanva" />
+
+
+    <com.example.a5SGonher.DrawView
+        android:id="@+id/EspacioCanva"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/Button_Contestar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.679" />
 
     <Button
         android:id="@+id/Button_Contestar"
@@ -236,6 +268,24 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView1P4" />
 
 
+    <Button
+        android:id="@+id/btn_lienzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/boton_entrar"
+        android:text="Listo"
+        android:textColor="#E6E6E0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/espereguardando"
+        app:layout_constraintEnd_toEndOf="@+id/EspacioCanva"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/EspacioCanva"
+        app:layout_constraintTop_toBottomOf="@+id/EspacioCanva"
+        app:layout_constraintVertical_bias="0.0">
+
+    </Button>
+
     <ImageView
         android:id="@+id/imageView15"
         android:layout_width="100dp"
@@ -243,18 +293,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/fondo_pie" />
-
-
-    <com.example.a5SGonher.DrawView
-        android:id="@+id/EspacioCanva"
-        android:layout_width="wrap_content"
-        android:layout_height="350dp"
-        android:background="@drawable/rectangulo"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/Button_Contestar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
 
 
 

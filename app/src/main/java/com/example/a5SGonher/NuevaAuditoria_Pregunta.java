@@ -54,11 +54,12 @@ import java.util.Map;
 public class NuevaAuditoria_Pregunta extends AppCompatActivity implements DialogOptions2.DialogOptions1Listener{
     String [] guardandorespuestas  = new String[6];
     String nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas,numeroAnteriorAuditoria,textoHallazgo, cantidaddeimagenes;
-    Button BotonTerminar;
-    TextView Pregunta,textofotouno,textofotodos,textofototres,textofotocuatro;
+    Button BotonTerminar,btn_lienzo;
+    TextView Pregunta,textofotouno,textofotodos,textofototres,textofotocuatro,mensaje_lienzo;
     EditText Razon;
     Bitmap bitmapf,bitmapf2,bitmapf3,bitmapf4,bitmapf5,bitmapf6;
     DrawView drawView;
+    ImageView icono_liezo;
     int numberPhoto=0,fotografiaTomada=0,fotografiasVisualizadas=0,cantidadimg=0,fotonumero=0,clickenfotoUno=0,clickenfotoDos=0,clickenfotoTres=0,clickenfotoCuatro=0,
             tomadafotoUno=0,tomadafotoDos=0,tomadafotoTres=0,tomadafotoCuatro=0, fotoVista1=0, fotoVista2=0, fotoVista3=0,fotoVista4=0;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
@@ -74,6 +75,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         TextView titulobarra = (TextView)findViewById(R.id.titulo_toolbar);
         final TextView espereguardando = (TextView)findViewById(R.id.espereguardando);
         titulobarra.setText("Evidencia");
+        drawView = (DrawView)findViewById(R.id.EspacioCanva);
         nombrePregunta = getIntent().getStringExtra("EXTRA_SESSION_ID");
         numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID2");
         nombreAyuda = getIntent().getStringExtra("EXTRA_SESSION_ID3");
@@ -85,6 +87,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         BotonTerminar=(Button) findViewById(R.id.Button_Contestar);
         Pregunta=(TextView) findViewById(R.id.textView_Pregunta);
         Razon=(EditText) findViewById(R.id.editTextTextMultiLine);
+        mensaje_lienzo = (TextView)findViewById(R.id.mensaje_lienzo);
         imageView1=(ImageView)findViewById(R.id.imageView1P);
          imageView2=(ImageView)findViewById(R.id.imageView1P2);
          imageView3=(ImageView)findViewById(R.id.imageView1P3);
@@ -96,6 +99,8 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         textofototres=(TextView)findViewById(R.id.textophoto3);
         textofotocuatro=(TextView)findViewById(R.id.textophoto4);
         drawView = findViewById(R.id.EspacioCanva);
+        btn_lienzo = (Button)findViewById(R.id.btn_lienzo);
+        icono_liezo = (ImageView)findViewById(R.id.icono_lienzo);
 
        // Toast.makeText(getApplicationContext(), nombreAyuda, Toast.LENGTH_SHORT).show();
            Log.e("","CANTIDAD DE IMAGENES DESDE BD:"+cantidaddeimagenes) ;
@@ -554,9 +559,14 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             else{  numberPhoto++; }
              sNumberPhoto= String.valueOf(numberPhoto);*/
 
+
+
             if(clickenfotoUno==1) {
                 textofotouno.setText("Capturada.");
                 textofotodos.setVisibility(View.VISIBLE);
+
+
+
                 Log.e("fotovista2",":"+fotoVista2);
                 if (fotoVista2!=1){
                     //imageView2.setImageResource(R.drawable.ic_camara_evidencia);
@@ -564,18 +574,20 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 }
                 Log.e("ENTRE","click1");
                 fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
-                ImageView imageView = findViewById(R.id.imageView1P);
-                imageView.setImageBitmap(bitmap);
+                //ImageView imageView = findViewById(R.id.imageView1P);
+                imageView1.setImageBitmap(bitmap);
+                ///////
 
-               /* Bitmap imagen = BitmapFactory.decodeResource(getResources(), R.drawable.mi_imagen);
-                // Obtener un objeto Canvas para dibujar la imagen
-                Canvas canvas = new Canvas(imagen);
-                // Dibujar un rectángulo rojo encima de la imagen
-                Paint paint = new Paint();
-                paint.setColor(Color.RED);
-                canvas.drawRect(100, 100, 200, 200, paint);*/
+                        Bitmap bitmapt = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
+                        ViewGroup.LayoutParams param = drawView.getLayoutParams();
+                        param.width = 1000;
+                        param.height = 1000;
+                        drawView.setVisibility(View.VISIBLE);
+                        drawView.setBitmap(bitmapt);
+                        bitmapf = drawView.getBitmap();
+                        imageView1.setImageBitmap(bitmapf);
 
-                bitmapf = bitmap;
+                //bitmapf = bitmap; cuando no existia el lienzo
                 clickenfotoUno=0;
                 fotoVista1=0;
                 tomadafotoUno=1;
@@ -591,9 +603,17 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 }
                 Log.e("ENTRE","click2");
                 fotografiaTomada=1;
-                ImageView imageView = findViewById(R.id.imageView1P2);
-                imageView.setImageBitmap(bitmap);
-                bitmapf2 = bitmap;
+                //imageView2 = findViewById(R.id.imageView1P2);
+                imageView2.setImageBitmap(bitmap);
+                Bitmap bitmapt = ((BitmapDrawable)imageView2.getDrawable()).getBitmap();
+                ViewGroup.LayoutParams param = drawView.getLayoutParams();
+                param.width = 1000;
+                param.height = 1000;
+                drawView.setVisibility(View.VISIBLE);
+                drawView.setBitmap(bitmapt);
+                bitmapf2 = drawView.getBitmap();
+                imageView2.setImageBitmap(bitmapf2);
+                //bitmapf2 = bitmap;
                 clickenfotoDos=0;
                 fotoVista2=0;
                 tomadafotoDos=1;
@@ -610,9 +630,21 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 Log.e("ENTRE","click3");
                 fotografiaTomada=1;
                 //fotoTres=1;
-                ImageView imageView = findViewById(R.id.imageView1P3);
-                imageView.setImageBitmap(bitmap);
-                bitmapf3 = bitmap;
+                //imageView3 = findViewById(R.id.imageView1P3);
+                imageView3.setImageBitmap(bitmap);
+
+                Bitmap bitmapt = ((BitmapDrawable)imageView3.getDrawable()).getBitmap();
+                ViewGroup.LayoutParams param = drawView.getLayoutParams();
+                param.width = 1000;
+                param.height = 1000;
+                drawView.setVisibility(View.VISIBLE);
+                drawView.setBitmap(bitmapt);
+                bitmapf3 = drawView.getBitmap();
+                imageView3.setImageBitmap(bitmapf3);
+                /////
+
+
+                //bitmapf3 = bitmap;
                 clickenfotoTres=0;
                 fotoVista3=0;
                 tomadafotoTres=1;
@@ -624,40 +656,75 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 Log.e("ENTRE","click4");
                 fotografiaTomada=1;
                 //fotoTres=1;
-                ImageView imageView = findViewById(R.id.imageView1P4);
-                imageView.setImageBitmap(bitmap);
-                bitmapf4 = bitmap;
+                //imageView4 = findViewById(R.id.imageView1P4);
+                imageView4.setImageBitmap(bitmap);
+
+                Bitmap bitmapt = ((BitmapDrawable)imageView4.getDrawable()).getBitmap();
+                ViewGroup.LayoutParams param = drawView.getLayoutParams();
+                param.width = 1000;
+                param.height = 1000;
+                drawView.setVisibility(View.VISIBLE);
+                drawView.setBitmap(bitmapt);
+                bitmapf4 = drawView.getBitmap();
+                imageView4.setImageBitmap(bitmapf4);
+                /////
+
+                //bitmapf4 = bitmap;
                 clickenfotoCuatro=0;
                 fotoVista4=0;
                 tomadafotoCuatro=1;
             }
 
-          /* if(sNumberPhoto.equals("5")) {
-                fotografiaTomada=1;
-                ImageView imageView = findViewById(R.id.imageView1P5);
-                imageView.setImageBitmap(bitmap);
-                bitmapf5 = bitmap;
-            }
+            icono_liezo.setVisibility(View.VISIBLE);
+            BotonTerminar.setVisibility(View.GONE);
+            mensaje_lienzo.setVisibility(View.VISIBLE);
+            btn_lienzo.setVisibility(View.VISIBLE);
+            Pregunta.setVisibility(View.GONE);
+            Razon.setVisibility(View.GONE);
+            textofotouno.setVisibility(View.GONE);
+            textofotodos.setVisibility(View.GONE);
+            textofototres.setVisibility(View.GONE);
+            textofotocuatro.setVisibility(View.GONE);
+            imageView1.setVisibility(View.GONE);
+            imageView2.setVisibility(View.GONE);
+            imageView3.setVisibility(View.GONE);
+            imageView4.setVisibility(View.GONE);
 
-            if(sNumberPhoto.equals("6")) {
-                fotografiaTomada=1;
-                ImageView imageView = findViewById(R.id.imageView1P6);
-                imageView.setImageBitmap(bitmap);
-                bitmapf6 = bitmap;
-            }*/
+            btn_lienzo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    drawView.setVisibility(View.GONE);
+                    btn_lienzo.setVisibility(View.GONE);
+                    icono_liezo.setVisibility(View.GONE);
+                    mensaje_lienzo.setVisibility(View.GONE);
+                    Pregunta.setVisibility(View.VISIBLE);
+                    Razon.setVisibility(View.VISIBLE);
+                    textofotouno.setVisibility(View.VISIBLE);
+                    textofotodos.setVisibility(View.VISIBLE);
+                    textofototres.setVisibility(View.VISIBLE);
+                    textofotocuatro.setVisibility(View.VISIBLE);
+                    imageView1.setVisibility(View.VISIBLE);
+                    imageView2.setVisibility(View.VISIBLE);
+                    imageView3.setVisibility(View.VISIBLE);
+                    imageView4.setVisibility(View.VISIBLE);
+                    BotonTerminar.setVisibility(View.VISIBLE);
+                }
+            });
+
 
         }
 
 
-        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-//set image to image view
+        /*if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            //set image to image view
             imageView1.setImageURI(data.getData());
             Bitmap bitmap = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
 
             bitmapf=bitmap;
 
 
-        }
+        }*/
 
 
     }
