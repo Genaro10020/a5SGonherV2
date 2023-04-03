@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -550,7 +551,21 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
 
         if(requestCode==1 && resultCode == RESULT_OK)
         {
+
+
             Bitmap bitmap= BitmapFactory.decodeFile(currentPhotoPath);
+
+            // Create a matrix for the rotation
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+
+// Rotate the bitmap
+            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+
+            int newWidth = 1000;
+            int newHeight = 1000;;
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(rotatedBitmap, newWidth, newHeight, false);
 
            /* String sNumberPhoto= String.valueOf(numberPhoto);
             if(sNumberPhoto.equals("3")) {
@@ -575,7 +590,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 Log.e("ENTRE","click1");
                 fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
                 //ImageView imageView = findViewById(R.id.imageView1P);
-                imageView1.setImageBitmap(bitmap);
+                imageView1.setImageBitmap(resizedBitmap);
                 ///////
 
                         Bitmap bitmapt = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
@@ -604,7 +619,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 Log.e("ENTRE","click2");
                 fotografiaTomada=1;
                 //imageView2 = findViewById(R.id.imageView1P2);
-                imageView2.setImageBitmap(bitmap);
+                imageView2.setImageBitmap(resizedBitmap);
                 Bitmap bitmapt = ((BitmapDrawable)imageView2.getDrawable()).getBitmap();
                 ViewGroup.LayoutParams param = drawView.getLayoutParams();
                 param.width = 1000;
@@ -631,7 +646,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 fotografiaTomada=1;
                 //fotoTres=1;
                 //imageView3 = findViewById(R.id.imageView1P3);
-                imageView3.setImageBitmap(bitmap);
+                imageView3.setImageBitmap(resizedBitmap);
 
                 Bitmap bitmapt = ((BitmapDrawable)imageView3.getDrawable()).getBitmap();
                 ViewGroup.LayoutParams param = drawView.getLayoutParams();
@@ -657,7 +672,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 fotografiaTomada=1;
                 //fotoTres=1;
                 //imageView4 = findViewById(R.id.imageView1P4);
-                imageView4.setImageBitmap(bitmap);
+                imageView4.setImageBitmap(resizedBitmap);
 
                 Bitmap bitmapt = ((BitmapDrawable)imageView4.getDrawable()).getBitmap();
                 ViewGroup.LayoutParams param = drawView.getLayoutParams();
