@@ -62,8 +62,8 @@ public class NuevaAreaEstandar extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_area_estandar);
         TextView titulo = findViewById(R.id.titulo_toolbar);
@@ -212,7 +212,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
             }
         })
         {
-            @Override
+
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String, String>();
                 String imageData= imageToString(bitmapf);
