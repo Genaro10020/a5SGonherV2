@@ -3,11 +3,14 @@ package com.example.a5SGonher;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,12 +29,20 @@ import org.json.JSONObject;
 public class AgregarArea extends AppCompatActivity {
     RequestQueue requestQueue;
     TextView tView, titulo_barra;
+    String numeroNomina;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
        final String nombrePlanta = getIntent().getStringExtra("EXTRA_SESSION_ID");
+        //numeroNomina = getIntent().getStringExtra("NUMERO_NOMINA_AUDITOR");
+
+        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        numeroNomina = preferences.getString("NumeroNomina", "No existe número de nómina");
+
+
+
         setContentView(R.layout.activity_agregar_area);
         tView=(TextView)findViewById(R.id.textViewArea);
         tView.setText("Planta: "+nombrePlanta+" / Seleccione Área");
@@ -39,7 +50,7 @@ public class AgregarArea extends AppCompatActivity {
         titulo_barra.setText("Crear Auditoría");
 
 
-       buscarProducto("https://vvnorth.com/buscar_area.php?Planta="+nombrePlanta +"",nombrePlanta);
+       buscarProducto("https://vvnorth.com/buscar_area.php?Nomina="+numeroNomina+"&Planta="+nombrePlanta+"",nombrePlanta);
     }
     @Override
     public void onBackPressed() {
@@ -68,11 +79,11 @@ public class AgregarArea extends AppCompatActivity {
         startActivity(intent);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void boton(final String nombreBoton, int numeroEmpresa, final String nombrePlanta)
+    public void boton(final String nombreArea, int numeroEmpresa, final String nombrePlanta)
     {
         Button myButton3 = new Button(this);
 
-        myButton3.setText(nombreBoton);
+        myButton3.setText(nombreArea);
 
         LinearLayout ll3 = (LinearLayout)findViewById(R.id.layoutArea);
         LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -91,7 +102,7 @@ public class AgregarArea extends AppCompatActivity {
             // String NomPlanta =nFinal;
             public void onClick(View view) {
 
-                agregarS(nombrePlanta,nombreBoton);
+                agregarS(nombrePlanta,nombreArea);
 
             }
         });
@@ -101,8 +112,12 @@ public class AgregarArea extends AppCompatActivity {
         Intent intent =new Intent(this,AgregarSubarea.class);
         intent.putExtra("EXTRA_SESSION_ID2", nArea);
         intent.putExtra("EXTRA_SESSION_ID", nombrePlanta);
+        intent.putExtra("NUMERO_NOMINA_AUDITOR",numeroNomina);
+
         startActivity(intent);
     }
+
+
     private void buscarProducto(String URL,final String nombrePlanta)
     {
 
@@ -113,11 +128,12 @@ public class AgregarArea extends AppCompatActivity {
                 JSONObject jsonObject = null;
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        String nombre;
+                        String area;
                         jsonObject = response.getJSONObject(i);
+                        Log.e("Consultado","Areas: "+response);
                         // editT.setText(jsonObject.getString("Planta"));
-                        nombre=jsonObject.getString("NombreArea");
-                       boton(nombre,i,nombrePlanta);
+                        area=jsonObject.getString("Area");
+                       boton(area,i,nombrePlanta);
 
 
                     } catch (JSONException e) {

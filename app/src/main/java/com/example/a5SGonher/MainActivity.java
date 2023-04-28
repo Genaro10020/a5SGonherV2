@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,7 +92,7 @@ public void comparacion()
     }
 
     //Guardando informacion incial
-    private void guardarPreferencias(String Rol, String nombreAuditor)
+    private void guardarPreferencias(String Rol, String nombreAuditor, String numeroNomina)
     {
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         String Usuario=edtNombre.getText().toString();
@@ -100,6 +101,7 @@ public void comparacion()
 
         editor.putString("User", Usuario);
         editor.putString("Rol", Rol);
+        editor.putString("NumeroNomina",numeroNomina);
         editor.putString("NombreAuditor", nombreAuditor);
         editor.putInt("Conected", 1);
         editor.commit();
@@ -127,16 +129,17 @@ public void comparacion()
                 JSONObject jsonObject = null;
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        String nombre;
+                        String numeroNomina;
                         String password;
                         String rol;
                         String nombreAuditor;// Genaro
 
                         jsonObject = response.getJSONObject(i);
+                       //Log.e("LoginResputa",""+response);
                         // editT.setText(jsonObject.getString("Planta"));
                         nombreAuditor=jsonObject.getString("NombreAuditor");
-                        nombre=jsonObject.getString("auditor");
                         password=jsonObject.getString("Password");
+                        numeroNomina=jsonObject.getString("auditor");
                         rol=jsonObject.getString("Rol");
 
 
@@ -144,7 +147,7 @@ public void comparacion()
                                 {
 
                                  // Toast.makeText(getApplicationContext(),nombreAuditor,Toast.LENGTH_SHORT).show();
-                                    guardarPreferencias(rol,nombreAuditor);
+                                    guardarPreferencias(rol,nombreAuditor,numeroNomina);
                                     openActivity2();
 
                                 }

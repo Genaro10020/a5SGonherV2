@@ -3,11 +3,14 @@ package com.example.a5SGonher;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -35,13 +38,22 @@ public class AgregarSubarea extends AppCompatActivity {
     TextView tView,tView2,titulo_toolbar;
     String nombrePlanta2;
     String nombreArea2;
+    String numeroNomina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_subarea);
+
+
+
         final String nombrePlanta = getIntent().getStringExtra("EXTRA_SESSION_ID");
         final String nombreArea = getIntent().getStringExtra("EXTRA_SESSION_ID2");
+
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        numeroNomina = preferences.getString("NumeroNomina","No existe Número de nómina");
+
+
         tView=(TextView)findViewById(R.id.textvSPlanta);
         titulo_toolbar =(TextView)findViewById(R.id.titulo_toolbar);
         titulo_toolbar.setText("Crear Auditoría");
@@ -49,7 +61,7 @@ public class AgregarSubarea extends AppCompatActivity {
          nombreArea2=nombreArea;
 
         tView.setText("Planta: "+nombrePlanta+" / "+nombreArea+" / Seleccione SubÁrea");
-        buscarProducto("https://vvnorth.com/buscar_subarea.php?area="+nombreArea +"&planta="+ nombrePlanta+"" ,nombrePlanta,nombreArea);
+        buscarProducto("https://vvnorth.com/buscar_subarea.php?area="+nombreArea +"&planta="+ nombrePlanta+"&nomina="+numeroNomina,nombrePlanta,nombreArea);
 
     }
     @Override
@@ -88,6 +100,7 @@ public class AgregarSubarea extends AppCompatActivity {
                     try {
                         String nombre;
                         jsonObject = response.getJSONObject(i);
+                        Log.e("SubAreas",":"+response);
                         // editT.setText(jsonObject.getString("Planta"));
                         nombre=jsonObject.getString("SubArea");
                         boton(nombre,i,nombrePlanta,nombreArea);

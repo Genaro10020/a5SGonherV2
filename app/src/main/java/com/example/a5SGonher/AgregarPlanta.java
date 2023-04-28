@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,10 +19,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -29,6 +34,9 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
+import java.sql.CallableStatement;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AgregarPlanta extends AppCompatActivity {
 
@@ -39,6 +47,10 @@ public class AgregarPlanta extends AppCompatActivity {
    // Button myButton3 = new Button(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        String numeroNomina = preferences.getString("NumeroNomina", "No existe número de nómina");
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_planta);
@@ -53,6 +65,8 @@ public class AgregarPlanta extends AppCompatActivity {
         ServerName=globalClass.getName();
         leyandaplanta = (TextView)findViewById(R.id.textViewPlanta);
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////
@@ -60,7 +74,7 @@ public class AgregarPlanta extends AppCompatActivity {
 
 
 
-        buscarProducto(ServerName+"/buscar_empresa.php");
+        buscarProducto(ServerName+"/buscar_empresa.php",numeroNomina);
 
         //////////////////////////////
     }
@@ -81,7 +95,7 @@ public class AgregarPlanta extends AppCompatActivity {
     //Nota esta linea se requier para que funcione la fuente personalizada llamada fuenteitems,
     //hay otra en metodo buscarProducto puede eliminar la lineas y la fuente fuenteitems.
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void boton(final String nombreBoton, int numeroEmpresa)
+    public void boton(final String nombreBoton, final String numeroNomina)
     {
         Button myButton3 = new Button(this);
         myButton3.setText(nombreBoton);
@@ -103,7 +117,7 @@ public class AgregarPlanta extends AppCompatActivity {
           // String NomPlanta =nFinal;
             public void onClick(View view) {
 
-               agregarArea(nombreBoton);
+               agregarArea(nombreBoton,numeroNomina);
 
             }
         });
@@ -119,10 +133,11 @@ public class AgregarPlanta extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void agregarArea(String nombrePlanta)
+    public void agregarArea(String nombrePlanta,String numeroNomina)
     {
         Intent intent =new Intent(this,AgregarArea.class);
         intent.putExtra("EXTRA_SESSION_ID", nombrePlanta);
+        intent.putExtra("NUMERO_NOMINA_AUDITOR", numeroNomina);
         startActivity(intent);
     }
 
@@ -133,26 +148,29 @@ public class AgregarPlanta extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void buscarProducto(String URL)
+    private void buscarProducto(String URL, final String numeroNomina)
     {
-        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+        StringRequest jsonArrayRequest= new StringRequest(Request.Method.POST,URL, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        String nombre;
-                        jsonObject = response.getJSONObject(i);
-                       // editT.setText(jsonObject.getString("Planta"));
-                        nombre=jsonObject.getString("Planta");
-                        boton(nombre,i);
 
+            public void onResponse(String response) {
+               //Log.e("Consultado Plantas","Planta"+response);
 
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                try {
+                    JSONArray arrayRespuesta = new JSONArray(response);
+                     for (int i = 0; i < arrayRespuesta.length(); i++) {
+                         JSONObject jsonObjectPlantas = arrayRespuesta.getJSONObject(i);
+
+                        String planta = jsonObjectPlantas.getString("Planta");
+                        boton(planta, numeroNomina);
                     }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -160,7 +178,14 @@ public class AgregarPlanta extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"ERRO DE CONEXION",Toast.LENGTH_SHORT).show();
             }
         }
-        );
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("NumeroNomina", numeroNomina);
+                return params;
+            }
+        };
         requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
