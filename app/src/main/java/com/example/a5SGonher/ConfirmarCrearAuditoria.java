@@ -2,8 +2,11 @@ package com.example.a5SGonher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfirmarCrearAuditoria extends AppCompatActivity {
+    String numeroNomina;
 
 
     @Override
@@ -30,6 +34,10 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
         TextView dato = (TextView)findViewById(R.id.mostrandoR);
         final String recibiendosubArea = getIntent().getStringExtra("subArea");
         dato.setText("Crear auditoría en "+recibiendosubArea+" ?");
+
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        numeroNomina = preferences.getString("NumeroNomina","No existe Número de nómina");
+        Log.e("Numoer",":"+numeroNomina);
 
         TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
         titulo.setText("Crear Auditoría");
@@ -69,6 +77,7 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String,String> parametros =new HashMap<String,String>();
                     parametros.put("NombreSubArea",recibiendosubArea);
+                    parametros.put("NumeroNomina",numeroNomina);
                     return parametros;
                 }
             };
