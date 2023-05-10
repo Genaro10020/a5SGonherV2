@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnAgregar2;
     RequestQueue requestQueue;
     TextView tView,tView2;
+    int selectedId ;
+    String planta_seleccionada;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +42,50 @@ public class MainActivity extends AppCompatActivity {
         GlobalClass globalClass =(GlobalClass)getApplicationContext();
       //  TextView name=findViewById(R.id.mensaje2);
 
+
         btnAgregar2=(Button) findViewById(R.id.btnAgregarInicio);
         edtNombre=(EditText)findViewById(R.id.NombreLog);
         edtPassword=(EditText)findViewById(R.id.ClaveLog);
 
-      // name.setText(globalClass.getName());
-     //   tView=(TextView)findViewById(R.id.textViewrol1);
+        RadioGroup tipoPlanta = findViewById(R.id.tipo_planta);
+        RadioButton enerya_riasa = findViewById(R.id.option_1);
+        RadioButton filtros = findViewById(R.id.option_2);
 
+        // Obtener el ID del RadioButton seleccionado por defecto
+        int checkedButtonId = tipoPlanta.getCheckedRadioButtonId();
+
+        // Obtener la referencia al RadioButton seleccionado por defecto
+        RadioButton checkedRadioButton = findViewById(checkedButtonId);
+
+        // Obtener el texto del RadioButton seleccionado por defecto
+        planta_seleccionada = checkedRadioButton.getText().toString();
+
+        if(planta_seleccionada.equals("Enerya/Riasa")){
+            planta_seleccionada = "Enerya";
+            Log.e("Planta Seleccionada",planta_seleccionada);
+        }else if(planta_seleccionada.equals("Filtros")){
+            planta_seleccionada = "Filtros";
+            Log.e("Planta Seleccionada",planta_seleccionada);
+        }
+
+
+        tipoPlanta.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton selectedRadioButton = findViewById(i);
+                String selectedText = selectedRadioButton.getText().toString();
+                if (selectedText.equals("Enerya/Riasa")){
+                    planta_seleccionada = "Enerya";
+                        Log.e("Planta Seleccionada",planta_seleccionada);
+                } else if(selectedText.equals("Filtros")){
+                    planta_seleccionada = "Filtros";
+                     Log.e("Planta Seleccionada",planta_seleccionada);
+                }
+            }
+        });
+
+        // name.setText(globalClass.getName());
+        //   tView=(TextView)findViewById(R.id.textViewrol1);
       //  tView2=(TextView)findViewById(R.id.textViewrol2);
 
         cargarPreferencias();
@@ -56,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-             buscarProducto("https://vvnorth.com/buscar_auditorClave.php?Planta="+edtNombre.getText().toString() +"");
+             buscarProducto("https://vvnorth.com/buscar_auditorClave.php?Planta="+edtNombre.getText().toString() +"&PlantaSeleccionada="+planta_seleccionada);
 
 
             }
@@ -102,6 +143,7 @@ public void comparacion()
         editor.putString("User", Usuario);
         editor.putString("Rol", Rol);
         editor.putString("NumeroNomina",numeroNomina);
+        editor.putString("Planta",planta_seleccionada);
         editor.putString("NombreAuditor", nombreAuditor);
         editor.putInt("Conected", 1);
         editor.commit();
@@ -135,7 +177,7 @@ public void comparacion()
                         String nombreAuditor;// Genaro
 
                         jsonObject = response.getJSONObject(i);
-                       //Log.e("LoginResputa",""+response);
+                       Log.e("LoginResputa",""+response);
                         // editT.setText(jsonObject.getString("Planta"));
                         nombreAuditor=jsonObject.getString("NombreAuditor");
                         password=jsonObject.getString("Password");
@@ -167,7 +209,7 @@ public void comparacion()
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Completa los campos y verifica tu coneccion",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Completa los campos y verifica tu conexión",Toast.LENGTH_SHORT).show();
             }
         }
         );
