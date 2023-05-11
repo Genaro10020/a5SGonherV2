@@ -44,8 +44,9 @@ public class MainMenu extends AppCompatActivity {
         String user= preferences.getString("User","No existe Usuario");
         String Rol= preferences.getString("Rol","No existe Usuario");
         String nombreAuditor= preferences.getString("NombreAuditor","No existe Usuario");
+        String planta= preferences.getString("Planta","No existe Planta");
         String numeroNomina= preferences.getString("NumeroNomina","Sin Número de Nómina");
-        titular_session.setText("Auditor:  "+nombreAuditor+" ("+numeroNomina+")");
+        titular_session.setText("Auditor:  "+nombreAuditor+" ("+numeroNomina+") "+planta);
 
 
             if(!Rol.equals("administrador"))
