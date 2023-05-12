@@ -2,6 +2,8 @@ package com.example.a5SGonher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -36,7 +38,17 @@ public class ShowOnlyImage extends AppCompatActivity {
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
-        ImageRequest imageRequest= new ImageRequest("https://vvnorth.com/5sGhoner/subareas/"+subarea+"/"+GlobalAyudaVisual+".jpg", new Response.Listener<Bitmap>() {
+        //Recupero Informacion Genaro
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        String planta=preferences.getString("Planta","No existe Planta");
+        String url="";
+        if (planta.equals("Enerya")){
+            url= "https://vvnorth.com/5sGhoner/subareas/";
+        }else if(planta.equals("Filtros")){
+            url= "https://vvnorth.com/5sGhoner/subareasFiltros/";
+        }
+
+        ImageRequest imageRequest= new ImageRequest(url+subarea+"/"+GlobalAyudaVisual+".jpg", new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
 
