@@ -29,7 +29,7 @@ import org.json.JSONObject;
 public class AgregarArea extends AppCompatActivity {
     RequestQueue requestQueue;
     TextView tView, titulo_barra;
-    String numeroNomina;
+    String numeroNomina, Planta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,7 +40,8 @@ public class AgregarArea extends AppCompatActivity {
 
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         numeroNomina = preferences.getString("NumeroNomina", "No existe número de nómina");
-
+        Planta = preferences.getString("Planta", "No existe número de Planta");
+        Log.e("Planta",":" +Planta);
 
 
         setContentView(R.layout.activity_agregar_area);
@@ -50,7 +51,7 @@ public class AgregarArea extends AppCompatActivity {
         titulo_barra.setText("Crear Auditoría");
 
 
-       buscarProducto("https://vvnorth.com/buscar_area.php?Nomina="+numeroNomina+"&Planta="+nombrePlanta+"",nombrePlanta);
+       buscarProducto("https://vvnorth.com/buscar_area.php?Nomina="+numeroNomina+"&Planta="+Planta+"",nombrePlanta);
     }
     @Override
     public void onBackPressed() {

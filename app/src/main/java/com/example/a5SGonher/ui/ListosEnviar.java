@@ -45,6 +45,7 @@ import java.util.Map;
 public class    ListosEnviar extends AppCompatActivity implements DialogOptions3.DialogOptions1Listener{
     RequestQueue requestQueue;
     EditText editT;
+    String Planta;
     String numeroAuditoria;
     String GlobalSubarea;
     String GlobalUser;
@@ -66,9 +67,10 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
 
         String user= preferences.getString("User","No existe Usuario");
         String Rol= preferences.getString("Rol","No existe Usuario");
+        Planta = preferences.getString("Planta","No Existe Planta");
         GlobalUser=user;
         toastPersonalizado();
-        buscarProducto("https://vvnorth.com/buscar_auditoriasN.php?Auditor=" + user + "",user);
+        buscarProducto("https://vvnorth.com/buscar_auditoriasN.php?Auditor=" + user + "&Planta="+Planta,user);
         //////////////////////////////
     }
 

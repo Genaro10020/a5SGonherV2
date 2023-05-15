@@ -54,7 +54,7 @@
         android:textStyle="bold"
         android:background="@drawable/linea_inferior"
         android:fontFamily="@font/saira_condensed_medium"
-        android:text="Codio Auditoria  |  SubÁrea  |  Fecha Creación  |  Status"
+        android:text="Código Auditoria  |  SubÁrea  |  Fecha Creación  |  Status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />

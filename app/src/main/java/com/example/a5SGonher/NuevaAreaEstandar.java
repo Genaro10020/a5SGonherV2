@@ -2,6 +2,7 @@ package com.example.a5SGonher;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -48,7 +49,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NuevaAreaEstandar extends AppCompatActivity {
-    String numeroAuditoria, numeroActual,numeroAnterior,AyudaVisual,CodigoAyudaVisual,respuesta;
+    String numeroAuditoria, numeroActual,numeroAnterior,AyudaVisual,CodigoAyudaVisual,respuesta,Planta;
     ImageView tomar_foto_area;
     Bitmap bitmapf;
     Bitmap modifiedBitmap;
@@ -76,6 +77,10 @@ public class NuevaAreaEstandar extends AppCompatActivity {
         AyudaVisual = getIntent().getStringExtra("AYUDA_VISUAL");
         CodigoAyudaVisual = getIntent().getStringExtra("CODIGO_AYUDA_VISUAL");
         respuesta = getIntent().getStringExtra("COMENTARIO");
+
+        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        Planta = preferences.getString("Planta","No existe la planta");
+
 
         int myNum2=Integer.parseInt(numeroActual);
         myNum2--;
@@ -221,6 +226,7 @@ public class NuevaAreaEstandar extends AppCompatActivity {
                 parametros.put("AyudaVisual",AyudaVisual);
                 parametros.put("CodigoAyudaVisual",CodigoAyudaVisual);
                 parametros.put("Comentario",respuesta);
+                parametros.put("Planta",Planta);
 
                 return parametros;
             }

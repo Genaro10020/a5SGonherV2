@@ -2,6 +2,8 @@ package com.example.a5SGonher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +28,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
     private ImageView imageview,imageview2,imageview3,imageview4;
     private String  GlobalAyudaVisual,subarea,Anterior,Pregunta,Pregunta2;
     private int NumeroImagenes=0;
-    String ServerName;
+    String ServerName, Planta;
     TextView tView;
     String NombrePregunta;
 
@@ -42,6 +44,9 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
         imageview3= findViewById(R.id.imageViewOnlyImage3);
         imageview4= findViewById(R.id.imageViewOnlyImage4);
 
+        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        Planta = preferences.getString("Planta","No existe la planta");
+
        // GlobalAyudaVisual = getIntent().getStringExtra("EXTRA_SESSION_ID");
        // subarea = getIntent().getStringExtra("EXTRA_SESSION_ID2");
         Anterior = getIntent().getStringExtra("EXTRA_SESSION_ID3");
@@ -54,7 +59,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
         tituto_tool.setText("Prueba");
 
 
-        buscarProducto(ServerName+"/5sGhoner/buscar_ComentarioAnterior.php?AuditoriaAnterior="+Anterior +"&NombrePregunta="+ NombrePregunta+"&CodigoAyuda="+ GlobalAyudaVisual+"" );
+        buscarProducto(ServerName+"/5sGhoner/buscar_ComentarioAnterior.php?AuditoriaAnterior="+Anterior +"&NombrePregunta="+ NombrePregunta+"&CodigoAyuda="+ GlobalAyudaVisual+"&Planta="+Planta);
 
     }
     public static String removeLastChar(String str) {

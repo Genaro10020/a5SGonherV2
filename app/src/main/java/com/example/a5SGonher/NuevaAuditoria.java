@@ -43,6 +43,7 @@ import java.util.Map;
 public class NuevaAuditoria extends AppCompatActivity {
     TextView tView, tCodigo;
     String ServerName;
+    String Planta;
     RequestQueue requestQueue;
     Button ButtonNext, ButtonBefore;
     String numeroAuditoria;
@@ -112,11 +113,15 @@ public class NuevaAuditoria extends AppCompatActivity {
         ServerName=globalClass.getName();
         numeroAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID3");
         NumeroAyuda = getIntent().getStringExtra("EXTRA_SESSION_ID5");
+
+        SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        Planta = preferences.getString("Planta","No existe la planta");
+
         GlobalNumeroAuditoria=numeroAuditoria;
         int myNum = Integer.parseInt(NumeroAyuda);
         myNum++;
         numeroActual = Integer.toString(myNum);
-        Log.e("NUMERO ACTUAL",numeroActual);
+        Log.e("Planta:",Planta);
         int myNum2=Integer.parseInt(NumeroAyuda);
         myNum2--;
         numeroAnterior=Integer.toString(myNum2);
@@ -130,7 +135,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         if(NumeroAyuda.equals("1")) { ButtonBefore.setText("Salir");}
         else{ButtonBefore.setEnabled(true);}
 
-        buscarProducto(ServerName+"/5sGhoner/buscar_preguntas.php?NumeroAuditoria="+numeroAuditoria +"&NumeroAyuda="+ NumeroAyuda+"");
+        buscarProducto(ServerName+"/5sGhoner/buscar_preguntas.php?NumeroAuditoria="+numeroAuditoria +"&NumeroAyuda="+ NumeroAyuda+"&Planta="+Planta);
         String ciclov = Integer.toString(ciclo);
 
         //PreguntasContestadas(); //comente Genaro
@@ -279,7 +284,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         //Recupero Informacion Genaro
         SharedPreferences preferences = getSharedPreferences("credenciales",Context.MODE_PRIVATE);
         String planta=preferences.getString("Planta","No existe Planta");
-        String url="";
+        String url=""; //Ruta de las ayuda visuales segun planta.
         if (planta.equals("Enerya")){
             url= "https://vvnorth.com/5sGhoner/subareas/";
         }else if(planta.equals("Filtros")){
@@ -330,6 +335,7 @@ public class NuevaAuditoria extends AppCompatActivity {
                 parametros.put("NumeroPregunta",NumeroPregunta);
                 parametros.put("AyudaVisual",GlobalAyudaVisual);
                 parametros.put("seleccionNuevo",seleccionNuevo);
+                parametros.put("Planta",Planta);
                 //parametros.put("Comentario",comentario);
                 //  parametros.put("Cambio",cambio);
 

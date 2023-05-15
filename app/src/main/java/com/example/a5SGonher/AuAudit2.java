@@ -52,6 +52,7 @@ import java.util.logging.Logger;
 public class AuAudit2 extends AppCompatActivity {
     RequestQueue requestQueue;
     EditText editT;
+    String Planta;
     // Button myButton3 = new Button(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +64,14 @@ public class AuAudit2 extends AppCompatActivity {
 
         String user= preferences.getString("User","No existe Usuario");
         String Rol= preferences.getString("Rol","No existe Usuario");
+        Planta = preferences.getString("Planta","No existe Planta");
 
         TextView titulobar = (TextView)findViewById(R.id.titulo_toolbar);
         titulobar.setText("Auditar");
         //Toast.makeText(getApplicationContext(),"User: "+user,Toast.LENGTH_SHORT).show();
         //user es el numero de nomina
         toastPersonalizado();
-        buscarProducto("https://vvnorth.com/buscar_auditoriasN.php?Auditor=" + user + "",user);
+        buscarProducto("https://vvnorth.com/buscar_auditoriasN.php?Auditor=" + user + "&Planta="+Planta+"",user);
 
         //////////////////////////////
     }
@@ -101,7 +103,7 @@ public class AuAudit2 extends AppCompatActivity {
                         if (i==tamanio-1){
                             for (int j =0; j < arreglo.length;j++){
                                 Log.i("Sacar porcentaje",":  "+arreglo[j]);
-                               procesarPorcentaje("https://vvnorth.com/porcentaje.php?numeroAuditoria="+arreglo[j],arreglo,tamanio);
+                               procesarPorcentaje("https://vvnorth.com/porcentaje.php?numeroAuditoria="+arreglo[j]+"&Planta="+Planta,arreglo,tamanio);
                             }
                         }
                     } catch (JSONException e) {
@@ -293,6 +295,7 @@ public class AuAudit2 extends AppCompatActivity {
         intent.putExtra("EXTRA_SESSION_ID3", numeroAuditoria);
         //intent.putExtra("EXTRA_SESSION_ID4", nombreAuditor); //Comentado por Genaro y datos recibido elimados tenian canda Nada
         intent.putExtra("EXTRA_SESSION_ID5", "1");
+        intent.putExtra("PLANTA", Planta);
         intent.putExtra("INICIO", "0");
         startActivity(intent);
     }

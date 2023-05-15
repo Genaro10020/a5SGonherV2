@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfirmarCrearAuditoria extends AppCompatActivity {
-    String numeroNomina;
+    String numeroNomina, Planta;
 
 
     @Override
@@ -37,7 +37,8 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         numeroNomina = preferences.getString("NumeroNomina","No existe Número de nómina");
-        Log.e("Numoer",":"+numeroNomina);
+        Planta = preferences.getString("Planta","No existe Planta");
+        //Log.e("Numoer",":"+numeroNomina);
 
         TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
         titulo.setText("Crear Auditoría");
@@ -63,6 +64,7 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     // buscarProducto("https://vvnorth.com/comparacion_auditorf.php",NPlanta);
+
                     Toast.makeText(getApplicationContext(),"Creada con éxito",Toast.LENGTH_SHORT).show();
                     retornaraMenu();
                 }
@@ -78,6 +80,8 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
                     Map<String,String> parametros =new HashMap<String,String>();
                     parametros.put("NombreSubArea",recibiendosubArea);
                     parametros.put("NumeroNomina",numeroNomina);
+                    parametros.put("Planta",Planta);
+
                     return parametros;
                 }
             };

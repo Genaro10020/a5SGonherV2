@@ -39,6 +39,7 @@ public class AgregarSubarea extends AppCompatActivity {
     String nombrePlanta2;
     String nombreArea2;
     String numeroNomina;
+    String Planta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class AgregarSubarea extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         numeroNomina = preferences.getString("NumeroNomina","No existe Número de nómina");
+        Planta = preferences.getString("Planta","No existe Número de Planta");
 
 
         tView=(TextView)findViewById(R.id.textvSPlanta);
@@ -61,7 +63,7 @@ public class AgregarSubarea extends AppCompatActivity {
          nombreArea2=nombreArea;
 
         tView.setText("Planta: "+nombrePlanta+" / "+nombreArea+" / Seleccione SubÁrea");
-        buscarProducto("https://vvnorth.com/buscar_subarea.php?area="+nombreArea +"&planta="+ nombrePlanta+"&nomina="+numeroNomina,nombrePlanta,nombreArea);
+        buscarProducto("https://vvnorth.com/buscar_subarea.php?area="+nombreArea +"&planta="+Planta+"&nomina="+numeroNomina,nombrePlanta,nombreArea);
 
     }
     @Override

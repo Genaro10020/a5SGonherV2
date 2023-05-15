@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -54,7 +55,7 @@ import java.util.Map;
 
 public class NuevaAuditoria_Pregunta extends AppCompatActivity implements DialogOptions2.DialogOptions1Listener{
     String [] guardandorespuestas  = new String[6];
-    String nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas,numeroAnteriorAuditoria,textoHallazgo, cantidaddeimagenes;
+    String Planta,nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas,numeroAnteriorAuditoria,textoHallazgo, cantidaddeimagenes;
     Button BotonTerminar,btn_lienzo;
     TextView Pregunta,textofotouno,textofotodos,textofototres,textofotocuatro,mensaje_lienzo;
     EditText Razon;
@@ -75,6 +76,10 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         setContentView(R.layout.activity_nueva_auditoria__pregunta);
         TextView titulobarra = (TextView)findViewById(R.id.titulo_toolbar);
         final TextView espereguardando = (TextView)findViewById(R.id.espereguardando);
+
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        Planta = preferences.getString("Planta","No existe Número de Planta");
+
         titulobarra.setText("Evidencia");
         drawView = (DrawView)findViewById(R.id.EspacioCanva);
         nombrePregunta = getIntent().getStringExtra("EXTRA_SESSION_ID");
@@ -508,6 +513,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 numberPhoto=tomadafotoUno+tomadafotoDos+tomadafotoTres+tomadafotoCuatro+fotoVista1+fotoVista2+fotoVista3+fotoVista4;
                 String sNumberPhoto= String.valueOf(numberPhoto);
                 Log.e("sNumberPhoto",": "+sNumberPhoto);
+                parametros.put("Planta",Planta);
                 parametros.put("AyudaVisual",nombreAyuda);
                 parametros.put("nombrePregunta",nombrePregunta);
                 parametros.put("NumeroAuditoria",numeroAuditoria);

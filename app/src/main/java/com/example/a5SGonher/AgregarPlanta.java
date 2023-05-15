@@ -43,13 +43,14 @@ public class AgregarPlanta extends AppCompatActivity {
     RequestQueue requestQueue;
     EditText editT;
     TextView titulo, leyandaplanta, porcentaje;
-    String ServerName;
+    String ServerName, Planta;
    // Button myButton3 = new Button(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         String numeroNomina = preferences.getString("NumeroNomina", "No existe número de nómina");
+        Planta = preferences.getString("Planta","No existe la planta");
 
 
         super.onCreate(savedInstanceState);
@@ -154,7 +155,7 @@ public class AgregarPlanta extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
 
             public void onResponse(String response) {
-               //Log.e("Consultado Plantas","Planta"+response);
+               Log.e("Consultado Plantas","Planta"+response);
 
                 try {
                     JSONArray arrayRespuesta = new JSONArray(response);
@@ -175,7 +176,7 @@ public class AgregarPlanta extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"ERRO DE CONEXION",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"ERROR DE CONEXION",Toast.LENGTH_SHORT).show();
             }
         }
         ){
@@ -183,6 +184,7 @@ public class AgregarPlanta extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("NumeroNomina", numeroNomina);
+                params.put("Planta", Planta);
                 return params;
             }
         };
