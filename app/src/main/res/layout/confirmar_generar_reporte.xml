@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Generar reporte"
             android:textColor="#932929"
             android:textSize="12sp"
@@ -35,7 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="SI desea generar el reporte presione aceptar."
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:text="SI desea generar el reporte presione aceptar.\n
+            EL REPORTE LLEGARA A TU CORREO DESPUES DE 5 MINUTOS."
             android:textColor="#000000"
             android:textSize="10sp" />
 

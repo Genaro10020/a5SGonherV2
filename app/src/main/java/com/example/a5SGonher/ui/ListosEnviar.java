@@ -101,7 +101,8 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros =new HashMap<String,String>();
-            parametros.put("NumeroAuditoria",numeroAudi);
+                parametros.put("NumeroAuditoria",numeroAudi);
+                parametros.put("Planta",Planta);
                 GlobalNumeroAuditoria=numeroAudi;
 
 
@@ -132,6 +133,7 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
                 parametros.put("SubArea",GlobalSubarea);
                 parametros.put("User",GlobalUser);
                 parametros.put("NumeroAuditoria",numeroAudi);
+                parametros.put("Planta",Planta);
 
                 //   parametros.put("NombrePlanta",NPlanta);
 
@@ -370,7 +372,7 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
                         if (i==tamanio-1){
                             for (int j =0; j < arreglo.length;j++){
                                // Log.i("Sacar porcentaje",":  "+arreglo[j]);
-                                procesarPorcentaje("https://vvnorth.com/porcentaje.php?numeroAuditoria="+arreglo[j],arreglo,tamanio);
+                                procesarPorcentaje("https://vvnorth.com/porcentaje.php?numeroAuditoria="+arreglo[j]+"&Planta="+Planta,arreglo,tamanio);
                             }
                         }
                         // buscarProducto2("https://vvnorth.com/porcentaje_auditoria.php?numeroAuditoria="+nombreSubarea +"&planta="+ nombreSubarea+"&subarea="+ nombreSubarea +"&Estado="+"1" + "",nombreSubarea,nombreSubarea2);
