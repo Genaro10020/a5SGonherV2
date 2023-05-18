@@ -118,7 +118,8 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //  buscarProducto("https://vvnorth.com/comparacion_auditorf.php",NPlanta);    CREO QUE NO SIRVE
+                //Log.e("Respuesta MailBien",""+response);
+                  //buscarProducto("https://vvnorth.com/comparacion_auditorf.php",NPlanta);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -172,21 +173,37 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
 
         for (int i=0; i < auditoria.length;i++) {
             Button myButton3 = new Button(this);
+            Button myButton2 = new Button(this);
 
 
             if(auditoria[i].indexOf("100%")!=-1){
                 myButton3.setText(auditoria[i]);
                 //System.out.println("subareas:"+arraySubareas[i]);
                 LinearLayout ll3 = (LinearLayout) findViewById(R.id.layoutSPlanta);
-                LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                ll3.addView(myButton3, lp3);
-                Typeface fuenteitem = getResources().getFont(R.font.mitre);
-                myButton3.setTypeface(fuenteitem);
+
+                LinearLayout.LayoutParams lpButton3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lpButton3.setMargins(0, 0, 0, 0); // Establece el margen superior deseado para myButton2
+                myButton3.setLayoutParams(lpButton3);
+
+                LinearLayout.LayoutParams lpButton2 = new LinearLayout.LayoutParams(200, 200);
+                lpButton2.setMargins(0, 6, 0, 35); // Establece el margen superior deseado para myButton2
+                myButton2.setLayoutParams(lpButton2);
+
+                LinearLayout llButtons = new LinearLayout(this);
+                llButtons.setOrientation(LinearLayout.HORIZONTAL);
+
+
+                llButtons.addView(myButton2);
+                llButtons.addView(myButton3);
+
+                myButton2.setBackgroundResource(R.drawable.icono_completo);
                 myButton3.setTextSize(11);
-                myButton3.setTextColor(Color.rgb(220, 220, 220));
-                myButton3.setBackgroundResource(R.drawable.boton_completado);
-                lp3.setMargins(0, 0, 0, 10);
-                myButton3.setLayoutParams(lp3);
+                ll3.addView(llButtons);
+                //Typeface fuenteitem = getResources().getFont(R.font.mitre);
+                //myButton3.setTypeface(fuenteitem);
+
+                //myButton3.setTextColor(Color.rgb(220, 220, 220));
+                //myButton3.setBackgroundResource(R.drawable.boton_completado);
 
                 int cantidad =auditoria[i].indexOf(" ");
                 final String codigoAud= auditoria[i].substring(0, cantidad);//obtengo el codigo de auditoria
@@ -245,8 +262,9 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
                     JSONObject datos = response.getJSONObject(0);
                     String codigo = datos.getString("codigoAuditoria");
                     String subArea = datos.getString("subArea");
-                    String porcentaje = datos.getString("porcentaje");
                     String fecha = datos.getString("fecha");
+                    String porcentaje = datos.getString("porcentaje");
+                    String calificacion_final = datos.getString("calificacion_final");
                     //System.out.println("nombre de la subarea"+subArea);
 
                     int r =1;
@@ -259,7 +277,8 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
 
                         if (arreglo[i].equals(codigo)) {
 
-                            arreglo[i] =codigo+"    "+subArea+"    "+fecha+"    "+porcentaje+"%";
+
+                            arreglo[i] =codigo+"    "+subArea+"    "+fecha+"    "+porcentaje+"%"+"  CAL.: "+calificacion_final;
                             arraySubareas[i]=subArea;
                             for (int j=0; j < arreglo.length; j++){// ahora ya que esta en orden verificare que todas las posiciones tengas % para crear el boton
                                 if (arreglo[j].indexOf("%") !=-1 ){
