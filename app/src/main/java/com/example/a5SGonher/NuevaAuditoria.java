@@ -71,6 +71,7 @@ public class NuevaAuditoria extends AppCompatActivity {
     TextView sicinco[] = new TextView[10000];
     TextView tituloshallazgos[]=new TextView[10000];
     TextView prueba1,prueba2,titulo;
+    TextView avance;
     RadioGroup radioGroup2[]=new RadioGroup[1000];
     Button botonEvidencia[]=new Button[1000];
     Button buttonValores[]=new Button[1000];
@@ -104,6 +105,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_auditoria);
         layoutList = findViewById(R.id.layoutSPlanta);
+        avance = (TextView)findViewById(R.id.text_avance);
         tView=(TextView)findViewById(R.id.NombreAyuda);
         tCodigo=(TextView)findViewById(R.id.Codigo);
         imageview= findViewById(R.id.imageViewAyudaV);
@@ -389,6 +391,15 @@ public class NuevaAuditoria extends AppCompatActivity {
         //System.out.println("Respuesta Anterior"+respuestaanterior);
         //System.out.println("Hallazgo"+hallazgo);
         //botonEvidencia[i].setVisibility(View.GONE);
+
+        //(Bloque actual / Total de bloques) * 100
+
+        int bloque_actual = Integer.parseInt(NumeroAyuda);
+        int total_bloques = Integer.parseInt(cantidadPreguntas);
+        float porcentajes = (float) bloque_actual / total_bloques * 100;
+        avance.setTextSize(12);
+        avance.setText("Bloques: "+bloque_actual+"/"+total_bloques+" ("+porcentajes+"%)");
+
 
         if(hallazgo.equals("si")) {
             if(banderatitulohallazgosanteriores==0){

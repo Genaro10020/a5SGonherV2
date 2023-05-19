@@ -148,4 +148,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include7" />
 
+    <TextView
+        android:id="@+id/text_avance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avance"
+        app:layout_constraintBottom_toTopOf="@+id/NextQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/NextQuestion" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
