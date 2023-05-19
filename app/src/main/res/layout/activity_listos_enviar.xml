@@ -104,7 +104,7 @@
             android:id="@+id/imageView31"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/boton_completado" />
+            app:srcCompat="@drawable/boton_no_enviado" />
 
         <TextView
             android:id="@+id/textView38"

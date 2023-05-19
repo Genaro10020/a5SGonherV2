@@ -6,11 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -38,7 +35,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,8 +114,8 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //Log.e("Respuesta MailBien",""+response);
-                  //buscarProducto("https://vvnorth.com/comparacion_auditorf.php",NPlanta);
+                Intent intent = new Intent(ListosEnviar.this,ListosEnviar.class);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -178,6 +174,8 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
 
             if(auditoria[i].indexOf("100%")!=-1){
                 myButton3.setText(auditoria[i]);
+
+
                 //System.out.println("subareas:"+arraySubareas[i]);
                 LinearLayout ll3 = (LinearLayout) findViewById(R.id.layoutSPlanta);
 
@@ -196,7 +194,20 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
                 llButtons.addView(myButton2);
                 llButtons.addView(myButton3);
 
-                myButton2.setBackgroundResource(R.drawable.icono_completo);
+                String auditoriaText = auditoria[i];
+                if (auditoriaText.contains("CAL.:")) {
+                    int index = auditoriaText.indexOf("CAL.:");
+                    String textAfterCal = auditoriaText.substring(index + 6); // Obtener el texto después de "CAL.:" (5 es la longitud de "CAL.:")
+                    Log.e("text",":"+textAfterCal+"INDEX"+index);
+                    // Verificar si hay texto después de "CAL.:"
+                    if (!textAfterCal.isEmpty()) {
+                        myButton2.setBackgroundResource(R.drawable.icono_enviado);
+                    }else{
+                        myButton2.setBackgroundResource(R.drawable.icono_no_enviado);
+                    }
+                }
+
+
                 myButton3.setTextSize(11);
                 ll3.addView(llButtons);
                 //Typeface fuenteitem = getResources().getFont(R.font.mitre);
@@ -399,14 +410,18 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
 
 
                     } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
                     }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"ERRO DE CONEXION",Toast.LENGTH_SHORT).show();
+                Toast toast =Toast.makeText(getApplicationContext(),"No existen auditorías completadas o verifique su conexión",Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
             }
         }
         );
