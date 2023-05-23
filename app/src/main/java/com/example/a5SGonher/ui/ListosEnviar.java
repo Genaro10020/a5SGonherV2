@@ -34,6 +34,7 @@ import com.example.a5SGonher.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -238,6 +239,7 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         TextView btnAceptar = (TextView)findViewById(R.id.btn_aceptar);
         TextView btnCancelar = (TextView)findViewById(R.id.btn_cancelar);
         final View include_confirmar_excel = findViewById(R.id.id_layout_confirmar_excel);
+        final TextView leyenda_enviando = (TextView) findViewById(R.id.leyenda_generando_reporte);
         include_confirmar_excel.setVisibility(View.VISIBLE);
 
         btnCancelar.setOnClickListener(new View.OnClickListener() {
@@ -250,7 +252,9 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                include_confirmar_excel.setVisibility(View.GONE);
+                leyenda_enviando.setVisibility(View.VISIBLE);
+                //include_confirmar_excel.setVisibility(View.GONE);
+
                 ejecutarservicio("https://vvnorth.com/excel/excel2.php",numeroAuditoria);
             }
         });

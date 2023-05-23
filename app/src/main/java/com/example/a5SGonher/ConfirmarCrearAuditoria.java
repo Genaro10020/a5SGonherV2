@@ -20,11 +20,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class ConfirmarCrearAuditoria extends AppCompatActivity {
     String numeroNomina, Planta;
+    TextView leyenda_creando;
 
 
     @Override
@@ -32,6 +35,7 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmar_crear_auditoria);
         TextView dato = (TextView)findViewById(R.id.mostrandoR);
+        leyenda_creando = (TextView)findViewById(R.id.leyenda_creando_auditoria);
         final String recibiendosubArea = getIntent().getStringExtra("subArea");
         dato.setText("Crear auditoría en "+recibiendosubArea+" ?");
 
@@ -47,6 +51,7 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
         btncrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                leyenda_creando.setVisibility(View.VISIBLE);
                 crearAuditoria("https://vvnorth.com/5sGhoner/crearAuditoria_v2.php",recibiendosubArea);
 
             }

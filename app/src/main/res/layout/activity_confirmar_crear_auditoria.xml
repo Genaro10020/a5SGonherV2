@@ -93,7 +93,17 @@
                 android:text="Crear"
 
                 android:textColor="#ffffff" />
+
         </LinearLayout>
+        <TextView
+            android:id="@+id/leyenda_creando_auditoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/saira_condensed_medium"
+            android:text="Estamos generando tu Auditoría, espera unos segundo..."
+            android:textColor="#000000"
+            android:visibility="gone"
+            android:textSize="12dp" />
     </LinearLayout>
 
     <ImageView
