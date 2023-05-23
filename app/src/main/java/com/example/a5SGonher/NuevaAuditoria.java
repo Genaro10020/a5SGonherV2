@@ -398,7 +398,7 @@ public class NuevaAuditoria extends AppCompatActivity {
         int total_bloques = Integer.parseInt(cantidadPreguntas);
         float porcentajes = (float) bloque_actual / total_bloques * 100;
         avance.setTextSize(12);
-        avance.setText("Bloques: "+bloque_actual+"/"+total_bloques+" ("+porcentajes+"%)");
+        avance.setText("Bloques: "+bloque_actual+"/"+total_bloques);
 
 
         if(hallazgo.equals("si")) {

@@ -183,8 +183,8 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
                 lpButton3.setMargins(0, 0, 0, 0); // Establece el margen superior deseado para myButton2
                 myButton3.setLayoutParams(lpButton3);
 
-                LinearLayout.LayoutParams lpButton2 = new LinearLayout.LayoutParams(200, 200);
-                lpButton2.setMargins(0, 6, 0, 35); // Establece el margen superior deseado para myButton2
+                LinearLayout.LayoutParams lpButton2 = new LinearLayout.LayoutParams(60, 60);
+                lpButton2.setMargins(0, 6, 20, 35); // Establece el margen superior deseado para myButton2
                 myButton2.setLayoutParams(lpButton2);
 
                 LinearLayout llButtons = new LinearLayout(this);

@@ -8,7 +8,7 @@
 
     <TableLayout
         android:id="@+id/layoutSPlanta"
-        android:layout_width="393dp"
+        android:layout_width="0dp"
         android:layout_height="660dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"

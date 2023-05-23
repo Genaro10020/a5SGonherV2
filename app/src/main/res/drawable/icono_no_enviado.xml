@@ -1,5 +1,16 @@
-<vector android:height="24dp" android:tint="#BD393E"
+<!--<vector android:height="24dp" android:tint="#BD393E"
     android:viewportHeight="24" android:viewportWidth="24"
     android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="@android:color/white" android:pathData="M2,4h20v16h-20z"/>
-</vector>
+</vector>-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#610606"
+        android:centerColor="#610606"
+        android:endColor="#C13636"
+        android:angle="90"
+        />
+    <corners android:radius="30dp" />
+</shape>
+
+
