@@ -115,6 +115,7 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("respuetaMailBien","Planta:"+Planta+"Respuesta:"+response);
                 Intent intent = new Intent(ListosEnviar.this,ListosEnviar.class);
                 startActivity(intent);
             }
@@ -199,7 +200,7 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
                 if (auditoriaText.contains("CAL.:")) {
                     int index = auditoriaText.indexOf("CAL.:");
                     String textAfterCal = auditoriaText.substring(index + 6); // Obtener el texto después de "CAL.:" (5 es la longitud de "CAL.:")
-                    Log.e("text",":"+textAfterCal+"INDEX"+index);
+                    //Log.e("text",":"+textAfterCal+"INDEX"+index);
                     // Verificar si hay texto después de "CAL.:"
                     if (!textAfterCal.isEmpty()) {
                         myButton2.setBackgroundResource(R.drawable.icono_enviado);
