@@ -1,8 +1,10 @@
 package com.example.a5SGonher;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -88,6 +90,26 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                 @Override
                 public void onResponse(Bitmap response) {
                     imageview.setImageBitmap(response);
+
+                    imageview.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ShowOnlyImageHallazgos.this);
+                            builder.setTitle("Descargar imagen");
+                            builder.setMessage("¿Deseas descargar la imagen?");
+                            builder.setPositiveButton("Descargar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+
+
+                                }
+                            });
+                            builder.setNegativeButton("Cancelar", null);
+                            builder.show();
+                        }
+                    });
+
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override
