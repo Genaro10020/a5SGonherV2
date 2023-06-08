@@ -33,29 +33,33 @@
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage"
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="245dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 app:srcCompat="@drawable/ghoner" />
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage2"
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="245dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 app:srcCompat="@drawable/ghoner" />
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage3"
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="245dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 app:srcCompat="@drawable/ghoner" />
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage4"
-                android:layout_width="330dp"
+                android:layout_width="match_parent"
                 android:layout_height="245dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 app:srcCompat="@drawable/ghoner" />
         </LinearLayout>
