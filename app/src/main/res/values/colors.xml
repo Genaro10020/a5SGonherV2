@@ -3,4 +3,5 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#8B0000</color><!--Color Barra superior-->
     <color name="colorAccent">#8B0000</color><!--Color Focus-->
+    <color name="blaco">#FFFFFF</color><!--Color Focus-->
 </resources>
