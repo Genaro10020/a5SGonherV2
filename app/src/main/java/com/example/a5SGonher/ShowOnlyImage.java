@@ -29,8 +29,8 @@ public class ShowOnlyImage extends AppCompatActivity {
         GlobalAyudaVisual = getIntent().getStringExtra("EXTRA_SESSION_ID");
         subarea = getIntent().getStringExtra("EXTRA_SESSION_ID2");
         requestImage();
-
-
+        ZoomImagenes zoom = new ZoomImagenes(imageview);
+        zoom.setOnTouchListener(zoom);
     }
 
 
