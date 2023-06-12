@@ -47,6 +47,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
     String NombrePregunta;
     AlertDialog.Builder builder;
     String Url1;
+    Button btnCompartir1, btnCompartir2, btnCompartir3, btnCompartir4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,12 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
         imageview2= findViewById(R.id.imageViewOnlyImage2);
         imageview3= findViewById(R.id.imageViewOnlyImage3);
         imageview4= findViewById(R.id.imageViewOnlyImage4);
+        btnCompartir1 = findViewById(R.id.btnCompartir1);
+        btnCompartir2 = findViewById(R.id.btnCompartir2);
+        btnCompartir3 = findViewById(R.id.btnCompartir3);
+        btnCompartir4 = findViewById(R.id.btnCompartir4);
+
+
 
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         Planta = preferences.getString("Planta","No existe la planta");
@@ -138,7 +145,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     final int num= 1;
                     // Obtén la imagen del ImageView
 
-                    LinearLayout layouts = findViewById(R.id.LayoutImaganesHallazgos);// los creare desde el layout para que primero aparezcan los botones.
+                    /*LinearLayout layouts = findViewById(R.id.LayoutImaganesHallazgos);// los creare desde el layout para que primero aparezcan los botones.
                     Button btnCompartir1 = new Button(ShowOnlyImageHallazgos.this);
                     btnCompartir1.setText("Compartir Hallázgo");
                     LinearLayout.LayoutParams parametos = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -147,7 +154,9 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     btnCompartir1.setLayoutParams(parametos);
                     btnCompartir1.setBackgroundResource(R.drawable.boton_compartir);
                     btnCompartir1.setTextColor(Color.WHITE);
-                    layouts.addView(btnCompartir1);
+                    layouts.addView(btnCompartir1);*/
+
+                    btnCompartir1.setVisibility(View.VISIBLE);
 
 
                     imageview.setImageBitmap(response);
@@ -191,17 +200,7 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                         BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
                         final Bitmap bitmap = drawable.getBitmap();
 
-
-                        Button btnCompartir1 = new Button(ShowOnlyImageHallazgos.this);
-                        btnCompartir1.setText("Compartir Hallázgo");
-                        LinearLayout.LayoutParams parametos = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-                        parametos.setMargins(0,5,0,5);
-                        parametos.gravity = Gravity.CENTER;
-                        btnCompartir1.setLayoutParams(parametos);
-                        btnCompartir1.setBackgroundResource(R.drawable.boton_compartir);
-                        btnCompartir1.setTextColor(Color.WHITE);
-                        layouts.addView(btnCompartir1);
-
+                        btnCompartir1.setVisibility(View.VISIBLE);
                         btnCompartir1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -229,22 +228,15 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                         // Obtén la imagen del ImageView
                         BitmapDrawable drawable = (BitmapDrawable) imageview2.getDrawable();
                         final Bitmap bitmap = drawable.getBitmap();
-                        Button btnCompartir2 = new Button(ShowOnlyImageHallazgos.this);
-                        btnCompartir2.setText("Compartir Hallázgo");
-                        LinearLayout.LayoutParams parametos = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-                        parametos.setMargins(0,5,0,5);
-                        parametos.gravity = Gravity.CENTER;
-                        btnCompartir2.setLayoutParams(parametos);
-                        btnCompartir2.setBackgroundResource(R.drawable.boton_compartir);
-                        btnCompartir2.setTextColor(Color.WHITE);
-                        layouts.addView(btnCompartir2);
 
+                        btnCompartir2.setVisibility(View.VISIBLE);
                         btnCompartir2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 compartir(num,bitmap);
                             }
                         });
+
                     }
                 }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                     @Override
@@ -267,8 +259,16 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     imageview.setImageBitmap(response);
                     final int num= 1;
                     BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                   // crearBotonCompartir(num, bitmap);
+                    final Bitmap bitmap = drawable.getBitmap();
+
+                    btnCompartir1.setVisibility(View.VISIBLE);
+                    btnCompartir1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            compartir(num,bitmap);
+                        }
+                    });
+
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override
@@ -287,8 +287,15 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     imageview2.setImageBitmap(response);
                     final int num= 2;
                     BitmapDrawable drawable = (BitmapDrawable) imageview2.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                   // crearBotonCompartir(num, bitmap);
+
+                    final Bitmap bitmap = drawable.getBitmap();
+                    btnCompartir2.setVisibility(View.VISIBLE);
+                    btnCompartir2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            compartir(num,bitmap);
+                        }
+                    });
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override
@@ -307,8 +314,15 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     imageview3.setImageBitmap(response);
                     final int num= 3;
                     BitmapDrawable drawable = (BitmapDrawable) imageview3.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                    //crearBotonCompartir(num, bitmap);
+
+                    final Bitmap bitmap = drawable.getBitmap();
+                    btnCompartir3.setVisibility(View.VISIBLE);
+                    btnCompartir3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            compartir(num,bitmap);
+                        }
+                    });
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override
@@ -332,8 +346,14 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     imageview.setImageBitmap(response);
                     final int num= 1;
                     BitmapDrawable drawable = (BitmapDrawable) imageview.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                   // crearBotonCompartir(num, bitmap);
+                    final Bitmap bitmap = drawable.getBitmap();
+                    btnCompartir1.setVisibility(View.VISIBLE);
+                    btnCompartir1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            compartir(num,bitmap);
+                        }
+                    });
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override
@@ -352,8 +372,14 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     imageview2.setImageBitmap(response);
                     final int num= 2;
                     BitmapDrawable drawable = (BitmapDrawable) imageview2.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                  //  crearBotonCompartir(num, bitmap);
+                    final Bitmap bitmap = drawable.getBitmap();
+                    btnCompartir2.setVisibility(View.VISIBLE);
+                    btnCompartir2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            compartir(num,bitmap);
+                        }
+                    });
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override
@@ -372,8 +398,15 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     imageview3.setImageBitmap(response);
                     final int num= 3;
                     BitmapDrawable drawable = (BitmapDrawable) imageview3.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                    //crearBotonCompartir(num, bitmap);
+
+                    final Bitmap bitmap = drawable.getBitmap();
+                    btnCompartir3.setVisibility(View.VISIBLE);
+                    btnCompartir3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            compartir(num,bitmap);
+                        }
+                    });
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override
@@ -392,8 +425,14 @@ public class ShowOnlyImageHallazgos extends AppCompatActivity {
                     imageview4.setImageBitmap(response);
                     final int num= 4;
                     BitmapDrawable drawable = (BitmapDrawable) imageview4.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
-                   // crearBotonCompartir(num, bitmap);
+                    final Bitmap bitmap = drawable.getBitmap();
+                    btnCompartir4.setVisibility(View.VISIBLE);
+                    btnCompartir4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            compartir(num,bitmap);
+                        }
+                    });
                 }
             }, 0, 0, ImageView.ScaleType.CENTER_CROP, null, new Response.ErrorListener() {
                 @Override

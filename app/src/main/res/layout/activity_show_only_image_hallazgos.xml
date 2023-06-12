@@ -43,7 +43,7 @@
     <ScrollView
         android:id="@+id/scrollView8"
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,13 +60,16 @@
             <Button
                 android:id="@+id/btnCompartir1"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                android:layout_height="28dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
+                android:textSize="10dp"
                 android:background="@drawable/boton_compartir"
                 android:text="Compartir hallázgo1"
                 android:textAllCaps="false"
                 android:textStyle="normal"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage"
@@ -75,18 +78,20 @@
                 android:layout_gravity="center_horizontal"
                 app:srcCompat="@drawable/ghoner" />
 
+
             <Button
                 android:id="@+id/btnCompartir2"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/boton_compartir"
                 android:text="Compartir hallázgo2"
                 android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
                 android:textStyle="normal"
-                android:textColor="#FFFFFF" />
-
-
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage2"
@@ -102,10 +107,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textSize="10dp"
                 android:background="@drawable/boton_compartir"
                 android:text="Compartir hallázgo3"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage3"
@@ -121,10 +129,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textSize="10dp"
                 android:background="@drawable/boton_compartir"
                 android:text="Compartir hallázgo4"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/imageViewOnlyImage4"
