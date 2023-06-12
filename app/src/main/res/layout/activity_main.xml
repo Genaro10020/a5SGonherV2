@@ -172,9 +172,15 @@
         android:id="@+id/textView43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version 2.1"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="Version 2.1, Mejoras: \n
+        - Calificación en historial al enviar correo. \n
+        - Zoom en Ayudas Visuales. \n
+        - Compartir Hallazgos anteriores. "
+        android:textSize="25px"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
