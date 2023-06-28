@@ -445,9 +445,10 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             pickImageFromGallery();
         }
     }
-    public void TakePhoto()
+
+   public void TakePhoto()
     {
-        /*String fileName="photo";
+        String fileName="photo";
         File StorageDirectory= getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         try {
             File imageFile=File.createTempFile(fileName,".jpg",StorageDirectory);
@@ -463,14 +464,11 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
 
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
 
+
     }
+
 
     private void pickImageFromGallery()
     {
@@ -566,22 +564,22 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         if (requestCode == 1 && resultCode == RESULT_OK)
         {
 
-            Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
+          //  Bundle extras = data.getExtras();
+          //  Bitmap bitmap = (Bitmap) extras.get("data");
 
-            //Bitmap bitmap= BitmapFactory.decodeFile(currentPhotoPath);//LINEA ANTERIOR
+            Bitmap bitmap= BitmapFactory.decodeFile(currentPhotoPath);//LINEA ANTERIOR
 
             // Create a matrix for the rotation
-         //   Matrix matrix = new Matrix();
-            //matrix.postRotate(90);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
 
 // Rotate the bitmap
-            //Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
 
             int newWidth = 1000;
             int newHeight = 1000;;
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(rotatedBitmap, newWidth, newHeight, false);
 
            /* String sNumberPhoto= String.valueOf(numberPhoto);
             if(sNumberPhoto.equals("3")) {
@@ -745,17 +743,6 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
 
 
         }
-
-
-        /*if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            //set image to image view
-            imageView1.setImageURI(data.getData());
-            Bitmap bitmap = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
-
-            bitmapf=bitmap;
-
-
-        }*/
 
 
     }
