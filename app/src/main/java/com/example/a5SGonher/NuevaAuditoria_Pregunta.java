@@ -68,6 +68,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     private String currentPhotoPath;
     private static final int IMAGE_PICK_CODE=1000;
     private  static  final int PERMISSION_CODE=1001;
+    private  static  final int REQUEST_IMAGE_CAPTURE=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //fotografiaTomada: Me sirve para saber que se tomo por lo menos una fotografia si no para que me arroje mensaje
@@ -446,7 +447,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     }
     public void TakePhoto()
     {
-        String fileName="photo";
+        /*String fileName="photo";
         File StorageDirectory= getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         try {
             File imageFile=File.createTempFile(fileName,".jpg",StorageDirectory);
@@ -458,8 +459,15 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
             startActivityForResult(intent,1);
 
+
+
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
 
     }
@@ -555,23 +563,25 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==1 && resultCode == RESULT_OK)
+        if (requestCode == 1 && resultCode == RESULT_OK)
         {
 
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
 
-            Bitmap bitmap= BitmapFactory.decodeFile(currentPhotoPath);
+            //Bitmap bitmap= BitmapFactory.decodeFile(currentPhotoPath);//LINEA ANTERIOR
 
             // Create a matrix for the rotation
-            Matrix matrix = new Matrix();
-            matrix.postRotate(90);
+         //   Matrix matrix = new Matrix();
+            //matrix.postRotate(90);
 
 // Rotate the bitmap
-            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            //Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
 
             int newWidth = 1000;
             int newHeight = 1000;;
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(rotatedBitmap, newWidth, newHeight, false);
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);
 
            /* String sNumberPhoto= String.valueOf(numberPhoto);
             if(sNumberPhoto.equals("3")) {
