@@ -174,10 +174,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:text="Version 2.1, Mejoras: \n
+        android:text="Version 2.1.0, Mejoras: \n
         - Calificación en historial al enviar correo. \n
         - Zoom en Ayudas Visuales. \n
-        - Compartir Hallazgos anteriores. "
+        - Compartir Hallazgos anteriores.\n
+        - Se corrigio detalle al tomar fotografia del hállazgo."
         android:textSize="25px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
