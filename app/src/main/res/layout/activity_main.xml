@@ -20,6 +20,7 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
+        android:layout_marginTop="28dp"
         android:src="@drawable/logomejora"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -156,13 +157,12 @@
         android:id="@+id/btnAgregarInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:background="@drawable/boton_entrar"
         android:shadowColor="#300000"
         android:text="Ingresar"
         android:textColor="#ffffff"
         android:textSize="40px"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView43"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -174,11 +174,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:text="Version 2.1.0, Mejoras: \n
+        android:text="Version 2.1.1, Mejoras: \n
+        - Crear auditoria únicamente si no exista una creada. \n
+        - Botón generar reporte, deshabilitado, hasta generarlo. \n
         - Calificación en historial al enviar correo. \n
         - Zoom en Ayudas Visuales. \n
-        - Compartir Hallazgos anteriores.\n
-        - Se corrigio detalle al tomar fotografia del hállazgo."
+        - Compartir Hallazgos anteriores."
         android:textSize="25px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

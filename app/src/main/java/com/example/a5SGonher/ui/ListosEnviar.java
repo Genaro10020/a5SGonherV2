@@ -48,6 +48,7 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
     String GlobalUser;
     String GlobalNumeroAuditoria;
     String arraySubareas[]= new String[10000];
+    TextView btnAceptar;
 
     // Button myButton3 = new Button(this);
     @Override
@@ -91,6 +92,9 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                btnAceptar.setText("Crear");
+                btnAceptar.setBackgroundResource(R.drawable.boton_crear);
+                btnAceptar.setEnabled(true);
               //  Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         })
@@ -122,6 +126,9 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                btnAceptar.setText("Crear");
+                btnAceptar.setBackgroundResource(R.drawable.boton_crear);
+                btnAceptar.setEnabled(true);
                 //  Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         })
@@ -237,7 +244,7 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
     }
 
     public void confirmar_reporte(){
-        TextView btnAceptar = (TextView)findViewById(R.id.btn_aceptar);
+        btnAceptar = (TextView)findViewById(R.id.btn_aceptar);
         TextView btnCancelar = (TextView)findViewById(R.id.btn_cancelar);
         final View include_confirmar_excel = findViewById(R.id.id_layout_confirmar_excel);
         final TextView leyenda_enviando = (TextView) findViewById(R.id.leyenda_generando_reporte);
@@ -253,7 +260,14 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnAceptar.setText("Generando reporte espere...");
+                btnAceptar.setBackgroundResource(R.drawable.btn_desabilitado);
+                btnAceptar.setEnabled(false);
+
+
+                Log.i("Presionando",":");
                 leyenda_enviando.setVisibility(View.VISIBLE);
+
                 //include_confirmar_excel.setVisibility(View.GONE);
 
                 ejecutarservicio("https://vvnorth.com/excel/excel2.php",numeroAuditoria);

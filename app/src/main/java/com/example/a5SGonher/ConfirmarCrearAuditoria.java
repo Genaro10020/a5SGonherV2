@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,7 +30,8 @@ import java.util.Map;
 public class ConfirmarCrearAuditoria extends AppCompatActivity {
     String numeroNomina, Planta;
     TextView leyenda_creando;
-
+    TextView btncrear;
+    boolean onClickEnabled = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,26 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
         TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
         titulo.setText("Crear Auditoría");
 
-        TextView btncrear = (TextView)findViewById(R.id.text_crear);
+        btncrear = (TextView)findViewById(R.id.text_crear);
         btncrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                leyenda_creando.setVisibility(View.VISIBLE);
-                crearAuditoria("https://vvnorth.com/5sGhoner/crearAuditoria_v2.php",recibiendosubArea);
+
+                Log.e("Clic","en btn");
+
+                if (onClickEnabled){
+                    btncrear.setText("Espere creado..");
+                    btncrear.setBackgroundResource(R.drawable.btn_desabilitado);
+                    onClickEnabled=false;
+                    leyenda_creando.setVisibility(View.VISIBLE);
+                    crearAuditoria("https://vvnorth.com/5sGhoner/crearAuditoria_v2.php",recibiendosubArea);
+                }else{
+                    //Toast.makeText(getApplicationContext(),"Espere, creando auditoría",Toast.LENGTH_LONG).show();
+                  Toast toast = Toast.makeText(getApplicationContext(),"Espere, creando auditoría",Toast.LENGTH_SHORT);
+                  toast.setGravity(Gravity.CENTER,0,0);
+                  toast.show();
+                }
+
 
             }
         });
@@ -68,14 +85,30 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
             StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    Log.i("Crear AUDITORIA",":"+response);
+                    if (response.equals("Existe una sin contestar")){
+                        retornarListaAuditorias();
+                        Toast toas = Toast.makeText(getApplicationContext(),"Ya existe una auditoria creada",Toast.LENGTH_LONG);
+                        toas.setGravity(Gravity.CENTER,0,0);
+                        toas.show();
+                    }else{
+                        retornaraMenu();
+                        //Toast.makeText(getApplicationContext(),"Creada con éxito",Toast.LENGTH_SHORT).show();
+                        Toast toas = Toast.makeText(getApplicationContext(),"Creada con éxito",Toast.LENGTH_LONG);
+                        toas.setGravity(Gravity.CENTER,0,0);
+                        toas.show();
+                    }
                     // buscarProducto("https://vvnorth.com/comparacion_auditorf.php",NPlanta);
 
-                    Toast.makeText(getApplicationContext(),"Creada con éxito",Toast.LENGTH_SHORT).show();
-                    retornaraMenu();
+
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    onClickEnabled=true;
+                    btncrear.setText("Crear");
+                    btncrear.setBackgroundResource(R.drawable.boton_crear);
                     Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                 }
             })
@@ -99,6 +132,11 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
 
         Intent intent =new Intent(this,MainMenu.class);
         startActivity(intent);
-
     }
+
+    public void retornarListaAuditorias(){
+        Intent intent = new Intent(this,AuAudit2.class);
+        startActivity(intent);
+    }
+
 }
