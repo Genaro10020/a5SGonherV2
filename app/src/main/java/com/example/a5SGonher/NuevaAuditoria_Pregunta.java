@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -50,18 +51,21 @@ import org.w3c.dom.Text;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class NuevaAuditoria_Pregunta extends AppCompatActivity implements DialogOptions2.DialogOptions1Listener{
+    private static final int REQUEST_CODE_SPEECH_INPUT = 100;
     String [] guardandorespuestas  = new String[6];
     String Planta,nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas,numeroAnteriorAuditoria,textoHallazgo, cantidaddeimagenes;
-    Button BotonTerminar,btn_lienzo;
+    Button BotonTerminar,btn_lienzo,limpiar;
     TextView Pregunta,textofotouno,textofotodos,textofototres,textofotocuatro,mensaje_lienzo;
     EditText Razon;
     Bitmap bitmapf,bitmapf2,bitmapf3,bitmapf4,bitmapf5,bitmapf6;
     DrawView drawView;
-    ImageView icono_liezo;
+    ImageView icono_liezo, escuchar_voz;
     int numberPhoto=0,fotografiaTomada=0,fotografiasVisualizadas=0,cantidadimg=0,fotonumero=0,clickenfotoUno=0,clickenfotoDos=0,clickenfotoTres=0,clickenfotoCuatro=0,
             tomadafotoUno=0,tomadafotoDos=0,tomadafotoTres=0,tomadafotoCuatro=0, fotoVista1=0, fotoVista2=0, fotoVista3=0,fotoVista4=0;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
@@ -91,6 +95,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         numeroAnteriorAuditoria = getIntent().getStringExtra("EXTRA_SESSION_ID6");
         textoHallazgo = getIntent().getStringExtra("EXTRA_SESSION_ID7");
         cantidaddeimagenes = getIntent().getStringExtra("CANTIDAD_IMAGENES");
+        escuchar_voz = (ImageView)findViewById(R.id.img_record);
         BotonTerminar=(Button) findViewById(R.id.Button_Contestar);
         Pregunta=(TextView) findViewById(R.id.textView_Pregunta);
         Razon=(EditText) findViewById(R.id.editTextTextMultiLine);
@@ -108,6 +113,21 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         drawView = findViewById(R.id.EspacioCanva);
         btn_lienzo = (Button)findViewById(R.id.btn_lienzo);
         icono_liezo = (ImageView)findViewById(R.id.icono_lienzo);
+        limpiar = (Button)findViewById(R.id.btn_limpiar);
+
+        limpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Razon.setText("");
+            }
+        });
+
+        escuchar_voz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSpeechToText();
+            }
+        });
 
        // Toast.makeText(getApplicationContext(), nombreAyuda, Toast.LENGTH_SHORT).show();
            Log.e("","CANTIDAD DE IMAGENES DESDE BD:"+cantidaddeimagenes) ;
@@ -267,6 +287,21 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             }
         }
     }
+
+    private void startSpeechToText() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Habla ahora...");
+
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+        } catch (Exception e) {
+            Toast toas = Toast.makeText(getApplicationContext(),"Dispositivo no soporta esta opcion",Toast.LENGTH_SHORT);
+            toas.show();
+        }
+    }
+
 
     public static String removeLastChar(String str) {
         return removeLastChars(str, 1);
@@ -561,6 +596,14 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (result != null && !result.isEmpty()) {
+                String spokenText = result.get(0);
+                Razon.setText(spokenText);
+            }
+        }
+
         if (requestCode == 1 && resultCode == RESULT_OK)
         {
 
@@ -710,6 +753,8 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             btn_lienzo.setVisibility(View.VISIBLE);
             Pregunta.setVisibility(View.GONE);
             Razon.setVisibility(View.GONE);
+            escuchar_voz.setVisibility(View.GONE);
+            limpiar.setVisibility(View.GONE);
             textofotouno.setVisibility(View.GONE);
             textofotodos.setVisibility(View.GONE);
             textofototres.setVisibility(View.GONE);
@@ -729,6 +774,8 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                     mensaje_lienzo.setVisibility(View.GONE);
                     Pregunta.setVisibility(View.VISIBLE);
                     Razon.setVisibility(View.VISIBLE);
+                    escuchar_voz.setVisibility(View.VISIBLE);
+                    limpiar.setVisibility(View.VISIBLE);
                     textofotouno.setVisibility(View.VISIBLE);
                     textofotodos.setVisibility(View.VISIBLE);
                     textofototres.setVisibility(View.VISIBLE);
@@ -750,7 +797,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     private String imageToString(Bitmap bitmap)
     {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,20, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,40, outputStream);
         byte[] imageBytes= outputStream.toByteArray();
         String encodeImage= Base64.encodeToString(imageBytes,Base64.DEFAULT);
         return encodeImage;

@@ -53,15 +53,14 @@
 
     <EditText
         android:id="@+id/editTextTextMultiLine"
-        android:layout_width="400dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|bottom"
         android:hint="Respuesta"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintEnd_toStartOf="@+id/img_record"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Pregunta"
         app:layout_constraintVertical_bias="0.0" />
@@ -234,12 +233,11 @@
         android:id="@+id/mensaje_lienzo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:text="Puedes marcar sobre la Imagen."
         android:textColor="#009688"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/EspacioCanva"
-        app:layout_constraintEnd_toEndOf="@+id/EspacioCanva"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/EspacioCanva" />
 
 
@@ -251,8 +249,7 @@
         app:layout_constraintBottom_toTopOf="@+id/Button_Contestar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Button_Contestar"
@@ -272,7 +269,6 @@
         android:id="@+id/btn_lienzo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@drawable/boton_entrar"
         android:text="Listo"
         android:textColor="#E6E6E0"
@@ -280,9 +276,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/espereguardando"
         app:layout_constraintEnd_toEndOf="@+id/EspacioCanva"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/EspacioCanva"
-        app:layout_constraintTop_toBottomOf="@+id/EspacioCanva"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintStart_toStartOf="@+id/EspacioCanva">
 
     </Button>
 
@@ -294,7 +288,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/fondo_pie" />
 
+    <ImageView
+        android:id="@+id/img_record"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextMultiLine"
+        app:layout_constraintEnd_toStartOf="@+id/btn_limpiar"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_voz" />
 
+    <Button
+        android:id="@+id/btn_limpiar"
+        android:layout_width="60dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Limpiar"
+        android:textSize="7dp"
+        android:textColor="#E6E6E0"
+        android:background="@drawable/botones_next_back"
+        app:layout_constraintBottom_toBottomOf="@+id/img_record"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_record" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,6 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
-        android:layout_marginTop="28dp"
         android:src="@drawable/logomejora"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -49,7 +48,6 @@
         android:textColor="#8B0000"
         android:textSize="30dp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -61,7 +59,7 @@
         android:layout_marginStart="62dp"
         android:layout_marginLeft="32dp"
 
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="62dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/cuadro_fondo_editext"
@@ -69,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
 
         <!--<TextView
             android:id="@+id/mensaje2"
@@ -130,9 +128,9 @@
         android:id="@+id/tipo_planta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:checkedButton="@id/option_1"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -142,8 +140,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="Enerya/Riasa"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:text="Enerya/Riasa" />
 
         <RadioButton
             android:id="@+id/option_2"
@@ -174,13 +172,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:text="Version 2.1.1, Mejoras: \n
+        android:text="Version 2.1.2, Mejoras: \n
+        - Texto con voz evidencia hallazgos. \n
+        - Calidad de imagenes hallazgos al 40%. \n
+        - Ajuste de botón 'listo', al marcar imagen. \n
         - Crear auditoria únicamente si no exista una creada. \n
         - Botón generar reporte, deshabilitado, hasta generarlo. \n
         - Calificación en historial al enviar correo. \n
         - Zoom en Ayudas Visuales. \n
         - Compartir Hallazgos anteriores."
-        android:textSize="25px"
+        android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
