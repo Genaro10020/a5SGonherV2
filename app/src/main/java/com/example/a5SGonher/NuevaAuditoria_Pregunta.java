@@ -66,6 +66,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     Bitmap bitmapf,bitmapf2,bitmapf3,bitmapf4,bitmapf5,bitmapf6;
     DrawView drawView;
     ImageView icono_liezo, escuchar_voz;
+    TextView espereguardando;
     int numberPhoto=0,fotografiaTomada=0,fotografiasVisualizadas=0,cantidadimg=0,fotonumero=0,clickenfotoUno=0,clickenfotoDos=0,clickenfotoTres=0,clickenfotoCuatro=0,
             tomadafotoUno=0,tomadafotoDos=0,tomadafotoTres=0,tomadafotoCuatro=0, fotoVista1=0, fotoVista2=0, fotoVista3=0,fotoVista4=0;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
@@ -80,7 +81,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_auditoria__pregunta);
         TextView titulobarra = (TextView)findViewById(R.id.titulo_toolbar);
-        final TextView espereguardando = (TextView)findViewById(R.id.espereguardando);
+        espereguardando = (TextView)findViewById(R.id.espereguardando);
 
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         Planta = preferences.getString("Planta","No existe Número de Planta");
@@ -542,8 +543,11 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                VolverANuevaAuditoria();
+                BotonTerminar.setVisibility(View.VISIBLE);
+                espereguardando.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Error de conexión, espere reconexión e intente nuevamente", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Error de conexión, espere reconexión e intente nuevamente:"+error.toString(), Toast.LENGTH_SHORT).show();
+                //VolverANuevaAuditoria(); //reporte de error
             }
         })
         {
@@ -797,7 +801,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     private String imageToString(Bitmap bitmap)
     {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,40, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,20, outputStream);//peso
         byte[] imageBytes= outputStream.toByteArray();
         String encodeImage= Base64.encodeToString(imageBytes,Base64.DEFAULT);
         return encodeImage;
