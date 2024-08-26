@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConfirmarCrearAuditoria"></activity>
+        <activity android:name=".ConfirmarCrearAuditoria" />
         <activity android:name=".ShowOnlyImageHallazgos" />
         <activity android:name=".ShowOnlyImage" />
         <activity android:name=".NuevaAuditoria_Pregunta" />
@@ -211,6 +211,11 @@
             android:name=".Pruebas"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".Recorridos"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"

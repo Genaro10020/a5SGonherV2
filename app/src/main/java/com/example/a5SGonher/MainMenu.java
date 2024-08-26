@@ -7,27 +7,46 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.a5SGonher.ui.ListosEnviar;
 
+import java.util.HashMap;
+import java.util.Map;
 public class MainMenu extends AppCompatActivity {
     Button btnAjustesr,btnAuditar;
+    RequestQueue requestQueue;
+    String ServirGlobal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GlobalClass globalClass = (GlobalClass)getApplicationContext();
+        ServirGlobal = globalClass.getName();
         setContentView(R.layout.activity_main_menu);
+
+        LinearLayout layoutRecorrido;
         Button BotonsCrearAuditoria;
         Button btnAuditar;
         Button btnReportes;
         Button btnLogOut;
         Button btnHistorial;
         Button btnHallazgos;
+        Button btnRecorrido;
         TextView titulo_too, titular_session;
 
-
+        layoutRecorrido = (LinearLayout)findViewById(R.id.linearLayoutRecorrido);
         titular_session=(TextView)findViewById(R.id.textViewSession);
         BotonsCrearAuditoria=(Button) findViewById(R.id.BtnCrearAudtoria);
         btnAuditar=(Button) findViewById(R.id.btnAgregaRes);
@@ -37,7 +56,8 @@ public class MainMenu extends AppCompatActivity {
 
         btnHistorial=(Button) findViewById(R.id.btnAgregaF);
         btnHallazgos=(Button) findViewById(R.id.crearAuditoria);
-        cargarPreferencias();
+        btnRecorrido=(Button) findViewById(R.id.recorridos);
+        //cargarPreferencias();
 
          //Recupero Informacion Genaro
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
@@ -49,9 +69,9 @@ public class MainMenu extends AppCompatActivity {
         titular_session.setText("Auditor:  "+nombreAuditor+" ("+numeroNomina+") "+planta);
 
 
-            if(!Rol.equals("administrador"))
+            if(Rol.equals("Admin") || Rol.equals("Recorrido") )//para mostrar recorridos
             {
-
+                layoutRecorrido.setVisibility(View.VISIBLE);
              //  BotonsCrearAuditoria.setEnabled(false);
             //   BotonsCrearAuditoria.setBackgroundColor(Color.rgb(115, 125, 132));
 
@@ -93,6 +113,13 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
+        btnRecorrido.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openRecorridos();
+            }
+        });
+
 
     }
     @Override
@@ -126,6 +153,11 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openRecorridos(){
+        Intent intent = new Intent(this,Recorridos.class);
+        startActivity(intent);
+    }
+
     public void openActivityHallazgos()
     {
         Intent intent =new Intent(this,DownloadImage.class);
@@ -148,4 +180,7 @@ public class MainMenu extends AppCompatActivity {
         Intent intent =new Intent(this,MainActivity.class);
         startActivity(intent);
     }
+
+
+
 }

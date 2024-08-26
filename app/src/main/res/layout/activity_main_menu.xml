@@ -18,26 +18,26 @@
         android:id="@+id/textViewSession"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
+        android:layout_marginLeft="78dp"
         android:background="@drawable/linea_titularsession"
+        android:fontFamily="@font/saira_condensed_medium"
         android:gravity="center"
         android:text="TextView"
         android:textColor="#959595"
-        android:fontFamily="@font/saira_condensed_medium"
-        android:layout_marginLeft="78dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="145dp"
-        android:layout_marginTop="70dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
         app:layout_constraintHorizontal_bias="1.0"
@@ -47,8 +47,8 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="90dp"
-            android:layout_height="150dp"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
             android:background="@drawable/boton_menu_uno" />
 
         <Button
@@ -63,24 +63,26 @@
             android:textSize="20dp" />
     </LinearLayout>
 
+
     <LinearLayout
 
         android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout6"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="90dp"
-            android:layout_height="150dp"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
             android:background="@drawable/boton_menu_dos" />
 
         <Button
@@ -95,24 +97,24 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="90dp"
-            android:layout_height="150dp"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
             android:background="@drawable/boton_menu_tres" />
 
         <Button
@@ -127,24 +129,54 @@
 
     </LinearLayout>
 
-
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayoutRecorrido"
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:visibility="gone"
         android:orientation="horizontal"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/linearLayout6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <Button
+            android:id="@+id/button5"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
+            android:background="@drawable/boton_menu_cinco" />
+
+        <Button
+            android:id="@+id/recorridos"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/fondo_salir"
+            android:fontFamily="@font/mitre2"
+            android:text="Recorrido"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutRecorrido">
+
+        <Button
             android:id="@+id/button4"
-            android:layout_width="90dp"
-            android:layout_height="150dp"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
             android:background="@drawable/boton_menu_cuatro" />
 
         <Button
