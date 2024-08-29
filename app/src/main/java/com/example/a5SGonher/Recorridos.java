@@ -3,6 +3,7 @@ package com.example.a5SGonher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -43,6 +44,7 @@ public class Recorridos extends AppCompatActivity {
     String ServerName;
     String Planta,User,NumeroNomina,Rol;
     RequestQueue requestQueue;
+    Button btnCrearRecorrido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,27 +62,44 @@ public class Recorridos extends AppCompatActivity {
         TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
         titulo.setText("Recorridos");
         buscarAuditorDeRecorrido(ServerName+"5sGhoner/consultarRecorrido.php");
+        btnCrearRecorrido = (Button)findViewById(R.id.botonCrearRecorrido);
+
+        btnCrearRecorrido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnCrearRecorrido.setBackgroundResource(R.drawable.boton_verde);
+                intenCrearRecorrido();
+            }
+        });
         ///Log.e("Servidor",ServerName+"/")
+
     }
 
     private void buscarAuditorDeRecorrido(String URL) {
+        // Limpiar la tabla
+        TableLayout tabla = (TableLayout) findViewById(R.id.tablaRecorridos);
+        tabla.removeAllViews();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.i("Recorridos Existentes",response);
                         JSONObject jsonObject = null;
-                        String fecha = "",nombre_recorrido="";
+                        String fecha = "",nombre_recorrido="", codigo="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
+
                             for (int i = 0; i < respuestArreglo.length(); i++) {
                                 jsonObject = respuestArreglo.getJSONObject(i);
+                                codigo = jsonObject.getString("codigo");
                                 nombre_recorrido = jsonObject.getString("nombre_recorrido");
-                                fecha = jsonObject.getString("fecha");
+                                fecha = jsonObject.getString("fecha_creacion");
                                 //Log.e("","\n"+nombre_recorrido+"\n"+fecha);
-                                crearBoton(nombre_recorrido,fecha);
+                                crearBoton(codigo,nombre_recorrido,fecha);
                             }
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -88,7 +107,7 @@ public class Recorridos extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Problemas al conectar intente nuevamente.", Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override
@@ -103,10 +122,17 @@ public class Recorridos extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void crearBoton(String nombre_recorrido, String fecha){
+    private void crearBoton(final String codigo, String nombre_recorrido, String fecha){
 
         Button miBotonNombre = new Button(this);
         Button miBotonFecha = new Button(this);
+
+       miBotonNombre.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               intentHallazgosRecorrido(codigo);
+           }
+       });
 
         miBotonNombre.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
         miBotonNombre.setText(nombre_recorrido);
@@ -147,6 +173,29 @@ public class Recorridos extends AppCompatActivity {
         // Agregamos la fila a la tabla
         tabla.addView(fila);
     }
+
+    private void intentHallazgosRecorrido(String codigo){
+        Intent intent = new Intent(this,HallazgosRecorridos.class);
+        intent.putExtra("Codigo",codigo);
+        startActivity(intent);
+    }
+
+    private boolean isReturningFromFormularioNuevoRecorrido = false;
+
+    public void intenCrearRecorrido(){
+        isReturningFromFormularioNuevoRecorrido = true;
+        Intent intent = new Intent(this,FormularioNuevoRecorrido.class);
+        startActivity(intent);
+    }
+
+    protected void onResume() {
+        super.onResume();
+            btnCrearRecorrido.setBackgroundResource(R.drawable.boton_crear);
+            if (isReturningFromFormularioNuevoRecorrido) {
+                buscarAuditorDeRecorrido(ServerName+"5sGhoner/consultarRecorrido.php");
+            }
+        }
+
 
 
 }
