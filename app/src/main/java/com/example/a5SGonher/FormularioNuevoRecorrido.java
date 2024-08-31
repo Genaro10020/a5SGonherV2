@@ -162,7 +162,7 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("Respueta",response);
                         if(response.equals("true")){
-                            agregrarHallazgos();
+                            intentRecorridos();
                         }else{
                             crearRecorrido.setBackgroundResource(R.drawable.boton_crear);
                             Toast.makeText(getApplicationContext(),"No se creo correctamente el Recorrido",Toast.LENGTH_LONG).show();
@@ -191,9 +191,9 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void agregrarHallazgos(){
+    public void intentRecorridos(){
         crearRecorrido.setBackgroundResource(R.drawable.boton_crear);
-        Intent intent = new Intent(this,HallazgosRecorridos.class);
+        Intent intent = new Intent(this,Recorridos.class);
         startActivity(intent);
         finish();
     }

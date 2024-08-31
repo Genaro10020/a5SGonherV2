@@ -86,17 +86,18 @@ public class Recorridos extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("Recorridos Existentes",response);
                         JSONObject jsonObject = null;
-                        String fecha = "",nombre_recorrido="", codigo="";
+                        String fecha = "",nombre_recorrido="", codigo="",id_recorrido="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
 
                             for (int i = 0; i < respuestArreglo.length(); i++) {
                                 jsonObject = respuestArreglo.getJSONObject(i);
+                                id_recorrido = jsonObject.getString("id");
                                 codigo = jsonObject.getString("codigo");
                                 nombre_recorrido = jsonObject.getString("nombre_recorrido");
                                 fecha = jsonObject.getString("fecha_creacion");
                                 //Log.e("","\n"+nombre_recorrido+"\n"+fecha);
-                                crearBoton(codigo,nombre_recorrido,fecha);
+                                crearBoton(id_recorrido,codigo,nombre_recorrido,fecha);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
@@ -122,7 +123,7 @@ public class Recorridos extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void crearBoton(final String codigo, String nombre_recorrido, String fecha){
+    private void crearBoton(final String id_recorrido, final String codigo, String nombre_recorrido, String fecha){
 
         Button miBotonNombre = new Button(this);
         Button miBotonFecha = new Button(this);
@@ -130,7 +131,7 @@ public class Recorridos extends AppCompatActivity {
        miBotonNombre.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               intentHallazgosRecorrido(codigo);
+               intentHallazgosRecorrido(id_recorrido,codigo);
            }
        });
 
@@ -174,8 +175,9 @@ public class Recorridos extends AppCompatActivity {
         tabla.addView(fila);
     }
 
-    private void intentHallazgosRecorrido(String codigo){
+    private void intentHallazgosRecorrido(String id_recorrido, String codigo){
         Intent intent = new Intent(this,HallazgosRecorridos.class);
+        intent.putExtra("ID_recorrido",id_recorrido);
         intent.putExtra("Codigo",codigo);
         startActivity(intent);
     }

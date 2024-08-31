@@ -86,7 +86,7 @@ public class AgregarArea extends AppCompatActivity {
 
         myButton3.setText(nombreArea);
 
-        LinearLayout ll3 = (LinearLayout)findViewById(R.id.layoutArea);
+        LinearLayout ll3 = (LinearLayout)findViewById(R.id.layoutHallazgosR);
         LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll3.addView(myButton3, lp3);
 

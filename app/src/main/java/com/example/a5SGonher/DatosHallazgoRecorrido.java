@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -40,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ import java.util.Map;
 public class DatosHallazgoRecorrido extends AppCompatActivity {
     ImageView escuchar_voz, fotografia,iconoInterrogacion;
     EditText descripcion;
-    String ServerName,Planta;
+    String ServerName,Planta,NumeroNomina,ID_recorrido;
     TextView textoCamara,mensaje_lienzo,textoiconoInterrogacion,espereguardando,textResponsable;
     DrawView drawView;
     Button BotonTerminar,btn_lienzo,limpiar;
@@ -69,8 +71,13 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
         TextView titulo_toolbar = (TextView)findViewById(R.id.titulo_toolbar);
         SharedPreferences preferences=getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         Planta = preferences.getString("Planta","No existe Planta");
+        NumeroNomina = preferences.getString("NumeroNomina","No existe Numero de Nomina");
         GlobalClass globalClass = (GlobalClass)getApplicationContext();
         ServerName=globalClass.getName();
+
+        Intent intent = getIntent();
+        ID_recorrido=intent.getStringExtra("ID_recorrido");
+
         titulo_toolbar.setText("Datos de Hallázgo");
         textResponsable = findViewById(R.id.textResponsable);
         spinnerResponsables= findViewById(R.id.spinnerResponsable);
@@ -135,7 +142,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                 if(fotografiaTomada == 1){
                     espereguardando.setVisibility(View.VISIBLE);
                     BotonTerminar.setVisibility(View.GONE);
-                    //guardarHallazgo("https://vvnorth.com/5sGhoner/ContestarErrores.php");
+                    guardarHallazgo("https://vvnorth.com/5sGhoner/guardarEditarHallazgoRecorrido.php");
                 }else{
                     View toastfoto = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
                     Toast toast2 = new Toast(getApplicationContext());
@@ -149,6 +156,68 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
 
     }
 
+
+
+    private void guardarHallazgo(String URL)
+    {
+        StringRequest stringRequest=new  StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                    Log.i("Gudardada con exito",response);
+                    if(response.equals("true")){
+                        intentHallazgosRecorrido();
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Intento Nuevamente",Toast.LENGTH_LONG).show();
+                        espereguardando.setVisibility(View.GONE);
+                        BotonTerminar.setVisibility(View.VISIBLE);
+                    }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                BotonTerminar.setVisibility(View.VISIBLE);
+                espereguardando.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Error de conexión, espere reconexión e intente nuevamente", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), "Error de conexión, espere reconexión e intente nuevamente:"+error.toString(), Toast.LENGTH_SHORT).show();
+                //VolverANuevaAuditoria(); //reporte de error
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros =new HashMap<String,String>();
+                 String descripcionHallazgo = descripcion.getText().toString();
+                String responsable = spinnerResponsables.getSelectedItem().toString();
+
+                 parametros.put("Planta",Planta);
+                 parametros.put("ID_recorrido",ID_recorrido);
+                 parametros.put("Auditor",NumeroNomina);
+                parametros.put("DescripcionHallazgo",descripcionHallazgo);
+                parametros.put("Responsable",responsable);
+                 String imageData2 = imageToString(bitmapf);
+                 parametros.put("fotografia",imageData2);
+
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
+    private void intentHallazgosRecorrido(){
+        Intent intent = new Intent(this,HallazgosRecorridos.class);
+        startActivity(intent);
+    }
+
+    private String imageToString(Bitmap bitmap)
+    {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,20, outputStream);//peso
+        byte[] imageBytes= outputStream.toByteArray();
+        String encodeImage= Base64.encodeToString(imageBytes,Base64.DEFAULT);
+        return encodeImage;
+    }
 
     public void consultandoResponsables(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,

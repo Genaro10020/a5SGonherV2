@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <LinearLayout
-            android:id="@+id/layoutArea"
+            android:id="@+id/layoutHallazgosR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
