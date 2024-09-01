@@ -1,6 +1,7 @@
 package com.example.a5SGonher;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.speech.RecognizerIntent;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -52,7 +54,7 @@ import java.util.Map;
 public class DatosHallazgoRecorrido extends AppCompatActivity {
     ImageView escuchar_voz, fotografia,iconoInterrogacion;
     EditText descripcion;
-    String ServerName,Planta,NumeroNomina,ID_recorrido;
+    String ServerName,Planta,NumeroNomina,ID_recorrido,Codigo;
     TextView textoCamara,mensaje_lienzo,textoiconoInterrogacion,espereguardando,textResponsable;
     DrawView drawView;
     Button BotonTerminar,btn_lienzo,limpiar;
@@ -77,6 +79,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
 
         Intent intent = getIntent();
         ID_recorrido=intent.getStringExtra("ID_recorrido");
+        Codigo=intent.getStringExtra("Codigo");
 
         titulo_toolbar.setText("Datos de Hallázgo");
         textResponsable = findViewById(R.id.textResponsable);
@@ -166,6 +169,18 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                     Log.i("Gudardada con exito",response);
                     if(response.equals("true")){
                         intentHallazgosRecorrido();
+                        View procesando = getLayoutInflater().inflate(R.layout.toast_procesando,(ViewGroup)findViewById(R.id.layout_toast_procesando));
+                        Toast toasprocesando =  new Toast(DatosHallazgoRecorrido.this);
+                        TextView textoTitulo =procesando.findViewById(R.id.textView35);
+                        TextView mensaje =procesando.findViewById(R.id.mensaje1);
+                        textoTitulo.setText("EVIDENCIA GUARDADA!!");
+                        mensaje.setText("Se guardado correctamente");
+
+                        toasprocesando.setDuration(Toast.LENGTH_SHORT);
+                        toasprocesando.setView(procesando);
+                        toasprocesando.setGravity(Gravity.CENTER,0,0);
+                        toasprocesando.show();
+
                     }else{
                         Toast.makeText(getApplicationContext(),"Intento Nuevamente",Toast.LENGTH_LONG).show();
                         espereguardando.setVisibility(View.GONE);
@@ -207,7 +222,10 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
 
     private void intentHallazgosRecorrido(){
         Intent intent = new Intent(this,HallazgosRecorridos.class);
+        intent.putExtra("ID_recorrido",ID_recorrido);
+        intent.putExtra("Codigo",Codigo);
         startActivity(intent);
+        finish();
     }
 
     private String imageToString(Bitmap bitmap)
@@ -357,8 +375,8 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             bitmapf = drawView.getBitmap();
             ViewGroup.LayoutParams params = fotografia.getLayoutParams();
             //fotografia.setPadding(50,50,50,50);
-            params.width = 1000;
-            params.height = 1000;
+            params.width = 800;
+            params.height = 800;
             //fotografia.setLayoutParams(params);
             fotografia.setImageBitmap(bitmapf);
 

@@ -3,25 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/boton_nocompletado.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/ic_camara_evidencia.xml" value="0.265625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/ic_camara_evidencia_deshabilitado.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/lista_recorridos.xml" value="0.3" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/sombra.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_ajustes_menu.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_au_audit.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_au_audit2.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_datos_hallazgo_recorrido.xml" value="0.2" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_eliminar_responsable.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_formulario_custom_auditoria.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_hallazgos_recorridos.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_listos_enviar.xml" value="0.5" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_menu_auditoria.xml" value="0.26510416666666664" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_nueva_area_estandar.xml" value="0.19895833333333332" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_nueva_auditoria.xml" value="0.3625" />
-        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_nueva_auditoria__pregunta.xml" value="0.5" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_nueva_auditoria__pregunta.xml" value="0.1" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_pruebas.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_pruebas2.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_show_only_image_hallazgos.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/confirmar_generar_reporte.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/fragment_auditoria_llenado2.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/layout_dialog.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/preguntas.xml" value="0.5" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toast_comentario_foto_evidencia.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toast_personalizado.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toast_procesando.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toast_siguiente_pruebas.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toast_verificando_foto_evidencia.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toolbar.xml" value="0.2453125" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

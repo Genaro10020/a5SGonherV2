@@ -217,5 +217,12 @@ public void comparacion()
         requestQueue.add(jsonArrayRequest);
     }
 
+    public void onBackPressed(){
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+        finishAffinity();
+    }
 
 }

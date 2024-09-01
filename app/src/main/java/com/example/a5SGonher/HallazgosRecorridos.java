@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -18,9 +19,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +89,7 @@ public class HallazgosRecorridos extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("Hallazgos encontrados",response);
                         JSONObject jsonObject = null;
-                        String hallazgo = "",responsable="";
+                        String hallazgo = "",responsable="",id_hallazgo="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
 
@@ -94,7 +97,8 @@ public class HallazgosRecorridos extends AppCompatActivity {
                                 jsonObject = respuestArreglo.getJSONObject(i);
                                 hallazgo = jsonObject.getString("hallazgo");
                                 responsable = jsonObject.getString("responsable");
-                                crearBoton((i+1),hallazgo,responsable);
+                                id_hallazgo = jsonObject.getString("id_hallazgo");
+                                crearBoton((respuestArreglo.length()-i),id_hallazgo,hallazgo,responsable);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
@@ -121,55 +125,82 @@ public class HallazgosRecorridos extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void crearBoton(int cantidad,String hallazgo, String responsable){
+    private void crearBoton(int cantidad,String id_hallazgo ,String hallazgo, String responsable){
 
-        Button miBotonNombre = new Button(this);
-        Button miBotonFecha = new Button(this);
+        Button btnHallazgo = new Button(this);
 
-        miBotonNombre.setOnClickListener(new View.OnClickListener() {
+        btnHallazgo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //intentHallazgosRecorrido(id_recorrido,codigo);
             }
         });
 
-        miBotonNombre.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-        miBotonNombre.setText(hallazgo);
-        miBotonFecha.setText(responsable);
+
+        TextView textContador = new TextView(this);
+        String numero = "<font color='#000000'>Hallázgo #"+cantidad+"</font>";
+        textContador.setText(Html.fromHtml(numero));
+        textContador.setGravity(Gravity.CENTER_HORIZONTAL);
+
+        ImageView imgHallazgo = new ImageView(this);
+        String urlImagen = "https://vvnorth.com/5sGhoner/FotosRecorridos/"+NumeroNomina+"/"+ID_recorrido+"/"+id_hallazgo+".jpeg";
+        Picasso.get().load(urlImagen).into(imgHallazgo);
+        imgHallazgo.setLayoutParams(new ViewGroup.LayoutParams(500, 500));
+
+
+        btnHallazgo.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
+        String texto = "<font color='#a1a1a1'>Descripción:</font> <br> <font color='#c7c7c7'>" + hallazgo + "</font><br><br>" + "<font color='#a1a1a1'>Responsable:</font> <br><font color='#c7c7c7'>" + responsable+"</font>";
+        btnHallazgo.setText(Html.fromHtml(texto));
+
+        btnHallazgo.setAllCaps(false);
 
         // Obtenemos el TableLayout
         LinearLayout tabla = (LinearLayout) findViewById(R.id.layoutHallazgosR);
 
 
-        // Creamos un TableRow
-        TableRow fila = new TableRow(this);
-        TableRow.LayoutParams filaParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
-        fila.setLayoutParams(filaParams);
+        LinearLayout fila = new LinearLayout(this);
+        LinearLayout filaImagen = new LinearLayout(this);
+        LinearLayout.LayoutParams filaImagenParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        filaImagen.setGravity(Gravity.CENTER_HORIZONTAL);
+        filaImagen.setLayoutParams(filaImagenParams);
+
+        LinearLayout.LayoutParams filaHallazgoParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        filaHallazgoParams.setMargins(0,0,0,50);
+        fila.setLayoutParams(filaHallazgoParams);
+
+
+        LinearLayout.LayoutParams filaParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        //filaHallazgoParams.setMargins(0,10,0,20);
+
 
 
         // Establecemos el fondo de la fila
-        fila.setBackgroundResource(R.drawable.lista_recorridos);
+
 
 
         // Establecemos el peso de cada columna
-        TableRow.LayoutParams paramsNombre = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT,2f);
-        TableRow.LayoutParams paramsFecha = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT,2f);
+
+        LinearLayout.LayoutParams paramsHallazgo = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         // Establecemos el ancho fijo para el botón fecha
         //paramsFecha.width = 400; // ejemplo, 100dp
 
-        miBotonNombre.setLines(1);
-        miBotonNombre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-        miBotonFecha.setLines(1);
-        miBotonFecha.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        //btnHallazgo.setLines(1);
+        //btnHallazgo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        //btnResponsable.setLines(1);
+        //btnResponsable.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
 
         //Cuando el texto es muy grande agregara ...
-        miBotonNombre.setEllipsize(TextUtils.TruncateAt.END);
-        miBotonNombre.setPadding(25, 0, 50, 0);
+        //btnHallazgo.setEllipsize(TextUtils.TruncateAt.END);
+        btnHallazgo.setBackgroundResource(R.drawable.boton_nocompletado);
+        filaImagen.setBackgroundResource(R.color.rojobajito);
+        btnHallazgo.setPadding(15,20,10,20);
 
         // Agregamos los botones a la fila con sus respectivos pesos
-        fila.addView(miBotonNombre, paramsNombre);
-        fila.addView(miBotonFecha, paramsFecha);
+        filaImagen.addView(imgHallazgo);
+        fila.addView(btnHallazgo,paramsHallazgo);
         // Agregamos la fila a la tabla
+        tabla.addView(textContador);
+        tabla.addView(filaImagen);
         tabla.addView(fila);
     }
 
@@ -179,12 +210,18 @@ public class HallazgosRecorridos extends AppCompatActivity {
     private void intentDatosHallazgoRecorrido(){
         Intent intent = new Intent(this,DatosHallazgoRecorrido.class);
         intent.putExtra("ID_recorrido",ID_recorrido);
+        intent.putExtra("Codigo",Codigo);
         startActivity(intent);
     }
 
     protected void onResume(){
         super.onResume();
         nuevoHallazgo.setBackgroundResource(R.drawable.boton_crear);
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(HallazgosRecorridos.this, Recorridos.class);
+        startActivity(intent);
     }
 
 

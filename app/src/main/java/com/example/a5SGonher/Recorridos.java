@@ -145,17 +145,18 @@ public class Recorridos extends AppCompatActivity {
 
         // Creamos un TableRow
         TableRow fila = new TableRow(this);
-        TableRow.LayoutParams filaParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
-        fila.setLayoutParams(filaParams);
-
+        LinearLayout linea = new LinearLayout(this);
+        LinearLayout.LayoutParams lineaParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 5);
+        linea.setLayoutParams(lineaParams);
+        linea.setBackgroundResource(R.drawable.sombra);
 
         // Establecemos el fondo de la fila
-        fila.setBackgroundResource(R.drawable.lista_recorridos);
+        //fila.setBackgroundResource(R.drawable.lista_recorridos);
 
 
         // Establecemos el peso de cada columna
-        TableRow.LayoutParams paramsNombre = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 2f);
-        TableRow.LayoutParams paramsFecha = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams paramsNombre = new TableRow.LayoutParams(0, 150, 2f);
+        TableRow.LayoutParams paramsFecha = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 150);
         // Establecemos el ancho fijo para el botón fecha
         //paramsFecha.width = 400; // ejemplo, 100dp
 
@@ -166,13 +167,16 @@ public class Recorridos extends AppCompatActivity {
 
         //Cuando el texto es muy grande agregara ...
         miBotonNombre.setEllipsize(TextUtils.TruncateAt.END);
-        miBotonNombre.setPadding(25, 0, 50, 0);
+        miBotonNombre.setPadding(25, 0, 40, 0);
 
         // Agregamos los botones a la fila con sus respectivos pesos
+
         fila.addView(miBotonNombre, paramsNombre);
         fila.addView(miBotonFecha, paramsFecha);
+
         // Agregamos la fila a la tabla
         tabla.addView(fila);
+        tabla.addView(linea);
     }
 
     private void intentHallazgosRecorrido(String id_recorrido, String codigo){
@@ -197,7 +201,10 @@ public class Recorridos extends AppCompatActivity {
                 buscarAuditorDeRecorrido(ServerName+"5sGhoner/consultarRecorrido.php");
             }
         }
-
+    public void onBackPressed(){
+        Intent intent = new Intent(Recorridos.this,MainMenu.class);
+        startActivity(intent);
+    }
 
 
 }
