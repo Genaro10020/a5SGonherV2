@@ -39,133 +39,132 @@
      />
 
 
-
+    <LinearLayout
+        android:id="@+id/linearLayout12"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlanta">
 
         <LinearLayout
-            android:id="@+id/linearLayout12"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPlanta">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="23dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="Nombre recorrido:"
+                android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/textView44"
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Nombre recorrido:"
-                    android:textSize="12sp" />
-
-                <EditText
-                    android:id="@+id/editNombreRecorrido"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="8"
-                    android:inputType="textMultiLine"
-                    android:text=""
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView45"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Planta:"
-                    android:textSize="12sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerPlanta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView46"
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="Objetivo recorrido:"
-                    android:textSize="12sp" />
-
-                <EditText
-                    android:id="@+id/editObjetivo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="8"
-                    android:inputType="textMultiLine"
-                    android:text=""
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView47"
-                    android:layout_width="23dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Fecha"
-                    android:textSize="12sp" />
-
-
-            </LinearLayout>
-
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btnCrearRecorrido"
+            <EditText
+                android:id="@+id/editNombreRecorrido"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/boton_crear"
-                android:paddingHorizontal="15dp"
-                android:shadowColor="#300000"
-                android:text="Crear Recorrido"
-                android:textAllCaps="false"
-                android:textColor="#ffffff"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="8"
+                android:inputType="textMultiLine"
+                android:text=""
+                android:textSize="12sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView45"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="Planta:"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/spinnerPlanta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView46"
+                android:layout_width="23dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="Objetivo recorrido:"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/editObjetivo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="8"
+                android:inputType="textMultiLine"
+                android:text=""
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="23dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Fecha"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnCrearRecorrido"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/boton_crear"
+            android:paddingHorizontal="15dp"
+            android:shadowColor="#300000"
+            android:text="Crear Recorrido"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 
 

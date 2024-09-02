@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -86,7 +88,7 @@ public class Recorridos extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("Recorridos Existentes",response);
                         JSONObject jsonObject = null;
-                        String fecha = "",nombre_recorrido="", codigo="",id_recorrido="";
+                        String fecha = "",nombre_recorrido="", objetivo="", codigo="",id_recorrido="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
 
@@ -95,9 +97,10 @@ public class Recorridos extends AppCompatActivity {
                                 id_recorrido = jsonObject.getString("id");
                                 codigo = jsonObject.getString("codigo");
                                 nombre_recorrido = jsonObject.getString("nombre_recorrido");
+                                objetivo = jsonObject.getString("objetivo");
                                 fecha = jsonObject.getString("fecha_creacion");
                                 //Log.e("","\n"+nombre_recorrido+"\n"+fecha);
-                                crearBoton(id_recorrido,codigo,nombre_recorrido,fecha);
+                                crearBoton(id_recorrido,codigo,nombre_recorrido,objetivo,fecha);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
@@ -123,7 +126,7 @@ public class Recorridos extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void crearBoton(final String id_recorrido, final String codigo, String nombre_recorrido, String fecha){
+    private void crearBoton(final String id_recorrido, final String codigo, String nombre_recorrido,String objetivo, String fecha){
 
         Button miBotonNombre = new Button(this);
         Button miBotonFecha = new Button(this);
@@ -134,9 +137,10 @@ public class Recorridos extends AppCompatActivity {
                intentHallazgosRecorrido(id_recorrido,codigo);
            }
        });
-
+        String texto = "<font color='#863828'><b>Nombre recorrido:</b> <font/><br>"+nombre_recorrido+"<br><br><font color='#863828'><b>Objetivo:</b> <font/><br>"+objetivo;
         miBotonNombre.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-        miBotonNombre.setText(nombre_recorrido);
+
+        miBotonNombre.setText(Html.fromHtml(texto));
         miBotonFecha.setText(fecha);
 
         // Obtenemos el TableLayout
@@ -150,29 +154,48 @@ public class Recorridos extends AppCompatActivity {
         linea.setLayoutParams(lineaParams);
         linea.setBackgroundResource(R.drawable.sombra);
 
+        TableLayout.LayoutParams filaParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        filaParams.setMargins(0,0,0,0);
+        fila.setLayoutParams(filaParams);
+        fila.setGravity(Gravity.CENTER_VERTICAL);
         // Establecemos el fondo de la fila
         //fila.setBackgroundResource(R.drawable.lista_recorridos);
 
 
         // Establecemos el peso de cada columna
-        TableRow.LayoutParams paramsNombre = new TableRow.LayoutParams(0, 150, 2f);
-        TableRow.LayoutParams paramsFecha = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 150);
+        TableRow.LayoutParams paramsNombre = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        TableRow.LayoutParams paramsFecha = new TableRow.LayoutParams(320, ViewGroup.LayoutParams.MATCH_PARENT);
+        paramsFecha.height = TableRow.LayoutParams.MATCH_PARENT;
+        miBotonNombre.setLayoutParams(paramsNombre);
+        miBotonFecha.setLayoutParams(paramsFecha);
+        miBotonNombre.setGravity(Gravity.START|Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+        miBotonFecha.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+        miBotonNombre.setTypeface(null, Typeface.NORMAL);
+
+        miBotonFecha.setTypeface(null, Typeface.NORMAL);
+        //miBotonNombre.setBackgroundResource(R.drawable.boton_recorridos);
+        //miBotonFecha.setBackgroundResource(R.drawable.boton_recorridos);
         // Establecemos el ancho fijo para el botón fecha
         //paramsFecha.width = 400; // ejemplo, 100dp
 
-        miBotonNombre.setLines(1);
+        /*miBotonNombre.setLines(4);
         miBotonNombre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         miBotonFecha.setLines(1);
         miBotonFecha.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
 
         //Cuando el texto es muy grande agregara ...
-        miBotonNombre.setEllipsize(TextUtils.TruncateAt.END);
-        miBotonNombre.setPadding(25, 0, 40, 0);
+        miBotonNombre.setEllipsize(TextUtils.TruncateAt.END);*/
+        miBotonNombre.setAllCaps(false);
+        //miBotonNombre.setPadding(25, 0, 40, 0);
 
         // Agregamos los botones a la fila con sus respectivos pesos
 
-        fila.addView(miBotonNombre, paramsNombre);
-        fila.addView(miBotonFecha, paramsFecha);
+        fila.addView(miBotonNombre);
+        fila.addView(miBotonFecha);
+        // Ajustamos el alto de ambos botones para que sean iguales
+
+
+
 
         // Agregamos la fila a la tabla
         tabla.addView(fila);

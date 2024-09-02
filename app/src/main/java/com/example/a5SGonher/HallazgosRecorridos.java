@@ -92,14 +92,28 @@ public class HallazgosRecorridos extends AppCompatActivity {
                         String hallazgo = "",responsable="",id_hallazgo="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
+                            if(respuestArreglo.length()<=0){
+                                View procesando = getLayoutInflater().inflate(R.layout.toast_siguiente_pruebas,(ViewGroup)findViewById(R.id.layout_toast_prueba));
+                                Toast toastMensaje =  new Toast(HallazgosRecorridos.this);
+                                TextView textoTitulo =procesando.findViewById(R.id.textView35);
+                                TextView mensaje =procesando.findViewById(R.id.mensaje);
+                                textoTitulo.setText("SIN HALLAZGOS!!");
+                                mensaje.setText("Agregue Hallazgos");
 
-                            for (int i = 0; i < respuestArreglo.length(); i++) {
-                                jsonObject = respuestArreglo.getJSONObject(i);
-                                hallazgo = jsonObject.getString("hallazgo");
-                                responsable = jsonObject.getString("responsable");
-                                id_hallazgo = jsonObject.getString("id_hallazgo");
-                                crearBoton((respuestArreglo.length()-i),id_hallazgo,hallazgo,responsable);
+                                toastMensaje.setDuration(Toast.LENGTH_SHORT);
+                                toastMensaje.setView(procesando);
+                                toastMensaje.setGravity(Gravity.CENTER,0,0);
+                                toastMensaje.show();
+                            }else{
+                                for (int i = 0; i < respuestArreglo.length(); i++) {
+                                    jsonObject = respuestArreglo.getJSONObject(i);
+                                    hallazgo = jsonObject.getString("hallazgo");
+                                    responsable = jsonObject.getString("responsable");
+                                    id_hallazgo = jsonObject.getString("id_hallazgo");
+                                    crearBoton((respuestArreglo.length()-i),id_hallazgo,hallazgo,responsable);
+                                }
                             }
+
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
                         }
@@ -137,10 +151,12 @@ public class HallazgosRecorridos extends AppCompatActivity {
         });
 
 
+
         TextView textContador = new TextView(this);
         String numero = "<font color='#000000'>Hallázgo #"+cantidad+"</font>";
         textContador.setText(Html.fromHtml(numero));
         textContador.setGravity(Gravity.CENTER_HORIZONTAL);
+
 
         ImageView imgHallazgo = new ImageView(this);
         String urlImagen = "https://vvnorth.com/5sGhoner/FotosRecorridos/"+NumeroNomina+"/"+ID_recorrido+"/"+id_hallazgo+".jpeg";
@@ -158,16 +174,21 @@ public class HallazgosRecorridos extends AppCompatActivity {
         LinearLayout tabla = (LinearLayout) findViewById(R.id.layoutHallazgosR);
 
 
+
         LinearLayout fila = new LinearLayout(this);
         LinearLayout filaImagen = new LinearLayout(this);
         LinearLayout.LayoutParams filaImagenParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        filaImagenParams.setMargins(0,20,0,0);
         filaImagen.setGravity(Gravity.CENTER_HORIZONTAL);
         filaImagen.setLayoutParams(filaImagenParams);
 
         LinearLayout.LayoutParams filaHallazgoParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        filaHallazgoParams.setMargins(0,0,0,50);
+        filaHallazgoParams.setMargins(0,0,0,30);
         fila.setLayoutParams(filaHallazgoParams);
 
+        LinearLayout.LayoutParams paramContador = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        paramContador.setMargins(0,0,100,0);
+        textContador.setLayoutParams(paramContador);
 
         LinearLayout.LayoutParams filaParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //filaHallazgoParams.setMargins(0,10,0,20);
@@ -175,7 +196,15 @@ public class HallazgosRecorridos extends AppCompatActivity {
 
 
         // Establecemos el fondo de la fila
+        LinearLayout lineaInferior = new LinearLayout(this);
+        LinearLayout.LayoutParams lineaParams1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 10);
+        lineaInferior.setLayoutParams(lineaParams1);
+        lineaInferior.setBackgroundResource(R.drawable.sombra_inferior);
 
+        LinearLayout lineaSuperior = new LinearLayout(this);
+        LinearLayout.LayoutParams lineaParams2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 10);
+        lineaSuperior.setLayoutParams(lineaParams2);
+        lineaSuperior.setBackgroundResource(R.drawable.sombra);
 
 
         // Establecemos el peso de cada columna
@@ -191,17 +220,19 @@ public class HallazgosRecorridos extends AppCompatActivity {
 
         //Cuando el texto es muy grande agregara ...
         //btnHallazgo.setEllipsize(TextUtils.TruncateAt.END);
-        btnHallazgo.setBackgroundResource(R.drawable.boton_nocompletado);
-        filaImagen.setBackgroundResource(R.color.rojobajito);
+        btnHallazgo.setBackgroundResource(R.color.blaco);
+        filaImagen.setBackgroundResource(R.color.blaco);
         btnHallazgo.setPadding(15,20,10,20);
 
         // Agregamos los botones a la fila con sus respectivos pesos
         filaImagen.addView(imgHallazgo);
         fila.addView(btnHallazgo,paramsHallazgo);
         // Agregamos la fila a la tabla
+        tabla.addView(lineaSuperior);
         tabla.addView(textContador);
         tabla.addView(filaImagen);
         tabla.addView(fila);
+        tabla.addView(lineaInferior);
     }
 
 

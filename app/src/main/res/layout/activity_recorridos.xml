@@ -34,37 +34,13 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewArea"
         app:layout_constraintTop_toTopOf="@+id/textViewArea" />
 
-    <ScrollView
-        android:id="@+id/scrollView5"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="110dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonCrearRecorrido">
-
-
-        <TableLayout
-            android:id="@+id/tablaRecorridos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/fondo_pie" />
-
     <Button
         android:id="@+id/botonCrearRecorrido"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="44dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/boton_crear"
+        android:paddingHorizontal="10dp"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         android:text="@string/crear_recorrido"
@@ -74,5 +50,62 @@
         app:layout_constraintEnd_toEndOf="@+id/textViewArea"
         app:layout_constraintStart_toStartOf="@+id/textViewArea"
         app:layout_constraintTop_toBottomOf="@+id/textViewArea" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/botonCrearRecorrido">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView48"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Recorridos" />
+
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Fecha" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout13">
+
+
+        <TableLayout
+            android:id="@+id/tablaRecorridos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp"
+            android:paddingBottom="30dp" />
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/fondo_pie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -102,7 +103,6 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
                 }else{
                     crearRecorrido.setBackgroundResource(R.drawable.boton_crear);
                     Toast.makeText(getApplicationContext(), "Nombre y Objetivo de recorrido son requeridos", Toast.LENGTH_LONG).show();
-
                 }
 
             }
@@ -160,8 +160,18 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("Respueta",response);
+                        Log.i("Respuesta",response);
                         if(response.equals("true")){
+                            View procesando = getLayoutInflater().inflate(R.layout.toast_procesando,(ViewGroup)findViewById(R.id.layout_toast_procesando));
+                            Toast toastMensaje =  new Toast(FormularioNuevoRecorrido.this);
+                            TextView textoTitulo =procesando.findViewById(R.id.textView35);
+                            TextView mensaje =procesando.findViewById(R.id.mensaje1);
+                            textoTitulo.setText("GUARDADO EXITOSO!!");
+                            mensaje.setText("Se creo un nuevo recorrido");
+                            toastMensaje.setDuration(Toast.LENGTH_SHORT);
+                            toastMensaje.setView(procesando);
+                            toastMensaje.setGravity(Gravity.CENTER,0,0);
+                            toastMensaje.show();
                             intentRecorridos();
                         }else{
                             crearRecorrido.setBackgroundResource(R.drawable.boton_crear);
