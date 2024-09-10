@@ -137,7 +137,7 @@ public class Recorridos extends AppCompatActivity {
                intentHallazgosRecorrido(id_recorrido,codigo);
            }
        });
-        String texto = "<font color='#863828'><b>Nombre recorrido:</b> <font/><br>"+nombre_recorrido+"<br><br><font color='#863828'><b>Objetivo:</b> <font/><br>"+objetivo;
+        String texto = "<font color='#863828'><b>Nombre recorrido:</b> <font/><br>"+nombre_recorrido;/*+"<br><br><font color='#863828'><b>Objetivo:</b> <font/><br>"+objetivo*/
         miBotonNombre.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
 
         miBotonNombre.setText(Html.fromHtml(texto));

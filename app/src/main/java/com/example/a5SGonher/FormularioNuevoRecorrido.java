@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +40,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class FormularioNuevoRecorrido extends AppCompatActivity {
+    ImageView escuchar_voz;
     String ServerName;
     CalendarView calendarioFecha;
     Spinner spinnerPlanta; // Cambia a Spinner en lugar de View
@@ -46,8 +54,9 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
     String Planta,NumeroNomina;
     ArrayList<String> plantaList; // Declara el plantaList aquí
     EditText nombreRecorrido,objetivoRecorrido;
-    Button crearRecorrido;
+    Button crearRecorrido,limpiar;
     int añoActual,mesActual,diaActual;
+    private static final int REQUEST_CODE_SPEECH_INPUT = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +67,28 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
         GlobalClass globalClass = (GlobalClass)getApplicationContext();
         ServerName=globalClass.getName();
         setContentView(R.layout.activity_formulario_nuevo_recorrido);
+        escuchar_voz =findViewById(R.id.img_record);
+        limpiar = (Button)findViewById(R.id.btn_limpiar);
         crearRecorrido =(Button) findViewById(R.id.btnCrearRecorrido);
         objetivoRecorrido =(EditText) findViewById(R.id.editObjetivo);
         TextView titulo = (TextView)findViewById(R.id.titulo_toolbar);
         titulo.setText("Crear Recorrido");
         nombreRecorrido = (EditText)findViewById(R.id.editNombreRecorrido);
+
+        escuchar_voz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSpeechToText();
+            }
+        });
+        limpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nombreRecorrido.setText("");
+            }
+        });
+
+
         spinnerPlanta= findViewById(R.id.spinnerPlanta);
         plantaList = new ArrayList<>();
         calendarioFecha = findViewById(R.id.calendarView);
@@ -94,7 +120,7 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     crearRecorrido.setBackgroundResource(R.drawable.boton_verde);
-                if(!nombreRecorrido.getText().toString().equals("") && !objetivoRecorrido.getText().toString().equals("")  ){
+                if(!nombreRecorrido.getText().toString().equals("")){
                     String plantaSeleccionada = spinnerPlanta.getSelectedItem().toString();
                     String nombre_recorrido = nombreRecorrido.getText().toString();
                     String objetivo = objetivoRecorrido.getText().toString();
@@ -109,6 +135,35 @@ public class FormularioNuevoRecorrido extends AppCompatActivity {
         });
 
     }
+
+    private void startSpeechToText() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Habla ahora...");
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+
+        } catch (Exception e) {
+            Toast toas = Toast.makeText(getApplicationContext(),"Dispositivo no soporta esta opción",Toast.LENGTH_SHORT);
+            toas.show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (result != null && !result.isEmpty()) {
+                String spokenText = result.get(0);
+                nombreRecorrido.setText(spokenText);
+            }
+        }
+
+    }
+
 
     public void consultandoPlantas(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,

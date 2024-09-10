@@ -138,7 +138,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                 textResponsable.setVisibility(View.VISIBLE);
             }
         });
-        consultandoResponsables(ServerName+"5sGhoner/consultarAuditores.php");
+        consultandoResponsables(ServerName+"5sGhoner/consultarResponsables.php");
         BotonTerminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +146,20 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                     espereguardando.setVisibility(View.VISIBLE);
                     BotonTerminar.setVisibility(View.GONE);
                     guardarHallazgo("https://vvnorth.com/5sGhoner/guardarEditarHallazgoRecorrido.php");
-                }else{
+                }else if(descripcion.getText().toString().equals("")){
+                    View mensajeCuadro = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
+                    Toast toastMensaje = new Toast(getApplicationContext());
+                    TextView textoTitulo =mensajeCuadro.findViewById(R.id.textView35);
+                    TextView mensaje =mensajeCuadro.findViewById(R.id.mensaje1);
+                    textoTitulo.setText("DESCRIPCIÓN");
+                    mensaje.setText("Coloque una descripción de hallazgo");
+                    toastMensaje.setDuration(Toast.LENGTH_SHORT);
+                    toastMensaje.setView(mensajeCuadro);
+                    toastMensaje.setGravity(Gravity.CENTER,0,0);
+                    toastMensaje.show();
+                    toastMensaje.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
+                    toastMensaje.show();
+                }else if(fotografiaTomada!=1){
                     View toastfoto = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
                     Toast toast2 = new Toast(getApplicationContext());
                     toast2.setDuration(Toast.LENGTH_SHORT);
@@ -202,13 +215,19 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros =new HashMap<String,String>();
                  String descripcionHallazgo = descripcion.getText().toString();
-                String responsable = spinnerResponsables.getSelectedItem().toString();
+                String selectedItem = spinnerResponsables.getSelectedItem().toString();
+
+                String[] parts = selectedItem.split("\\(");//
+
+                String responsable = parts[0];
+                String nominaresponsable = parts[1].replace(")", "");;
 
                  parametros.put("Planta",Planta);
                  parametros.put("ID_recorrido",ID_recorrido);
                  parametros.put("Auditor",NumeroNomina);
-                parametros.put("DescripcionHallazgo",descripcionHallazgo);
-                parametros.put("Responsable",responsable);
+                 parametros.put("DescripcionHallazgo",descripcionHallazgo);
+                 parametros.put("Responsable",responsable);
+                 parametros.put("NominaResponsable",nominaresponsable);
                  String imageData2 = imageToString(bitmapf);
                  parametros.put("fotografia",imageData2);
 
@@ -245,15 +264,17 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
 
                         Log.e("RESPUESTA",response);
                         JSONObject jsonObject = null;
-                        String auditor="";
+                        String responsable="";
+                        String numeronomina="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
                             for (int i = 0; i < respuestArreglo.length(); i++) {
                                 jsonObject = respuestArreglo.getJSONObject(i);
-                                auditor = jsonObject.getString("NombreAuditor");
-                                ResponsablesList.add(auditor);
+                                responsable = jsonObject.getString("Responsable");
+                                numeronomina = jsonObject.getString("NumeroNomina");
+                                ResponsablesList.add(responsable+" ("+numeronomina+")");
 
-                                Log.e("","\n"+auditor);
+                                Log.e("","\n"+responsable);
 
                             }
 
