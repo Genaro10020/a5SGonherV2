@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tView,tView2;
     int selectedId ;
     String planta_seleccionada;
+    boolean passwordMatched = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 public void comparacion()
-
     {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
 
@@ -169,41 +169,106 @@ public void comparacion()
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        String numeroNomina;
-                        String password;
-                        String rol;
-                        String nombreAuditor;// Genaro
+                Log.i("Respueta Verificando",""+response);
 
-                        jsonObject = response.getJSONObject(i);
-                       Log.e("LoginResputa",""+response);
-                        // editT.setText(jsonObject.getString("Planta"));
-                        nombreAuditor=jsonObject.getString("NombreAuditor");
-                        password=jsonObject.getString("Password");
-                        numeroNomina=jsonObject.getString("auditor");
-                        rol=jsonObject.getString("Rol");
+                if(response.length()>0){
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            String numeroNomina;
+                            String password;
+                            String rol;
+                            String nombreAuditor;// Genaro
 
+                            jsonObject = response.getJSONObject(i);
+                           Log.e("LoginResputa",""+response);
+                            // editT.setText(jsonObject.getString("Planta"));
+                            nombreAuditor=jsonObject.getString("NombreAuditor");
+                            password=jsonObject.getString("Password");
+                            numeroNomina=jsonObject.getString("auditor");
+                            rol=jsonObject.getString("Rol");
 
-                                if(password.equals(edtPassword.getText().toString()))
-                                {
+                                    if(password.equals(edtPassword.getText().toString()))
+                                    {
+                                        passwordMatched = true;
+                                     // Toast.makeText(getApplicationContext(),nombreAuditor,Toast.LENGTH_SHORT).show();
+                                        guardarPreferencias(rol,nombreAuditor,numeroNomina);
+                                        openActivity2();
+                                        break;
 
-                                 // Toast.makeText(getApplicationContext(),nombreAuditor,Toast.LENGTH_SHORT).show();
-                                    guardarPreferencias(rol,nombreAuditor,numeroNomina);
-                                    openActivity2();
-
-                                }
-                                else{
-                                    Dialog2 dialog = new Dialog2();
-                                    dialog.show(getSupportFragmentManager(),"example dialog");
-
-                                }
-
-
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
+                    if (!passwordMatched) {
+                        //buscarResponsable("https://vvnorth.com/buscar_responsableClave.php?Planta="+edtNombre.getText().toString() +"&PlantaSeleccionada="+planta_seleccionada);
+                    }
+                }else{
+                    if (!passwordMatched) {
+                        //buscarResponsable("https://vvnorth.com/buscar_responsableClave.php?Planta="+edtNombre.getText().toString() +"&PlantaSeleccionada="+planta_seleccionada);
+                    }
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Completa los campos y verifica tu conexión",Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+    }
+
+
+    private void buscarResponsable(String URL)
+    {
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                Log.i("Respueta Verificando",""+response);
+
+                if(response.length()>0){
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            String numeroNomina;
+                            String password;
+                            String rol;
+                            String nombreAuditor;// Genaro
+
+                            jsonObject = response.getJSONObject(i);
+                            Log.e("LoginResputa",""+response);
+                            // editT.setText(jsonObject.getString("Planta"));
+                            nombreAuditor=jsonObject.getString("NombreAuditor");
+                            password=jsonObject.getString("Password");
+                            numeroNomina=jsonObject.getString("auditor");
+                            rol=jsonObject.getString("Rol");
+
+                            if(password.equals(edtPassword.getText().toString()))
+                            {
+                                passwordMatched = true;
+                                // Toast.makeText(getApplicationContext(),nombreAuditor,Toast.LENGTH_SHORT).show();
+                                guardarPreferencias(rol,nombreAuditor,numeroNomina);
+                                openActivity2();
+                                break;
+
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    if (!passwordMatched) {
+                        Dialog2 dialog = new Dialog2();
+                        dialog.show(getSupportFragmentManager(),"");
+                    }
+                }else{
+                    if (!passwordMatched) {
+                        Dialog2 dialog = new Dialog2();
+                        dialog.show(getSupportFragmentManager(),"");
+                    }
+
                 }
             }
         }, new Response.ErrorListener() {
