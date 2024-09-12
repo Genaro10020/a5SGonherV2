@@ -89,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
         //   tView=(TextView)findViewById(R.id.textViewrol1);
       //  tView2=(TextView)findViewById(R.id.textViewrol2);
 
-        cargarPreferencias();
+        //cargarPreferencias();
 
-        comparacion();
+        //comparacion();
 
 
         btnAgregar2.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +107,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    protected void onResume() {
+        super.onResume();
+        passwordMatched = false;
+    }
+
+
     public void openActivity2()
     {
       //  Toast.makeText(getApplicationContext(),"Entrol",Toast.LENGTH_SHORT).show();
@@ -131,10 +138,10 @@ public void comparacion()
         Integer Conected = preferences.getInt("Conected", 0);
 
 
-            if(Conected==1)
+           /* if(Conected==1)
     {
         openActivity2();
-    }
+    }*/
     }
 
     //Guardando informacion incial
@@ -244,7 +251,7 @@ public void comparacion()
                             String nombreResponsable;// Genaro
 
                             jsonObject = response.getJSONObject(i);
-                            Log.e("LoginRespuesta",""+response);
+                            Log.e("Consulta Responsable",""+response);
                             // editT.setText(jsonObject.getString("Planta"));
                             nombreResponsable=jsonObject.getString("Responsable");
                             password=jsonObject.getString("Password");

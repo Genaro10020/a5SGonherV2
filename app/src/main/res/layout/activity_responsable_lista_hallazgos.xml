@@ -70,50 +70,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow
+
+        <LinearLayout
+            android:id="@+id/layoutHallazgos"
             android:layout_width="match_parent"
-            android:layout_height="20dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="ID"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Desc. Hallazgo"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Fecha Hallazgo"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Estatus"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Evidencia"
-                android:textSize="12sp" />
-
-        </TableRow>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
