@@ -117,6 +117,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void openResponsable(){
+        Intent intento = new Intent(this,MainResponsable.class);
+        startActivity(intento);
+    }
+
 public void comparacion()
     {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
@@ -180,7 +185,7 @@ public void comparacion()
                             String nombreAuditor;// Genaro
 
                             jsonObject = response.getJSONObject(i);
-                           Log.e("LoginResputa",""+response);
+                           Log.e("LoginRespuesta",""+response);
                             // editT.setText(jsonObject.getString("Planta"));
                             nombreAuditor=jsonObject.getString("NombreAuditor");
                             password=jsonObject.getString("Password");
@@ -201,11 +206,11 @@ public void comparacion()
                         }
                     }
                     if (!passwordMatched) {
-                        //buscarResponsable("https://vvnorth.com/buscar_responsableClave.php?Planta="+edtNombre.getText().toString() +"&PlantaSeleccionada="+planta_seleccionada);
+                        buscarResponsable("https://vvnorth.com/buscar_responsableClave.php?Planta="+edtNombre.getText().toString() +"&PlantaSeleccionada="+planta_seleccionada);
                     }
                 }else{
                     if (!passwordMatched) {
-                        //buscarResponsable("https://vvnorth.com/buscar_responsableClave.php?Planta="+edtNombre.getText().toString() +"&PlantaSeleccionada="+planta_seleccionada);
+                        buscarResponsable("https://vvnorth.com/buscar_responsableClave.php?Planta="+edtNombre.getText().toString() +"&PlantaSeleccionada="+planta_seleccionada);
                     }
 
                 }
@@ -228,7 +233,7 @@ public void comparacion()
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                Log.i("Respueta Verificando",""+response);
+                Log.i("BuscandoResponsable",""+response);
 
                 if(response.length()>0){
                     for (int i = 0; i < response.length(); i++) {
@@ -236,22 +241,23 @@ public void comparacion()
                             String numeroNomina;
                             String password;
                             String rol;
-                            String nombreAuditor;// Genaro
+                            String nombreResponsable;// Genaro
 
                             jsonObject = response.getJSONObject(i);
-                            Log.e("LoginResputa",""+response);
+                            Log.e("LoginRespuesta",""+response);
                             // editT.setText(jsonObject.getString("Planta"));
-                            nombreAuditor=jsonObject.getString("NombreAuditor");
+                            nombreResponsable=jsonObject.getString("Responsable");
                             password=jsonObject.getString("Password");
-                            numeroNomina=jsonObject.getString("auditor");
-                            rol=jsonObject.getString("Rol");
+                            numeroNomina=jsonObject.getString("NumeroNomina");
+                            rol="Responsable";
 
                             if(password.equals(edtPassword.getText().toString()))
                             {
                                 passwordMatched = true;
+                                //Toast.makeText(getApplicationContext(),nombreResponsable,Toast.LENGTH_SHORT).show();
                                 // Toast.makeText(getApplicationContext(),nombreAuditor,Toast.LENGTH_SHORT).show();
-                                guardarPreferencias(rol,nombreAuditor,numeroNomina);
-                                openActivity2();
+                                guardarPreferencias(rol,nombreResponsable,numeroNomina);
+                                openResponsable();
                                 break;
 
                             }

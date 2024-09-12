@@ -19,7 +19,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DatosHallazgoRecorrido"></activity>
+        <activity
+            android:name=".ResponsableListaHallazgos"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".MainResponsable"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".DatosHallazgoRecorrido" />
         <activity android:name=".HallazgosRecorridos" />
         <activity android:name=".ConfirmarCrearAuditoria" />
         <activity android:name=".ShowOnlyImageHallazgos" />
