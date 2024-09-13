@@ -5,13 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -73,7 +79,7 @@ public class ResponsableListaHallazgos extends AppCompatActivity {
                             String nominaAuditor = jsonObjectHallazgos.getString("auditor");
                             String id_recorrido = jsonObjectHallazgos.getString("id_recorrido");
                             String codigoAuditoria = jsonObjectHallazgos.getString("codigo");
-                            String nombreAuditor = jsonObjectHallazgos.getString("Responsable");
+                            String nombreAuditor = jsonObjectHallazgos.getString("NombreAuditor");
                             String idHallazgo = jsonObjectHallazgos.getString("id_hallazgo");
                             String hallazgo = jsonObjectHallazgos.getString("hallazgo");
                             String fechaHallazgo = jsonObjectHallazgos.getString("fecha_hallazgo");
@@ -115,30 +121,95 @@ public class ResponsableListaHallazgos extends AppCompatActivity {
    public void espacioHallazgo(String nominaAuditor,String idRecorrido,String codigoAuditoria,String nombreAuditor,String idHallazgo,String hallazgo, String fechaHallazgo,String statusHallazgo){
        LinearLayout layoutPadre = (LinearLayout)findViewById(R.id.layoutHallazgos);
        LinearLayout layoutHijo = new LinearLayout(this);
-       layoutHijo.setBackgroundResource(R.drawable.linea_titularsession);
+       LinearLayout layoutHijo2 = new LinearLayout(this);
+       layoutHijo2.setBackgroundResource(R.drawable.linea_titularsession);
        TextView textDatos = new TextView(this);
+       TextView textStatus = new TextView(this);
        ImageView imagen = new ImageView(this);
+       Button boton = new Button(this);
 
+       boton.setText("Subir Evidencia");
+       // Create a Spinner for statusHallazgo
+       Spinner spinnerStatus = new Spinner(this);
+       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item) {
+           @Override
+           public View getView(int position, View convertView, ViewGroup parent) {
+               View view = super.getView(position, convertView, parent);
+               TextView textView = (TextView) view;
+               textView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+               textView.setGravity(Gravity.CENTER_HORIZONTAL); //texto
+               return view;
+           }
+
+           @Override
+           public View getDropDownView(int position, View convertView, ViewGroup parent) {
+               View view = super.getDropDownView(position, convertView, parent);
+               TextView textView = (TextView) view;
+               textView.setTextColor(Color.BLUE); // color
+               textView.setGravity(Gravity.CENTER_HORIZONTAL); // horientacion
+               return view;
+           }
+       };
+
+       for (int i = 0; i <= 100; i += 10) {
+           adapter.add(String.valueOf(i));
+       }
+       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       spinnerStatus.setAdapter(adapter);
+
+
+       // Establesco el valor inicial statusHallazgo
+       int selectedIndex = adapter.getPosition(statusHallazgo);
+       spinnerStatus.setSelection(selectedIndex);
 
        LinearLayout.LayoutParams paramsText = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2f);
        LinearLayout.LayoutParams paramsImage = new LinearLayout.LayoutParams(400, 600, 1f);
        paramsImage.gravity = Gravity.CENTER_VERTICAL;
        textDatos.setLayoutParams(paramsText);
        imagen.setLayoutParams(paramsImage);
+
+
+
+       LinearLayout.LayoutParams paramsTextStatus = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,1f);
+       paramsTextStatus.gravity = Gravity.CENTER_VERTICAL;
+       textStatus.setGravity(Gravity.END);
+       paramsTextStatus.setMargins(0,20,0,0);
+       textStatus.setLayoutParams(paramsTextStatus);
+
+
+       LinearLayout.LayoutParams paramsSpinner = new LinearLayout.LayoutParams(0,100,1f);
+       paramsSpinner.gravity = Gravity.CENTER_VERTICAL;
+       paramsSpinner.setMargins(0,20,100,0);
+       spinnerStatus.setBackgroundResource(R.drawable.formulario_confirmacion);
+       spinnerStatus.setLayoutParams(paramsSpinner);
+
+
+       LinearLayout.LayoutParams paramsButton = new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.WRAP_CONTENT,2f);
+       paramsButton.setMargins(0,50,100,20);
+       boton.setLayoutParams(paramsButton);
+       boton.setBackgroundResource(R.drawable.boton_crear);
+       boton.setTextColor(Color.WHITE);
+
        String urlImagen = "https://vvnorth.com/5sGhoner/FotosRecorridos/"+nominaAuditor+"/"+idRecorrido+"/"+idHallazgo+".jpeg";
        Picasso.get().load(urlImagen).into(imagen);
 
        String informacion = "<font color='#863828'>Codigo Auditoria:<br></font>"+codigoAuditoria+
                             "<br><font color='#863828'>Auditor:<br></font>"+nombreAuditor+
                             "<br><font color='#863828'>ID Hallazgo:<br></font>"+idHallazgo+
-                            "<br><font color='#863828'>Hallazgo:<br></font>"+hallazgo+
-                            "<br><font color='#863828'>Fecha Hallazgo:<br></font>"+fechaHallazgo+
-                            "<br><font color='#863828'>Estatus:<br></font>"+statusHallazgo;
-
+                            "<br><font color='#863828'>Hallazgo:<br></font><b>"+hallazgo+"</b>"+
+                            "<br><font color='#863828'>Fecha Hallazgo:<br></font>"+fechaHallazgo;
        textDatos.setText(Html.fromHtml(informacion));
+
+       String status = "<br><font color='#863828'>Estatus:<br></font>";
+       textStatus.setText(Html.fromHtml(status));
+
        layoutHijo.setOrientation(LinearLayout.HORIZONTAL);
        layoutHijo.addView(textDatos);
        layoutHijo.addView(imagen);
+       layoutHijo2.addView(textStatus);
+       layoutHijo2.addView(spinnerStatus);
+       layoutHijo2.addView(boton);
        layoutPadre.addView(layoutHijo);
+       layoutPadre.addView(layoutHijo2);
     }
 }

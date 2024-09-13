@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Genaro Villanueva/AppData/Local/Android/Sdk/platforms/android-29/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/AppData/Local/Android/Sdk/platforms/android-29/data/res/layout/simple_spinner_item.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/boton_nocompletado.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/boton_recorridos.xml" value="0.390625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/ic_camara_evidencia.xml" value="0.265625" />
@@ -33,6 +35,7 @@
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_pruebas2.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_recorridos.xml" value="0.2598958333333333" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_responsable_lista_hallazgos.xml" value="0.3484375" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_responsable_solucion_hallazgo.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_show_only_image_hallazgos.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/confirmar_generar_reporte.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/fragment_auditoria_llenado2.xml" value="0.3625" />

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResponsableSolucionHallazgo">
+
+
+    <include
+        android:id="@+id/include8"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Comentario opcional y subir solución"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include8" />
+
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textView33"
+        app:layout_constraintEnd_toStartOf="@+id/textView33"
+        app:layout_constraintTop_toTopOf="@+id/textView33"
+        app:srcCompat="@drawable/ic_ayuda" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/textView33">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Comentario de solución (Opcional)"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/img_record"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextTextMultiLine"
+                app:layout_constraintEnd_toStartOf="@+id/btn_limpiar"
+                app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_voz" />
+
+            <Button
+                android:id="@+id/btn_limpiar"
+                android:layout_width="63dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/botones_next_back"
+                android:text="Limpiar"
+                android:textColor="#E6E6E0"
+                android:textSize="7dp" />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--Lienzo-->
+    <ImageView
+        android:id="@+id/icono_lienzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/mensaje_lienzo"
+        app:layout_constraintEnd_toStartOf="@+id/mensaje_lienzo"
+        app:layout_constraintTop_toTopOf="@+id/mensaje_lienzo"
+        app:srcCompat="@drawable/ic_lienzo" />
+
+    <TextView
+        android:id="@+id/mensaje_lienzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Puedes marcar sobre la Imagen."
+        android:textColor="#009688"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include8" />
+
+
+
+
+    <TextView
+        android:id="@+id/textoCamara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Capturar"
+        app:layout_constraintBottom_toTopOf="@+id/imageView1P"
+        app:layout_constraintEnd_toEndOf="@+id/imageView1P"
+        app:layout_constraintStart_toStartOf="@+id/imageView1P" />
+
+    <Button
+        android:id="@+id/Button_Contestar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/boton_entrar"
+        android:text="Guardar Solución"
+        android:textAllCaps="false"
+        android:textColor="#E6E6E0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView1P" />
+
+    <TextView
+        android:id="@+id/espereguardando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="Guardando imágenes, espere por favor...."
+        app:layout_constraintEnd_toEndOf="@+id/Button_Contestar"
+        app:layout_constraintStart_toStartOf="@+id/Button_Contestar"
+        app:layout_constraintTop_toBottomOf="@+id/Button_Contestar" />
+
+    <ImageView
+        android:id="@+id/imageView1P"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_camara_evidencia" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/fondo_pie" />
+
+    <com.example.a5SGonher.DrawView
+        android:id="@+id/EspacioCanva"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_marginTop="120dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+    <Button
+        android:id="@+id/btn_lienzo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/boton_entrar"
+        android:text="Listo"
+        android:textColor="#E6E6E0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--Fin lienzo-->
+</androidx.constraintlayout.widget.ConstraintLayout>
