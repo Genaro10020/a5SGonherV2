@@ -274,7 +274,6 @@ public class    ListosEnviar extends AppCompatActivity implements DialogOptions3
             }
         });
 
-
     }
 
     public void formularioPlanta()

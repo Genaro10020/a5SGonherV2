@@ -43,13 +43,13 @@ public class MainResponsable extends AppCompatActivity {
 
     public void intentAbiertos(){
         Intent intent = new Intent(this,ResponsableListaHallazgos.class);
-        String tipoHallazgo = "Abiertos";
+        String tipoHallazgo = "";//Abiertos
         intent.putExtra("tipoHallazgo",tipoHallazgo);
         startActivity(intent);
     }
     public void intentCerrados(){
         Intent intent = new Intent(this,ResponsableListaHallazgos.class);
-        String tipoHallazgo = "Cerrado";
+        String tipoHallazgo = "Finalizado";//Finalizados
         intent.putExtra("tipoHallazgo",tipoHallazgo);
         startActivity(intent);
     }

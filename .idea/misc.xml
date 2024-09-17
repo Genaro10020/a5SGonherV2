@@ -7,6 +7,7 @@
         <entry key="..\:/Users/Genaro Villanueva/AppData/Local/Android/Sdk/platforms/android-29/data/res/layout/simple_spinner_item.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/boton_nocompletado.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/boton_recorridos.xml" value="0.390625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/formulario_confirmacion.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/ic_camara_evidencia.xml" value="0.265625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/ic_camara_evidencia_deshabilitado.xml" value="0.26145833333333335" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/drawable/lista_recorridos.xml" value="0.3" />
@@ -19,6 +20,7 @@
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_ajustes_menu.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_au_audit.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_au_audit2.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_crear_auditoria.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_datos_hallazgo_recorrido.xml" value="0.2" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_eliminar_responsable.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_formulario_custom_auditoria.xml" value="0.3625" />
@@ -35,11 +37,14 @@
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_pruebas2.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_recorridos.xml" value="0.2598958333333333" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_responsable_lista_hallazgos.xml" value="0.3484375" />
-        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_responsable_solucion_hallazgo.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_responsable_solucion_hallazgo.xml" value="0.25" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/activity_show_only_image_hallazgos.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/confirmar_cerrar_hallazgo.xml" value="0.37447916666666664" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/confirmar_generar_reporte.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/fragment_auditoria_llenado2.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/layout_dialog.xml" value="0.3625" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/mensaje_mal.xml" value="0.33" />
+        <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/mesaje_mal.xml" value="0.2453125" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/preguntas.xml" value="0.5" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toast_comentario_foto_evidencia.xml" value="0.3625" />
         <entry key="..\:/Users/Genaro Villanueva/StudioProjects/a5SGonherV2/app/src/main/res/layout/toast_personalizado.xml" value="0.3625" />

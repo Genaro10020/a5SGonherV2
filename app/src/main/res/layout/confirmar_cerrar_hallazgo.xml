@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/linea_titularsession"
+    android:id="@+id/layout_cerrar_hallazgo"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/formulario_confirmacion"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="¡Cerrar Hallazgo!"
+            android:textColor="#932929"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:text="Desea cerrar el hallazgo, pasará a hallazgos cerrados\nya no aparecerá en esta lista de hallazgos pendientes."
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_cancelar"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/boton_crear"
+                android:fontFamily="@font/saira_condensed_medium"
+                android:gravity="center"
+                android:text="Cancelar"
+                android:textSize="14sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/btn_aceptar"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/boton_crear"
+                android:fontFamily="@font/saira_condensed_medium"
+                android:gravity="center"
+                android:text="Aceptar"
+                android:textSize="14sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/leyenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:text="Cerrando Hallazgo..."
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

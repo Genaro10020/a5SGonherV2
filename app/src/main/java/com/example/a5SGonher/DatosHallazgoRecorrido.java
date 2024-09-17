@@ -84,7 +84,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
         titulo_toolbar.setText("Datos de Hallázgo");
         textResponsable = findViewById(R.id.textResponsable);
         spinnerResponsables= findViewById(R.id.spinnerResponsable);
-        escuchar_voz =findViewById(R.id.img_record);
+        escuchar_voz=findViewById(R.id.img_record);
         descripcion=findViewById(R.id.descripcion);
         limpiar = (Button)findViewById(R.id.btn_limpiar);
         fotografia = findViewById(R.id.imageView1P);
