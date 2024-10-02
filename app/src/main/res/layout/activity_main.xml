@@ -172,7 +172,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:text="Version 2.2.1, Mejoras: \n
+        android:text="Version 2.2.2, Mejoras: \n
+        - Acceso a Galeria.\n
         - Se agregaron recorridos OPEX.\n
         - Texto con voz evidencia hallazgos. \n
         - Calidad de imagenes hallazgos al 40%. \n

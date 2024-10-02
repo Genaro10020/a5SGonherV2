@@ -3,11 +3,13 @@ package com.example.a5SGonher;
 import static com.example.a5SGonher.ShowOnlyImageHallazgos.removeLastChars;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -56,7 +58,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class NuevaAuditoria_Pregunta extends AppCompatActivity implements DialogOptions2.DialogOptions1Listener{
+public class NuevaAuditoria_Pregunta extends AppCompatActivity{
     private static final int REQUEST_CODE_SPEECH_INPUT = 100;
     String [] guardandorespuestas  = new String[6];
     String Planta,nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas,numeroAnteriorAuditoria,textoHallazgo, cantidaddeimagenes;
@@ -73,7 +75,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     private String currentPhotoPath;
     private static final int IMAGE_PICK_CODE=1000;
     private  static  final int PERMISSION_CODE=1001;
-    private  static  final int REQUEST_IMAGE_CAPTURE=1;
+    private static final int REQUEST_IMAGE_GALLERY = 10002;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //fotografiaTomada: Me sirve para saber que se tomo por lo menos una fotografia si no para que me arroje mensaje
@@ -137,32 +139,33 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
 
         Pregunta.setText(nombrePregunta);
         Razon.setText(textoHallazgo);
+
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickenfotoUno=1;
-                TakePhoto();
+                eligeFotoGaleria();
             }
-        } );
+        });
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickenfotoDos=1;
-                TakePhoto();
+                eligeFotoGaleria();
             }
         });
         imageView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickenfotoTres=1;
-                TakePhoto();
+                eligeFotoGaleria();
             }
         });
         imageView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickenfotoCuatro=1;
-                TakePhoto();
+                eligeFotoGaleria();
             }
         });
         /*imageView5.setOnClickListener(new View.OnClickListener() {
@@ -287,6 +290,27 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 }
             }
         }
+    }
+
+
+    public void eligeFotoGaleria(){
+        final CharSequence[] options = {"Take a photo", "Select from gallery"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(NuevaAuditoria_Pregunta.this);
+        builder.setTitle("Elija Una Opción:");
+        builder.setItems(new CharSequence[]{"Tomar foto", "Elegir de la galería"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        TakePhoto();
+                        break;
+                    case 1:
+                        desdeGaleria();
+                        break;
+                }
+            }
+        });
+        builder.show();
     }
 
     private void startSpeechToText() {
@@ -437,7 +461,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     }
 
 
-    @Override
+    /*@Override
     public void onYesClicked() {
         String fileName="photo";
         File StorageDirectory= getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -455,9 +479,9 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             e.printStackTrace();
         }
 
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onNoClicked() {
 
         //check runtime permission
@@ -480,7 +504,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
             ///system os is less than marshmalllow
             pickImageFromGallery();
         }
-    }
+    }*/
 
    public void TakePhoto()
     {
@@ -506,30 +530,11 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
     }
 
 
-    private void pickImageFromGallery()
-    {
-// int to pick image
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent,IMAGE_PICK_CODE);
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode)
-        {
-            case  PERMISSION_CODE:{
-                if(grantResults.length >0 && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED){
-                    //permission was granted
-                    pickImageFromGallery();
-                }
-                else{
-//permision was denied
 
-                }
-
-            }
-        }
+    public void desdeGaleria(){
+        // El usuario eligió elegir de la galería
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY);
     }
 
     private void ejecutarservicio(String URL)
@@ -606,6 +611,98 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity implements Dialog
                 String spokenText = result.get(0);
                 Razon.setText(spokenText);
             }
+        }
+
+       if(requestCode == REQUEST_IMAGE_GALLERY && data != null && clickenfotoUno==1) {
+
+
+           if (fotoVista2!=1){
+               //imageView2.setImageResource(R.drawable.ic_camara_evidencia);
+               imageView2.setEnabled(true);
+           }
+           textofotouno.setText("Capturada.");
+           textofotodos.setVisibility(View.VISIBLE);
+           if (fotoVista2!=1){
+               //imageView2.setImageResource(R.drawable.ic_camara_evidencia);
+               imageView2.setEnabled(true);
+           }
+           fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
+            // La imagen seleccionada de la galería
+            Uri imageUri = data.getData();
+            imageView1.setImageURI(imageUri);
+
+
+            Bitmap bitmap = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
+            bitmapf = bitmap;
+            imageView1.setImageBitmap(bitmapf);
+            //bitmapf2 = bitmap;
+            clickenfotoUno=0;
+            fotoVista1=0;
+            tomadafotoUno=1;
+
+        }
+
+        if(requestCode == REQUEST_IMAGE_GALLERY && data != null && clickenfotoDos==1) {
+            if (fotoVista3!=1){
+                //imageView3.setImageResource(R.drawable.ic_camara_evidencia);
+                imageView3.setEnabled(true);
+            }
+            textofotodos.setText("Capturada.");
+            textofototres.setVisibility(View.VISIBLE);
+            fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
+
+            // La imagen seleccionada de la galería
+            Uri imageUri = data.getData();
+            imageView2.setImageURI(imageUri);
+
+            Bitmap bitmap = ((BitmapDrawable)imageView2.getDrawable()).getBitmap();
+            bitmapf2 = bitmap;
+            imageView2.setImageBitmap(bitmapf2);
+            //bitmapf2 = bitmap;
+            clickenfotoDos=0;
+            fotoVista2=0;
+            tomadafotoDos=1;
+
+        }
+
+        if(requestCode == REQUEST_IMAGE_GALLERY && data != null && clickenfotoTres==1) {
+            if (fotoVista4!=1){
+                //imageView4.setImageResource(R.drawable.ic_camara_evidencia);
+                imageView4.setEnabled(true);
+            }
+            textofototres.setText("Capturada.");
+            textofotocuatro.setVisibility(View.VISIBLE);
+            fotografiaTomada=1;//comprobando que si exita minimo una imagen tomada
+
+            // La imagen seleccionada de la galería
+            Uri imageUri = data.getData();
+            imageView3.setImageURI(imageUri);
+
+            Bitmap bitmap = ((BitmapDrawable)imageView3.getDrawable()).getBitmap();
+            bitmapf3 = bitmap;
+            imageView3.setImageBitmap(bitmapf3);
+            //bitmapf2 = bitmap;
+            clickenfotoTres=0;
+            fotoVista3=0;
+            tomadafotoTres=1;
+            imageView4.setEnabled(true);
+        }
+
+        if(requestCode == REQUEST_IMAGE_GALLERY && data != null && clickenfotoCuatro==1) {
+            textofotocuatro.setText("Capturada.");
+            fotografiaTomada=1;
+            // La imagen seleccionada de la galería
+            Uri imageUri = data.getData();
+            imageView4.setImageURI(imageUri);
+
+            Bitmap bitmap = ((BitmapDrawable)imageView4.getDrawable()).getBitmap();
+            bitmapf4 = bitmap;
+            imageView4.setImageBitmap(bitmapf4);
+            //bitmapf2 = bitmap;
+            clickenfotoCuatro=0;
+            fotoVista4=0;
+            tomadafotoCuatro=1;
+
         }
 
         if (requestCode == 1 && resultCode == RESULT_OK)

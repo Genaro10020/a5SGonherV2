@@ -31,7 +31,6 @@ public class MainResponsable extends AppCompatActivity {
         titular_session.setText("Responsable:  "+nombreAuditor+" ("+numeroNomina+") "+planta);
         Button btnAbierto = (Button)findViewById(R.id.BtnAbiertos);
         Button btnCerrados = (Button)findViewById(R.id.BtnCerrados);
-
         btnAbierto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +50,11 @@ public class MainResponsable extends AppCompatActivity {
         Intent intent = new Intent(this,ResponsableListaHallazgos.class);
         String tipoHallazgo = "Finalizado";//Finalizados
         intent.putExtra("tipoHallazgo",tipoHallazgo);
+        startActivity(intent);
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 }
