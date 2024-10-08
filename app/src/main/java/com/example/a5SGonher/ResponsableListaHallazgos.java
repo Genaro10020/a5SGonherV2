@@ -156,7 +156,7 @@ public class ResponsableListaHallazgos extends AppCompatActivity {
        Button boton = new Button(this);
        final Button FinalizarHallazgo = new Button(this);
        TextView textoFecha = new TextView(this);
-       final Button botonCalendario = new Button(this);
+        final Button botonCalendario = new Button(this);
        FinalizarHallazgo.setText("Finalizar Hallazgo");
        FinalizarHallazgo.setPadding(20,0,20,0);
        layoutHijo3.setBackgroundResource(R.drawable.linea_titularsession);
@@ -172,9 +172,16 @@ public class ResponsableListaHallazgos extends AppCompatActivity {
 
        textoFecha.setText("Fecha Compromiso:");
        textoFecha.setGravity(Gravity.CENTER);
-       botonCalendario.setText(fechaCompromiso);
-       botonCalendario.setBackgroundResource(R.drawable.boton_nocompletado);
+
+       if(!fechaCompromiso.equals("0000-00-00")){
+           botonCalendario.setEnabled(false);
+           botonCalendario.setBackgroundResource(R.color.gris);
+       }else{
+           botonCalendario.setBackgroundResource(R.drawable.boton_nocompletado);
+       }
+
        botonCalendario.setTextColor(Color.WHITE);
+       botonCalendario.setText(fechaCompromiso);
 
        botonCalendario.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -196,6 +203,8 @@ public class ResponsableListaHallazgos extends AppCompatActivity {
                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
                                String formattedDate = simpleDateFormat.format(date.getTime());
                                botonCalendario.setText(formattedDate);
+                               botonCalendario.setEnabled(false);
+                               botonCalendario.setBackgroundResource(R.color.gris);
 
                                SimpleDateFormat mysqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                String mysqlFormattedDate = mysqlDateFormat.format(date.getTime());
