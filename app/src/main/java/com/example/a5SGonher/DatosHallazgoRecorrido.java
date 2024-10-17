@@ -41,6 +41,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
@@ -119,7 +120,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             }
         } );
 
-        btn_lienzo.setOnClickListener(new View.OnClickListener() {
+                btn_lienzo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawView.setVisibility(View.GONE);
@@ -181,7 +182,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             public void onResponse(String response) {
                     Log.i("Gudardada con exito",response);
                     if(response.equals("true")){
-                        intentHallazgosRecorrido();
+
                         View procesando = getLayoutInflater().inflate(R.layout.toast_procesando,(ViewGroup)findViewById(R.id.layout_toast_procesando));
                         Toast toasprocesando =  new Toast(DatosHallazgoRecorrido.this);
                         TextView textoTitulo =procesando.findViewById(R.id.textView35);
@@ -193,6 +194,8 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                         toasprocesando.setView(procesando);
                         toasprocesando.setGravity(Gravity.CENTER,0,0);
                         toasprocesando.show();
+                        enviarCorreoHallazgo("https://vvnorth.com/5sGhoner/enviarCorreoHallazgoRecorridoOpex.php");
+                        intentHallazgosRecorrido();
 
                     }else{
                         Toast.makeText(getApplicationContext(),"Intento Nuevamente",Toast.LENGTH_LONG).show();
@@ -215,12 +218,11 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros =new HashMap<String,String>();
                  String descripcionHallazgo = descripcion.getText().toString();
+
                 String selectedItem = spinnerResponsables.getSelectedItem().toString();
-
                 String[] parts = selectedItem.split("\\(");//
-
                 String responsable = parts[0];
-                String nominaresponsable = parts[1].replace(")", "");;
+                String nominaresponsable = parts[1].replace(")", "");
 
                  parametros.put("Planta",Planta);
                  parametros.put("ID_recorrido",ID_recorrido);
@@ -298,6 +300,43 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("planta", Planta);
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    public void enviarCorreoHallazgo(String URL){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.e("RESPUESTA DE CORREO",response);
+                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Problemas de envio del correo automatico.", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+
+                String selectedItem = spinnerResponsables.getSelectedItem().toString();
+                String[] parts = selectedItem.split("\\(");//
+                String responsable = parts[0];
+                String nominaresponsable = parts[1].replace(")", "");
+                String hallazgo = descripcion.getText().toString();
+
+                parametros.put("Planta", Planta);
+                parametros.put("Hallazgo",hallazgo);
+                parametros.put("NominaResponsable", nominaresponsable);
                 return parametros;
             }
         };
