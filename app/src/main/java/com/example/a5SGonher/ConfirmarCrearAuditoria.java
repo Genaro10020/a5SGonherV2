@@ -55,7 +55,7 @@ public class ConfirmarCrearAuditoria extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Log.e("Clic","en btn");
+                //Log.e("Clic","en btn");
 
                 if (onClickEnabled){
                     btncrear.setText("Espere creado..");

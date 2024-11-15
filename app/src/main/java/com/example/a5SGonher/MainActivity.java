@@ -67,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
         }else if(planta_seleccionada.equals("Filtros")){
             planta_seleccionada = "Filtros";
             Log.e("Planta Seleccionada",planta_seleccionada);
+        }else if(planta_seleccionada.equals("Gonhermex")){
+            planta_seleccionada = "";
+            Log.e("Planta Seleccionada",planta_seleccionada);
         }
+
 
 
         tipoPlanta.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -81,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if(selectedText.equals("Filtros")){
                     planta_seleccionada = "Filtros";
                      Log.e("Planta Seleccionada",planta_seleccionada);
+                } else if(selectedText.equals("Gonhermex")){
+                    planta_seleccionada = "Gonhermex";
+                    Log.e("Planta Seleccionada",planta_seleccionada);
                 }
             }
         });
@@ -268,6 +275,7 @@ public void comparacion()
                                 break;
 
                             }
+
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }

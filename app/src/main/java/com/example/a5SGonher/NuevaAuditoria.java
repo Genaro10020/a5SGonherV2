@@ -291,6 +291,8 @@ public class NuevaAuditoria extends AppCompatActivity {
             url= "https://vvnorth.com/5sGhoner/subareas/";
         }else if(planta.equals("Filtros")){
             url= "https://vvnorth.com/5sGhoner/subareasFiltros/";
+        }else if(planta.equals("Gonhermex")){
+            url= "https://vvnorth.com/5sGhoner/subareasGonhermex/";
         }
 
 
