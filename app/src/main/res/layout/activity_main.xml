@@ -7,9 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:layout_gravity="center_vertical"
     tools:context=".MainActivity">
 
-    <include
         android:id="@+id/include"
         layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_end="711dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -41,8 +41,9 @@
         app:layout_constraintGuide_begin="20dp" />
 
     <TextView
+        android:gravity="center"
         android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bienvenido"
         android:textColor="#8B0000"
@@ -128,7 +129,9 @@
         android:id="@+id/tipo_planta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:checkedButton="@id/option_1"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,24 +166,35 @@
         android:id="@+id/btnAgregarInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
         android:background="@drawable/boton_entrar"
         android:shadowColor="#300000"
         android:text="Ingresar"
         android:textColor="#ffffff"
         android:textSize="40px"
-        app:layout_constraintBottom_toTopOf="@+id/textView43"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipo_planta" />
 
-    <TextView
-        android:id="@+id/textView43"
+    <ScrollView
+        android:id="@+id/scrollView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:text="Version 2.2.3, Mejoras: \n
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAgregarInicio"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textView43"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="Version 2.2.4, Mejoras: \n
+        - Todos los usuarios pueden ver los recorridos e interactuar.\n
         - Aviso por correo al responsable de hallazgo OPEX.\n
         - Acceso a Galeria.\n
         - Se agregarón recorridos OPEX.\n
@@ -192,9 +206,12 @@
         - Calificación en historial al enviar correo. \n
         - Zoom en Ayudas Visuales. \n
         - Compartir Hallazgos anteriores."
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

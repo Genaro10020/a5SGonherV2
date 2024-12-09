@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -55,7 +57,7 @@ import java.util.Map;
 public class DatosHallazgoRecorrido extends AppCompatActivity {
     ImageView escuchar_voz, fotografia,iconoInterrogacion;
     EditText descripcion;
-    String ServerName,Planta,NumeroNomina,ID_recorrido,Codigo;
+    String ServerName,Planta,NumeroNomina,ID_recorrido,Codigo,creadoPor;
     TextView textoCamara,mensaje_lienzo,textoiconoInterrogacion,espereguardando,textResponsable;
     DrawView drawView;
     Button BotonTerminar,btn_lienzo,limpiar;
@@ -81,6 +83,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
         Intent intent = getIntent();
         ID_recorrido=intent.getStringExtra("ID_recorrido");
         Codigo=intent.getStringExtra("Codigo");
+        creadoPor = intent.getStringExtra("creadoPor");
 
         titulo_toolbar.setText("Datos de Hallázgo");
         textResponsable = findViewById(R.id.textResponsable);
@@ -143,11 +146,12 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
         BotonTerminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(fotografiaTomada == 1){
+
+                if(fotografiaTomada == 1 && !descripcion.getText().toString().trim().equals("")){
                     espereguardando.setVisibility(View.VISIBLE);
                     BotonTerminar.setVisibility(View.GONE);
                     guardarHallazgo("https://vvnorth.com/5sGhoner/guardarEditarHallazgoRecorrido.php");
-                }else if(descripcion.getText().toString().equals("")){
+                }else if(descripcion.getText().toString().trim().equals("")){
                     View mensajeCuadro = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
                     Toast toastMensaje = new Toast(getApplicationContext());
                     TextView textoTitulo =mensajeCuadro.findViewById(R.id.textView35);
@@ -160,6 +164,20 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                     toastMensaje.show();
                     toastMensaje.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
                     toastMensaje.show();
+                }else if(spinnerResponsables.getSelectedItemPosition() == 0){
+                    View mensajeCuadro = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
+                    Toast toastMensaje = new Toast(getApplicationContext());
+                    TextView textoTitulo =mensajeCuadro.findViewById(R.id.textView35);
+                    TextView mensaje =mensajeCuadro.findViewById(R.id.mensaje1);
+                    textoTitulo.setText("DESCRIPCIÓN");
+                    mensaje.setText("Seleccion un responsable para continuar");
+                    toastMensaje.setDuration(Toast.LENGTH_SHORT);
+                    toastMensaje.setView(mensajeCuadro);
+                    toastMensaje.setGravity(Gravity.CENTER,0,0);
+                    toastMensaje.show();
+                    toastMensaje.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
+                    toastMensaje.show();
+
                 }else if(fotografiaTomada!=1){
                     View toastfoto = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
                     Toast toast2 = new Toast(getApplicationContext());
@@ -194,7 +212,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                         toasprocesando.setView(procesando);
                         toasprocesando.setGravity(Gravity.CENTER,0,0);
                         toasprocesando.show();
-                        enviarCorreoHallazgo("https://vvnorth.com/5sGhoner/enviarCorreoHallazgoRecorridoOpex.php");
+                        //enviarCorreoHallazgo("https://vvnorth.com/5sGhoner/enviarCorreoHallazgoRecorridoOpex.php");
                         intentHallazgosRecorrido();
 
                     }else{
@@ -226,7 +244,8 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
 
                  parametros.put("Planta",Planta);
                  parametros.put("ID_recorrido",ID_recorrido);
-                 parametros.put("Auditor",NumeroNomina);
+                 //parametros.put("Auditor",NumeroNomina);
+                 parametros.put("Auditor",creadoPor); //ahora todos guardan hallazgos con el mismo numero de nómina que creo el recorrido.
                  parametros.put("DescripcionHallazgo",descripcionHallazgo);
                  parametros.put("Responsable",responsable);
                  parametros.put("NominaResponsable",nominaresponsable);
@@ -245,6 +264,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
         Intent intent = new Intent(this,HallazgosRecorridos.class);
         intent.putExtra("ID_recorrido",ID_recorrido);
         intent.putExtra("Codigo",Codigo);
+        intent.putExtra("creadoPor",creadoPor);
         startActivity(intent);
         finish();
     }
@@ -279,8 +299,22 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                                 Log.e("","\n"+responsable);
 
                             }
+                                ResponsablesList.add(0, "Seleccione un responsable...");
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(DatosHallazgoRecorrido.this, android.R.layout.simple_spinner_item, ResponsablesList);
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                                    DatosHallazgoRecorrido.this,
+                                    android.R.layout.simple_spinner_dropdown_item, // Estilo desplegado
+                                    ResponsablesList
+                            ) {
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    View view = super.getView(position, convertView, parent);
+                                    TextView textView = (TextView) view;
+                                    textView.setTextColor(getResources().getColor(R.color.colorAccent));
+                                    return view;
+                                }
+                            };
+
                             spinnerResponsables.setAdapter(adapter);
 
 

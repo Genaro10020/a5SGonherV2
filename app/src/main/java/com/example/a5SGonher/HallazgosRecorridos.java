@@ -48,7 +48,7 @@ import java.util.Map;
 public class HallazgosRecorridos extends AppCompatActivity {
     String User,NumeroNomina,Planta;
     Button nuevoHallazgo;
-    String ID_recorrido,Codigo,ServerName;
+    String ID_recorrido,creadoPor,Codigo,ServerName;
     RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,7 @@ public class HallazgosRecorridos extends AppCompatActivity {
 
         ID_recorrido = intent.getStringExtra("ID_recorrido");
         Codigo = intent.getStringExtra("Codigo");
+        creadoPor = intent.getStringExtra("creadoPor");
 
         nuevoHallazgo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +131,7 @@ public class HallazgosRecorridos extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("planta", Planta);
-                parametros.put("auditor", NumeroNomina);
+                parametros.put("auditor", NumeroNomina);//por si se require no se usa en consulta, se uso.
                 parametros.put("codigo", Codigo);
                 return parametros;
             }
@@ -159,7 +160,7 @@ public class HallazgosRecorridos extends AppCompatActivity {
 
 
         ImageView imgHallazgo = new ImageView(this);
-        String urlImagen = "https://vvnorth.com/5sGhoner/FotosRecorridos/"+NumeroNomina+"/"+ID_recorrido+"/"+id_hallazgo+".jpeg";
+        String urlImagen = "https://vvnorth.com/5sGhoner/FotosRecorridos/"+creadoPor+"/"+ID_recorrido+"/"+id_hallazgo+".jpeg";
         Picasso.get().load(urlImagen).into(imgHallazgo);
         imgHallazgo.setLayoutParams(new ViewGroup.LayoutParams(500, 500));
 
@@ -242,6 +243,7 @@ public class HallazgosRecorridos extends AppCompatActivity {
         Intent intent = new Intent(this,DatosHallazgoRecorrido.class);
         intent.putExtra("ID_recorrido",ID_recorrido);
         intent.putExtra("Codigo",Codigo);
+        intent.putExtra("creadoPor",creadoPor);
         startActivity(intent);
     }
 

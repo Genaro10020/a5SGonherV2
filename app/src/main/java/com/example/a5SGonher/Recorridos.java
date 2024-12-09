@@ -88,19 +88,20 @@ public class Recorridos extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("Recorridos Existentes",response);
                         JSONObject jsonObject = null;
-                        String fecha = "",nombre_recorrido="", objetivo="", codigo="",id_recorrido="";
+                        String fecha = "",nombre_recorrido="", objetivo="", codigo="",creadoPor="",id_recorrido="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
 
                             for (int i = 0; i < respuestArreglo.length(); i++) {
                                 jsonObject = respuestArreglo.getJSONObject(i);
                                 id_recorrido = jsonObject.getString("id");
+                                creadoPor = jsonObject.getString("auditor");
                                 codigo = jsonObject.getString("codigo");
                                 nombre_recorrido = jsonObject.getString("nombre_recorrido");
                                 objetivo = jsonObject.getString("objetivo");
                                 fecha = jsonObject.getString("fecha_creacion");
                                 //Log.e("","\n"+nombre_recorrido+"\n"+fecha);
-                                crearBoton(id_recorrido,codigo,nombre_recorrido,objetivo,fecha);
+                                crearBoton(id_recorrido,codigo,creadoPor,nombre_recorrido,objetivo,fecha);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
@@ -126,7 +127,7 @@ public class Recorridos extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void crearBoton(final String id_recorrido, final String codigo, String nombre_recorrido,String objetivo, String fecha){
+    private void crearBoton(final String id_recorrido, final String codigo, final String creadoPor, String nombre_recorrido, String objetivo, String fecha){
 
         Button miBotonNombre = new Button(this);
         Button miBotonFecha = new Button(this);
@@ -134,7 +135,7 @@ public class Recorridos extends AppCompatActivity {
        miBotonNombre.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               intentHallazgosRecorrido(id_recorrido,codigo);
+               intentHallazgosRecorrido(id_recorrido,codigo,creadoPor);
            }
        });
         String texto = "<font color='#863828'><b>Nombre recorrido:</b> <font/><br>"+nombre_recorrido;/*+"<br><br><font color='#863828'><b>Objetivo:</b> <font/><br>"+objetivo*/
@@ -202,10 +203,11 @@ public class Recorridos extends AppCompatActivity {
         tabla.addView(linea);
     }
 
-    private void intentHallazgosRecorrido(String id_recorrido, String codigo){
+    private void intentHallazgosRecorrido(String id_recorrido, String codigo,String creadoPor){
         Intent intent = new Intent(this,HallazgosRecorridos.class);
         intent.putExtra("ID_recorrido",id_recorrido);
         intent.putExtra("Codigo",codigo);
+        intent.putExtra("creadoPor",creadoPor);
         startActivity(intent);
     }
 
