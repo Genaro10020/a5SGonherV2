@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -130,7 +131,7 @@ public class Recorridos extends AppCompatActivity {
     private void crearBoton(final String id_recorrido, final String codigo, final String creadoPor, String nombre_recorrido, String objetivo, String fecha){
 
         Button miBotonNombre = new Button(this);
-        Button miBotonFecha = new Button(this);
+        Button miBotonEnviarReporte = new Button(this);
 
        miBotonNombre.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -138,11 +139,16 @@ public class Recorridos extends AppCompatActivity {
                intentHallazgosRecorrido(id_recorrido,codigo,creadoPor);
            }
        });
-        String texto = "<font color='#863828'><b>Nombre recorrido:</b> <font/><br>"+nombre_recorrido;/*+"<br><br><font color='#863828'><b>Objetivo:</b> <font/><br>"+objetivo*/
+        String texto = "<font color='#863828'><b>Nombre recorrido:</b> <font/><br>"+nombre_recorrido+
+                "<br><font color='#863828'><b>Fecha: <font/></b> "+fecha;/*+"<br><br><font color='#863828'><b>Objetivo:</b> <font/><br>"+objetivo*/
         miBotonNombre.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
 
         miBotonNombre.setText(Html.fromHtml(texto));
-        miBotonFecha.setText(fecha);
+
+        //.setBackgroundResource(R.drawable.send);
+        miBotonEnviarReporte.setText(fecha);
+        miBotonEnviarReporte.setText("No");
+
 
         // Obtenemos el TableLayout
         TableLayout tabla = (TableLayout) findViewById(R.id.tablaRecorridos);
@@ -162,27 +168,32 @@ public class Recorridos extends AppCompatActivity {
         // Establecemos el fondo de la fila
         //fila.setBackgroundResource(R.drawable.lista_recorridos);
 
+       /* float density = getResources().getDisplayMetrics().density; // Obtener la densidad de la pantalla
+        int widthInDp = 80; // Ancho en dp
+        int widthInPx = (int) (widthInDp * density); // Convertir a píxeles*/
 
         // Establecemos el peso de cada columna
         TableRow.LayoutParams paramsNombre = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
         TableRow.LayoutParams paramsFecha = new TableRow.LayoutParams(320, ViewGroup.LayoutParams.MATCH_PARENT);
         paramsFecha.height = TableRow.LayoutParams.MATCH_PARENT;
+
         miBotonNombre.setLayoutParams(paramsNombre);
-        miBotonFecha.setLayoutParams(paramsFecha);
+        miBotonEnviarReporte.setLayoutParams(paramsFecha);
+        //miBotonEnviarReporte.setPadding(50, 10, 10, 50);
         miBotonNombre.setGravity(Gravity.START|Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
-        miBotonFecha.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+        //miBotonEnviarReporte.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);--
         miBotonNombre.setTypeface(null, Typeface.NORMAL);
 
-        miBotonFecha.setTypeface(null, Typeface.NORMAL);
+        //miBotonEnviarReporte.setTypeface(null, Typeface.NORMAL);--
         //miBotonNombre.setBackgroundResource(R.drawable.boton_recorridos);
-        //miBotonFecha.setBackgroundResource(R.drawable.boton_recorridos);
+        //miBotonEnviarReporte.setBackgroundResource(R.drawable.boton_recorridos);
         // Establecemos el ancho fijo para el botón fecha
         //paramsFecha.width = 400; // ejemplo, 100dp
 
         /*miBotonNombre.setLines(4);
         miBotonNombre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-        miBotonFecha.setLines(1);
-        miBotonFecha.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        miBotonEnviarReporte.setLines(1);
+        miBotonEnviarReporte.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
 
         //Cuando el texto es muy grande agregara ...
         miBotonNombre.setEllipsize(TextUtils.TruncateAt.END);*/
@@ -192,7 +203,7 @@ public class Recorridos extends AppCompatActivity {
         // Agregamos los botones a la fila con sus respectivos pesos
 
         fila.addView(miBotonNombre);
-        fila.addView(miBotonFecha);
+        fila.addView(miBotonEnviarReporte);
         // Ajustamos el alto de ambos botones para que sean iguales
 
 

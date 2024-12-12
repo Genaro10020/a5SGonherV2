@@ -48,6 +48,16 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/img_record"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextTextMultiLine"
+                app:layout_constraintEnd_toStartOf="@+id/btn_limpiar"
+                app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_voz" />
+
             <EditText
                 android:background="@drawable/contorno"
                 android:id="@+id/descripcion"
@@ -58,15 +68,7 @@
                 android:hint="Descripción hallazgó"
                 android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/img_record"
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/editTextTextMultiLine"
-                app:layout_constraintEnd_toStartOf="@+id/btn_limpiar"
-                app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_voz" />
+
 
             <Button
                 android:id="@+id/btn_limpiar"
