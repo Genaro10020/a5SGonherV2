@@ -193,19 +193,20 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
-            android:text="Version 2.2.4, Mejoras: \n
-        - Todos los usuarios pueden ver los recorridos e interactuar.\n
-        - Aviso por correo al responsable de hallazgo OPEX.\n
-        - Acceso a Galeria.\n
-        - Se agregarón recorridos OPEX.\n
-        - Texto con voz evidencia hallazgos. \n
-        - Calidad de imagenes hallazgos al 40%. \n
-        - Ajuste de botón 'listo', al marcar imagen. \n
-        - Crear auditoria únicamente si no exista una creada. \n
-        - Botón generar reporte, deshabilitado, hasta generarlo. \n
-        - Calificación en historial al enviar correo. \n
-        - Zoom en Ayudas Visuales. \n
-        - Compartir Hallazgos anteriores."
+            android:text="Version 2.2.5, Mejoras: \n
+            - Los recorridos pueden ser cerrados.\n
+            - Todos los usuarios pueden ver los recorridos e interactuar.\n
+            - Aviso por correo al responsable de hallazgo OPEX.\n
+            - Acceso a Galeria.\n
+            - Se agregarón recorridos OPEX.\n
+            - Texto con voz evidencia hallazgos. \n
+            - Calidad de imagenes hallazgos al 40%. \n
+            - Ajuste de botón 'listo', al marcar imagen. \n
+            - Crear auditoria únicamente si no exista una creada. \n
+            - Botón generar reporte, deshabilitado, hasta generarlo. \n
+            - Calificación en historial al enviar correo. \n
+            - Zoom en Ayudas Visuales. \n
+            - Compartir Hallazgos anteriores."
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

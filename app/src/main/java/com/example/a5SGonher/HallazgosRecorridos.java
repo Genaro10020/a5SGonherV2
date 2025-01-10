@@ -67,6 +67,7 @@ public class HallazgosRecorridos extends AppCompatActivity {
         ID_recorrido = intent.getStringExtra("ID_recorrido");
         Codigo = intent.getStringExtra("Codigo");
         creadoPor = intent.getStringExtra("creadoPor");
+        Log.e("Creado Por: ",creadoPor);
 
         nuevoHallazgo.setOnClickListener(new View.OnClickListener() {
             @Override

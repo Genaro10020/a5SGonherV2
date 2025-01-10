@@ -147,7 +147,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(fotografiaTomada == 1 && !descripcion.getText().toString().trim().equals("")){
+                if(fotografiaTomada == 1 && !descripcion.getText().toString().trim().equals("") && spinnerResponsables.getSelectedItemPosition() != 0){
                     espereguardando.setVisibility(View.VISIBLE);
                     BotonTerminar.setVisibility(View.GONE);
                     guardarHallazgo("https://vvnorth.com/5sGhoner/guardarEditarHallazgoRecorrido.php");
@@ -185,6 +185,8 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
                     toast2.setView(toastfoto);
                     toast2.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
                     toast2.show();
+                }else{
+                    Log.e("Opcion:","No encontre esa opción");
                 }
             }
         });
@@ -200,7 +202,7 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
             public void onResponse(String response) {
                     Log.i("Gudardada con exito",response);
                     if(response.equals("true")){
-
+                        Log.e("Se guardo con Nomina",creadoPor);
                         View procesando = getLayoutInflater().inflate(R.layout.toast_procesando,(ViewGroup)findViewById(R.id.layout_toast_procesando));
                         Toast toasprocesando =  new Toast(DatosHallazgoRecorrido.this);
                         TextView textoTitulo =procesando.findViewById(R.id.textView35);

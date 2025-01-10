@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 import static android.widget.Toast.makeText;
 
 
@@ -89,7 +90,7 @@ public class Recorridos extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("Recorridos Existentes",response);
                         JSONObject jsonObject = null;
-                        String fecha = "",nombre_recorrido="", objetivo="", codigo="",creadoPor="",id_recorrido="";
+                        String fecha = "",nombre_recorrido="", objetivo="", codigo="",creadoPor="",id_recorrido="",cerrado="";
                         try {
                             JSONArray respuestArreglo = new JSONArray(response);
 
@@ -101,8 +102,10 @@ public class Recorridos extends AppCompatActivity {
                                 nombre_recorrido = jsonObject.getString("nombre_recorrido");
                                 objetivo = jsonObject.getString("objetivo");
                                 fecha = jsonObject.getString("fecha_creacion");
+                                cerrado = jsonObject.getString("cerrado");
+
                                 //Log.e("","\n"+nombre_recorrido+"\n"+fecha);
-                                crearBoton(id_recorrido,codigo,creadoPor,nombre_recorrido,objetivo,fecha);
+                                crearBoton(id_recorrido,codigo,creadoPor,nombre_recorrido,objetivo,fecha,cerrado);
                             }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
@@ -128,7 +131,7 @@ public class Recorridos extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void crearBoton(final String id_recorrido, final String codigo, final String creadoPor, String nombre_recorrido, String objetivo, String fecha){
+    private void crearBoton(final String id_recorrido, final String codigo, final String creadoPor, String nombre_recorrido, String objetivo, String fecha, final String cerrado){
 
         Button miBotonNombre = new Button(this);
         Button miBotonEnviarReporte = new Button(this);
@@ -147,7 +150,12 @@ public class Recorridos extends AppCompatActivity {
 
         //.setBackgroundResource(R.drawable.send);
         miBotonEnviarReporte.setText(fecha);
-        miBotonEnviarReporte.setText("No");
+        if(cerrado.equals("Si")){
+            miBotonEnviarReporte.setText("Cerrado");
+        }else{
+            miBotonEnviarReporte.setText("Enviar Correos");
+        }
+
 
 
         // Obtenemos el TableLayout
@@ -206,12 +214,90 @@ public class Recorridos extends AppCompatActivity {
         fila.addView(miBotonEnviarReporte);
         // Ajustamos el alto de ambos botones para que sean iguales
 
+        miBotonEnviarReporte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    //Log.e("Cerrado","ID:"+id_recorrido+"Cerrado:"+cerrado);
+                if(!cerrado.equals("Si")){
+                    enviarCorreoResponsablesMasivo(ServerName+"5sGhoner/enviarCorreoMasivoHallazgosOpex.php",id_recorrido,creadoPor);
+                }else{
+                    View mensajeCuadro = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
+                    Toast toastMensaje = new Toast(getApplicationContext());
+                    TextView textoTitulo =mensajeCuadro.findViewById(R.id.textView35);
+                    TextView mensaje =mensajeCuadro.findViewById(R.id.mensaje1);
+                    textoTitulo.setText("YA ESTA CERRADA!!");
+                    mensaje.setText("Correos se enviarón con anterioridad.");
+                    toastMensaje.setDuration(Toast.LENGTH_SHORT);
+                    toastMensaje.setView(mensajeCuadro);
+                    toastMensaje.setGravity(Gravity.CENTER,0,0);
+                    toastMensaje.show();
+                    toastMensaje.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
+                    toastMensaje.show();
+                }
 
-
+            }
+        });
 
         // Agregamos la fila a la tabla
         tabla.addView(fila);
         tabla.addView(linea);
+    }
+
+
+    private void enviarCorreoResponsablesMasivo(String URL, final String id_recorrido, final String creadoPor) {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("Respuesta","Envio de correos: "+response);
+                        if(response.equals("Todos enviados")){
+                            View procesando = getLayoutInflater().inflate(R.layout.toast_procesando,(ViewGroup)findViewById(R.id.layout_toast_procesando));
+                            Toast toasprocesando =  new Toast(Recorridos.this);
+                            TextView textoTitulo =procesando.findViewById(R.id.textView35);
+                            TextView mensaje =procesando.findViewById(R.id.mensaje1);
+                            textoTitulo.setText("TODOS LOS CORREOS SE ENVIARON!!");
+                            mensaje.setText("El recorrido cerrado");
+                            toasprocesando.setDuration(Toast.LENGTH_SHORT);
+                            toasprocesando.setView(procesando);
+                            toasprocesando.setGravity(Gravity.CENTER,0,0);
+                            toasprocesando.show();
+
+                        }else{
+                            View mensajeCuadro = getLayoutInflater().inflate(R.layout.toast_verificando_foto_evidencia,(ViewGroup)findViewById(R.id.layout_toast_fotografia));
+                            Toast toastMensaje = new Toast(getApplicationContext());
+                            TextView textoTitulo =mensajeCuadro.findViewById(R.id.textView35);
+                            TextView mensaje =mensajeCuadro.findViewById(R.id.mensaje1);
+                            textoTitulo.setText("NO SE ENVIARON LOS CORRES!!");
+                            mensaje.setText("Solo intente una vez más.");
+                            toastMensaje.setDuration(Toast.LENGTH_SHORT);
+                            toastMensaje.setView(mensajeCuadro);
+                            toastMensaje.setGravity(Gravity.CENTER,0,0);
+                            toastMensaje.show();
+                            toastMensaje.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
+                            toastMensaje.show();
+                        }
+                        intentoRegresandoAquiMismo();
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Problemas al conectar intente nuevamente.", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                parametros.put("Planta",Planta);
+                parametros.put("ID_Recorrido", id_recorrido);
+                parametros.put("CreadoPor",creadoPor);
+                return parametros;
+            }
+        };
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     private void intentHallazgosRecorrido(String id_recorrido, String codigo,String creadoPor){
@@ -239,6 +325,11 @@ public class Recorridos extends AppCompatActivity {
         }
     public void onBackPressed(){
         Intent intent = new Intent(Recorridos.this,MainMenu.class);
+        startActivity(intent);
+    }
+
+    public void intentoRegresandoAquiMismo(){
+        Intent intent = new Intent(this,Recorridos.class);
         startActivity(intent);
     }
 
