@@ -766,7 +766,7 @@ public class NuevaAuditoria extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 largodelBloque = response.length()-1;
-                Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length());
+                Log.d("CONSULTADO BD","Respuesta de auditoria"+response.length()+"Largo del Bloque"+largodelBloque);
 
               for (int i = 0; i < response.length(); i++) {
                     try {
@@ -814,7 +814,8 @@ public class NuevaAuditoria extends AppCompatActivity {
                         //PreguntasContestadas();
 
                     } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("Cachando: ",e.getMessage());
                     }
                 }
 
@@ -826,7 +827,10 @@ public class NuevaAuditoria extends AppCompatActivity {
             }
         }
         );
-        requestQueue= Volley.newRequestQueue(this);
+        /*requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);*/
+        jsonArrayRequest.setTag("buscarProducto"); // Asigna un tag a la solicitud
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
 

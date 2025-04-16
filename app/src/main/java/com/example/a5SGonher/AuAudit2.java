@@ -107,7 +107,8 @@ public class AuAudit2 extends AppCompatActivity {
                             }
                         }
                     } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("Catcado:",e.getMessage());
+                        //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

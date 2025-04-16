@@ -321,7 +321,8 @@ public class DatosHallazgoRecorrido extends AppCompatActivity {
 
 
                         } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+                            Log.i("Cachado:",e.getMessage());
                         }
 
                     }

@@ -60,6 +60,7 @@ import java.util.Map;
 
 public class NuevaAuditoria_Pregunta extends AppCompatActivity{
     private static final int REQUEST_CODE_SPEECH_INPUT = 100;
+    RequestQueue requestQueue;
     String [] guardandorespuestas  = new String[6];
     String Planta,nombrePregunta,numeroAuditoria,nombreAyuda,numeroPregunta,numeroActual,cantidadRealPreguntas,numeroAnteriorAuditoria,textoHallazgo, cantidaddeimagenes;
     Button BotonTerminar,btn_lienzo,limpiar;
@@ -73,6 +74,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity{
             tomadafotoUno=0,tomadafotoDos=0,tomadafotoTres=0,tomadafotoCuatro=0, fotoVista1=0, fotoVista2=0, fotoVista3=0,fotoVista4=0;
     private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6;
     private String currentPhotoPath;
+
     private static final int IMAGE_PICK_CODE=1000;
     private  static  final int PERMISSION_CODE=1001;
     private static final int REQUEST_IMAGE_GALLERY = 10002;
@@ -276,6 +278,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity{
 
            for (int j=1;j<=cantidadimg;j++)
             {
+                Log.e("Cantidad Imagenes:  "+cantidadimg," Vueltas: "+j);
                 if (j==1){
                     BuscandoImagenesTomadas1();
                 }
@@ -597,7 +600,7 @@ public class NuevaAuditoria_Pregunta extends AppCompatActivity{
                 return parametros;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
