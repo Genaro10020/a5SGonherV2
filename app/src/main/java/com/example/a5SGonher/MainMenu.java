@@ -44,12 +44,15 @@ public class MainMenu extends AppCompatActivity {
         Button btnHistorial;
         Button btnHallazgos;
         Button btnRecorrido;
+        Button btnPoliticas;
         TextView titulo_too, titular_session;
 
         layoutRecorrido = (LinearLayout)findViewById(R.id.linearLayoutRecorrido);
         titular_session=(TextView)findViewById(R.id.textViewSession);
         BotonsCrearAuditoria=(Button) findViewById(R.id.BtnCrearAudtoria);
         btnAuditar=(Button) findViewById(R.id.btnAgregaRes);
+        btnPoliticas = (Button)findViewById(R.id.politicas);
+
         titulo_too =(TextView) findViewById(R.id.titulo_toolbar);
         titulo_too.setText("Menú");
 
@@ -101,10 +104,6 @@ public class MainMenu extends AppCompatActivity {
 
             }
         });
-
-
-
-
         btnHistorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,11 +111,16 @@ public class MainMenu extends AppCompatActivity {
 
             }
         });
-
         btnRecorrido.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 openRecorridos();
+            }
+        });
+        btnPoliticas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPoliticas();
             }
         });
 
@@ -155,6 +159,11 @@ public class MainMenu extends AppCompatActivity {
 
     public void openRecorridos(){
         Intent intent = new Intent(this,Recorridos.class);
+        startActivity(intent);
+    }
+
+    public void openPoliticas(){
+        Intent intent = new Intent(this,Politicas.class);
         startActivity(intent);
     }
 

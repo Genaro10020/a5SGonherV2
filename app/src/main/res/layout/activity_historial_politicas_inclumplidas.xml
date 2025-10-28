@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HistorialPoliticasInclumplidas">
+
+    <include
+        android:id="@+id/include8"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/saira_condensed_medium"
+        android:text="Incumplimientos Reportados "
+        android:textColor="#B3B3B3"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include8" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/icon_seleccione_planta"
+        app:layout_constraintBottom_toBottomOf="@+id/text1"
+        app:layout_constraintEnd_toStartOf="@+id/text1"
+        app:layout_constraintTop_toTopOf="@+id/text1" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout17"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/text1">
+        <Spinner
+            android:id="@+id/spinnerPlanta"
+            android:background="@drawable/contorno"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerArea"
+            android:background="@drawable/contorno"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17">
+
+        <!-- LinearLayout principal (contenedor vertical para las filas) -->
+        <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            android:orientation="vertical">
+
+                   <!-- <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                      >
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/nuevos_botones_listado"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:minWidth="80dp"
+                            android:text="Nómina"
+                            android:textColor="@color/blaco"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/nuevos_botones_listado"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:minWidth="80dp"
+                            android:text="Empleado"
+                            android:textColor="@color/blaco"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/nuevos_botones_listado"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:minWidth="80dp"
+                            android:text="Comentario"
+                            android:textColor="@color/blaco"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/nuevos_botones_listado"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:minWidth="80dp"
+                            android:text="#Política"
+                            android:textColor="@color/blaco"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/nuevos_botones_listado"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:minWidth="80dp"
+                            android:text="Descripción"
+                            android:textColor="@color/blaco"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/nuevos_botones_listado"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:minWidth="80dp"
+                            android:text="Reportó"
+                            android:textColor="@color/blaco"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/nuevos_botones_listado"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:minWidth="80dp"
+                            android:text="Fecha"
+                            android:textColor="@color/blaco"
+                            android:textStyle="bold" />
+                    </LinearLayout>-->
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".HistorialPoliticasInclumplidas"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".ResponsableSolucionHallazgo"
             android:exported="false" />
@@ -30,11 +34,16 @@
             android:name=".MainResponsable"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".Politicas"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".DatosHallazgoRecorrido" />
         <activity android:name=".HallazgosRecorridos" />
         <activity android:name=".ConfirmarCrearAuditoria" />
         <activity android:name=".ShowOnlyImageHallazgos" />
         <activity android:name=".ShowOnlyImage" />
+        <activity android:name=".ShowOnlyImagePolicies" />
         <activity android:name=".NuevaAuditoria_Pregunta" />
         <activity android:name=".NuevaAuditoria" />
         <activity android:name=".NuevaAreaEstandar" />

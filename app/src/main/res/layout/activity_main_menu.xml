@@ -69,7 +69,6 @@
         android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +100,6 @@
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +131,6 @@
         android:id="@+id/linearLayoutRecorrido"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:visibility="gone"
         android:orientation="horizontal"
@@ -161,10 +158,39 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutPoliticas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="visible"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="60dp"
+            android:layout_height="100dp"
+            android:background="@drawable/boton_menu_seis" />
+
+        <Button
+            android:id="@+id/politicas"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/fondo_salir"
+            android:fontFamily="@font/mitre2"
+            android:text="POLÍTICAS 5's"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
