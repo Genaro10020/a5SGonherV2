@@ -193,7 +193,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
-            android:text="Version 2.2.5, Mejoras: \n
+            android:text="Version 2.2.6, Mejoras: \n
+            - Opción incumplimiento políticas.\n
             - Los recorridos pueden ser cerrados.\n
             - Todos los usuarios pueden ver los recorridos e interactuar.\n
             - Aviso por correo al responsable de hallazgo OPEX.\n
